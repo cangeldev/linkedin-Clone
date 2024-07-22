@@ -1,0 +1,1 @@
+export { DrawerMenuPage } from "./drawerMenuPage/drawerMenuPage"

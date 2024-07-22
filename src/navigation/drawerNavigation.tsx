@@ -1,15 +1,18 @@
 import React from 'react'
 import { createDrawerNavigator } from '@react-navigation/drawer'
-import { HomeScreen } from 'screens'
+import { TabNavigation } from './tabNavigation'
+import { DrawerMenuPage } from 'screens/pages'
 
 const Drawer = createDrawerNavigator()
 
 export const DrawerNavigation = () => {
     return (
-        <Drawer.Navigator screenOptions={{ headerShown: false }}>
+        <Drawer.Navigator
+            drawerContent={() => <DrawerMenuPage />}
+            screenOptions={{ headerShown: false }}>
             <Drawer.Screen
-                name="Feed"
-                component={HomeScreen}
+                name="TabNavigation"
+                component={TabNavigation}
             />
         </Drawer.Navigator>
     )
