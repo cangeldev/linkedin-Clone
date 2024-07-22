@@ -1,14 +1,19 @@
 {
-    "plugins": [
-      [
-        "module-resolver",
-        {
-          "root": ["./src"],
-          "alias": {
-            "components": "./src/components",
-            "assets": "./src/assets"
-          }
+  "plugins": [
+    [
+      "module-resolver",
+      {
+        "root": [
+          "./src"
+        ],
+        "alias": {
+          "components": "./src/components",
+          "container": "./src/container",
+          "assets": "./src/assets",
+          "screens": "./src/screens",
+          "navigation": "./src/navigation"
         }
-      ]
+      }
     ]
-  }
+  ]
+}
