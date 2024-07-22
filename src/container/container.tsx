@@ -1,8 +1,8 @@
 import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import BootSplash from "react-native-bootsplash"
-import { StackNavigation } from 'navigation/stackNavigation'
 import { StatusBar } from 'react-native'
+import { TabNavigation } from 'navigation/tabNavigation'
 
 export const Container = () => {
 
@@ -15,7 +15,7 @@ export const Container = () => {
             <NavigationContainer onReady={() => {
                 BootSplash.hide()
             }}>
-                <StackNavigation />
+                <TabNavigation />
             </NavigationContainer>
         </>
     )
