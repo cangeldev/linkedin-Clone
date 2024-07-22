@@ -1,6 +1,6 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
-import { HomeScreen, NotificationScreen } from 'screens'
+import { HomeScreen, NotificationScreen } from 'screens/bottomTabScreens'
 
 export const StackNavigation = () => {
 
