@@ -1,8 +1,8 @@
-import { View, Text, Image } from 'react-native'
+import { View, Text, Image, TouchableOpacity, } from 'react-native'
 import React from 'react'
-import { logo } from 'assets'
+import { premium, profileExample, settings } from 'assets'
 import style from './style'
-import { CustomDrawerMenuButton, Divider } from 'components'
+import { CustomDrawerMenuButton, CustomIconTextButton, Divider } from 'components'
 
 export const DrawerMenuPage = () => {
 
@@ -10,7 +10,7 @@ export const DrawerMenuPage = () => {
         <View style={{ flex: 1 }}>
             <View style={style.headerContainer}>
                 <Image
-                    source={logo}
+                    source={profileExample}
                     style={style.profileImage}
                 />
                 <Text style={style.name}>
@@ -38,6 +38,15 @@ export const DrawerMenuPage = () => {
                 />
             </View>
             <Divider />
+            <View style={style.bottomPartContentView}>
+                <TouchableOpacity style={style.premiumContainer}>
+                    <Image source={premium} style={style.premiumImage} />
+                    <Text style={style.premiumText}>
+                        Premium'u aktif edin: %50{"\n"}indirimli
+                    </Text>
+                </TouchableOpacity>
+                <CustomIconTextButton title='Ayarlar' icon={settings} />
+            </View>
         </View>
     )
 }

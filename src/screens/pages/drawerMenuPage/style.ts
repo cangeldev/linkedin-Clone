@@ -13,7 +13,8 @@ export default StyleSheet.create({
     profileImage: {
         width: 60,
         height: 60,
-        resizeMode: 'cover'
+        resizeMode: 'cover',
+        borderRadius: 50
     },
     name: {
         fontSize: 19,
@@ -32,5 +33,23 @@ export default StyleSheet.create({
     whoViewedCountText: {
         fontWeight: "bold",
         color: colors.black
+    },
+    premiumContainer: {
+        flexDirection: "row",
+        alignItems: "center"
+    },
+    premiumImage: {
+        width: 24,
+        height: 24
+    },
+    premiumText: {
+        fontSize: 17,
+        marginLeft: 10,
+        fontWeight: "bold",
+        color: colors.black
+    },
+    bottomPartContentView: {
+        paddingVertical: "5%",
+        paddingHorizontal: "9%"
     }
 })
