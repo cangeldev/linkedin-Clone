@@ -1,15 +1,32 @@
-import { View, Text } from 'react-native'
+import { View, Text, Image } from 'react-native'
 import React from 'react'
+import { logo } from 'assets'
+import style from './style'
 
 export const DrawerMenuPage = () => {
     return (
         <View>
-            <Text>DrawerMenuPage</Text>
-            <Text>DrawerMenuPage</Text>
-            <Text>DrawerMenuPage</Text>
-            <Text>DrawerMenuPage</Text>
-            <Text>DrawerMenuPage</Text>
-            <Text>DrawerMenuPage</Text>
+            <View style={style.headerContainer}>
+                <Image
+                    source={logo}
+                    style={style.profileImage}
+                />
+                <Text style={style.name}>
+                    Can Gel
+                </Text>
+                <Text style={style.goProfileText}>
+                    Profili görüntüle
+                </Text>
+                <Text style={style.whoViewedText}>
+                    <Text style={style.whoViewedCountText}>
+                        3{" "}
+                    </Text>
+                    profil görüntülesi
+                </Text>
+            </View>
+            <View style={style.dividerContainer}>
+                <View style={style.containerWrap} />
+            </View>
         </View>
     )
 }
