@@ -2,6 +2,7 @@ import { View, Text, Image } from 'react-native'
 import React from 'react'
 import { logo } from 'assets'
 import style from './style'
+import { Divider } from 'components'
 
 export const DrawerMenuPage = () => {
     return (
@@ -24,9 +25,7 @@ export const DrawerMenuPage = () => {
                     profil görüntülesi
                 </Text>
             </View>
-            <View style={style.dividerContainer}>
-                <View style={style.containerWrap} />
-            </View>
+            <Divider />
         </View>
     )
 }

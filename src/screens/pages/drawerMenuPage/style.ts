@@ -29,14 +29,5 @@ export default StyleSheet.create({
     whoViewedCountText: {
         fontWeight: "bold",
         color: colors.black
-    },
-    containerWrap: {
-        flex: 1,
-        height: 1,
-        backgroundColor:colors.lightGrey
-    },
-    dividerContainer: {
-        flexDirection: 'row',
-        alignItems: 'center'
     }
 })
