@@ -2,14 +2,17 @@ import colors from "assets/colors/colors"
 import { StyleSheet } from "react-native"
 
 export default StyleSheet.create({
-   
+
+    container: {
+        flex: 1
+    },
     headerContainer: {
-        paddingTop: "12%",
+        paddingVertical: "12%",
         paddingHorizontal: "9%"
     },
     profileImage: {
-        width: '26%',
-        height: '30%',
+        width: 60,
+        height: 60,
         resizeMode: 'cover'
     },
     name: {

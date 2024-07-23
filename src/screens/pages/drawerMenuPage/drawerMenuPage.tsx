@@ -7,7 +7,7 @@ import { CustomDrawerMenuButton, Divider } from 'components'
 export const DrawerMenuPage = () => {
 
     return (
-        <View>
+        <View style={{ flex: 1 }}>
             <View style={style.headerContainer}>
                 <Image
                     source={logo}
@@ -27,16 +27,17 @@ export const DrawerMenuPage = () => {
                 </Text>
             </View>
             <Divider />
-            <View>
+            <View style={style.container}>
                 <CustomDrawerMenuButton
                     page='SavedPostsPage'
-                    pageName='SavedPostsPage'
+                    pageName='Kaydedilen gönderiler'
                 />
                 <CustomDrawerMenuButton
                     page='GroupsPage'
-                    pageName='GroupsPage'
+                    pageName='Gruplar'
                 />
             </View>
+            <Divider />
         </View>
     )
 }
