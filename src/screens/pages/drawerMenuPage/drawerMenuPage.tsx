@@ -2,9 +2,10 @@ import { View, Text, Image } from 'react-native'
 import React from 'react'
 import { logo } from 'assets'
 import style from './style'
-import { Divider } from 'components'
+import { CustomDrawerMenuButton, Divider } from 'components'
 
 export const DrawerMenuPage = () => {
+
     return (
         <View>
             <View style={style.headerContainer}>
@@ -26,6 +27,16 @@ export const DrawerMenuPage = () => {
                 </Text>
             </View>
             <Divider />
+            <View>
+                <CustomDrawerMenuButton
+                    page='SavedPostsPage'
+                    pageName='SavedPostsPage'
+                />
+                <CustomDrawerMenuButton
+                    page='GroupsPage'
+                    pageName='GroupsPage'
+                />
+            </View>
         </View>
     )
 }

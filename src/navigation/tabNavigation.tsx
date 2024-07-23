@@ -1,10 +1,11 @@
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { HomeScreen, JobsScreen, MyNetworkScreen, NotificationScreen, PostScreen } from 'screens/bottomTabScreens'
+import { JobsScreen, MyNetworkScreen, NotificationScreen, PostScreen } from 'screens/bottomTabScreens'
 import Icon from 'react-native-vector-icons/FontAwesome6'
 import IconF from 'react-native-vector-icons/MaterialCommunityIcons'
 import IconI from 'react-native-vector-icons/Octicons'
 import colors from 'assets/colors/colors'
+import { StackNavigation } from './stackNavigation'
 
 const Tab = createBottomTabNavigator()
 
@@ -12,11 +13,10 @@ const getTabBarIcon = (name: any, size = 19, IconComponent = Icon) => ({ color }
     <IconComponent name={name} color={color} style={{ fontSize: size }} />
 )
 
-
 const screens = [
     {
-        name: "HomeScreen",
-        component: HomeScreen,
+        name: "StackNavigation",
+        component: StackNavigation,
         options: {
             title: "Ana Sayfa",
             tabBarIcon: getTabBarIcon("house-chimney")
