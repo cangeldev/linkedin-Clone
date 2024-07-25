@@ -6,6 +6,7 @@ import IconF from 'react-native-vector-icons/MaterialCommunityIcons'
 import IconI from 'react-native-vector-icons/Octicons'
 import colors from 'assets/colors/colors'
 import { StackNavigation } from './stackNavigation'
+import { CustomTabBarButton } from 'components'
 
 const Tab = createBottomTabNavigator()
 
@@ -56,9 +57,11 @@ const screens = [
     }
 ]
 
+
 export const TabNavigation = () => (
     <Tab.Navigator
-        screenOptions={{
+        screenOptions={({ route }) => ({
+            tabBarButton: (props) => <CustomTabBarButton  {...props} />,
             headerShown: false,
             tabBarActiveTintColor: colors.black,
             tabBarInactiveTintColor: colors.grey,
@@ -67,7 +70,7 @@ export const TabNavigation = () => (
                 marginBottom: 4,
                 fontWeight: "500"
             }
-        }}
+        })}
     >
         {screens.map(screen => (
             <Tab.Screen
