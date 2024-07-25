@@ -36,7 +36,9 @@ export default StyleSheet.create({
     },
     premiumContainer: {
         flexDirection: "row",
-        alignItems: "center"
+        alignItems: "center",
+        paddingHorizontal: "9%",
+        paddingVertical: 5
     },
     premiumImage: {
         width: 24,
@@ -47,9 +49,5 @@ export default StyleSheet.create({
         marginLeft: 10,
         fontWeight: "bold",
         color: colors.black
-    },
-    bottomPartContentView: {
-        paddingVertical: "5%",
-        paddingHorizontal: "9%"
     }
 })

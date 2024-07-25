@@ -2,10 +2,12 @@ import colors from "assets/colors/colors"
 import { StyleSheet } from "react-native"
 
 export default StyleSheet.create({
+
     container: {
         flexDirection: "row",
         alignItems: "center",
-        paddingVertical: 20
+        paddingVertical: 10,
+        paddingHorizontal: "9%"
     },
     title: {
         fontSize: 20,
