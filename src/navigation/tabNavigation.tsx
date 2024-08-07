@@ -19,6 +19,7 @@ const TabNavigation = () => (
                 marginBottom: 4,
                 fontWeight: '500',
             },
+            tabBarHideOnKeyboard: true
         })}
     >
         {screens.map((screen) => (
