@@ -3,3 +3,4 @@ export { CustomDrawerMenuButton } from "./customDrawerMenuButton/customDrawerMen
 export { CustomIconTextButton } from "./customIconTextButton/customIconTextButton"
 export { CustomDrawerMenuHeader } from "./customDrawerMenuHeader/customDrawerMenuHeader"
 export { CustomTabBarButton } from "./customTabBarButton/customTabBarButton"
+export { getTabBarIcon } from "./getTabBarIcon/getTabBarIcon"
