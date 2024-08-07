@@ -11,9 +11,8 @@ interface ICustomDrawerMenuHeader {
 }
 
 export const CustomDrawerMenuHeader: FC<ICustomDrawerMenuHeader> = ({ navigation }) => {
-
     const [inputValue, setInputValue] = useState('')
-    const tabIndex = useNavigationState(state => state.routes[state.index].state?.index ?? 0)
+    const { index: tabIndex = 0 } = useNavigationState(state => state.routes[state.index].state ?? {} as any)
 
     return (
         <View style={style.container}>
@@ -25,13 +24,13 @@ export const CustomDrawerMenuHeader: FC<ICustomDrawerMenuHeader> = ({ navigation
                 value={inputValue}
                 onChangeText={setInputValue}
                 placeholder="Arama Yap"
-                placeholderTextColor={"#5b5d5f"}
+                placeholderTextColor="#5b5d5f"
             />
-            <View style={{ flexDirection: "row" }}>
-                {tabIndex === 3 && <IconF name={"gear"} style={style.icon} />}
-                {tabIndex === 4 && <IconE name={"dots-three-vertical"} style={style.icon} />}
-                <IconF name={"commenting"} color={"#b3b3b3"} size={25} />
+            <View style={style.iconContainer}>
+                {tabIndex === 3 && <IconF name="gear" style={style.icon} />}
+                {tabIndex === 4 && <IconE name="dots-three-vertical" style={style.icon} />}
+                <IconF name="commenting" color="#b3b3b3" size={25} />
             </View>
         </View>
-    );
-};
+    )
+}

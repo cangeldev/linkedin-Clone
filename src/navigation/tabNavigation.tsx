@@ -1,12 +1,12 @@
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { JobsScreen, MyNetworkScreen, NotificationScreen, PostScreen } from 'screens/bottomTabScreens'
+import colors from 'assets/colors/colors'
+import { CustomTabBarButton } from 'components'
 import Icon from 'react-native-vector-icons/FontAwesome6'
 import IconF from 'react-native-vector-icons/MaterialCommunityIcons'
 import IconI from 'react-native-vector-icons/Octicons'
-import colors from 'assets/colors/colors'
-import { StackNavigation } from './stackNavigation'
-import { CustomTabBarButton } from 'components'
+import { JobsScreen, MyNetworkScreen, NotificationScreen, PostScreen } from 'screens/bottomTabScreens'
+import stackNavigation from './stackNavigation'
 
 const Tab = createBottomTabNavigator()
 
@@ -17,10 +17,11 @@ const getTabBarIcon = (name: any, size = 19, IconComponent = Icon) => ({ color }
 const screens = [
     {
         name: "StackNavigation",
-        component: StackNavigation,
+        component: stackNavigation,
         options: {
             title: "Ana Sayfa",
-            tabBarIcon: getTabBarIcon("house-chimney")
+            tabBarIcon: getTabBarIcon("house-chimney"),
+            unmountOnBlur: true,  //Sekmeden ayrıldığınızda ve Stack1'in 2. ekranında olduğunuzda, bu sekmeye geri döndüğünüzde her zaman bu stackNavigator'ın ilk ekranına geleceksiniz.
         }
     },
     {
@@ -57,22 +58,22 @@ const screens = [
     }
 ]
 
-
-export const TabNavigation = () => (
+const TabNavigation = () => (
+    
     <Tab.Navigator
         screenOptions={({ route }) => ({
-            tabBarButton: (props) => <CustomTabBarButton  {...props} />,
+            tabBarButton: (props) => <CustomTabBarButton {...props} />,
             headerShown: false,
             tabBarActiveTintColor: colors.black,
             tabBarInactiveTintColor: colors.grey,
             tabBarLabelStyle: {
                 marginTop: -10,
                 marginBottom: 4,
-                fontWeight: "500"
-            }
+                fontWeight: '500',
+            },
         })}
     >
-        {screens.map(screen => (
+        {screens.map((screen) => (
             <Tab.Screen
                 key={screen.name}
                 name={screen.name}
@@ -82,3 +83,5 @@ export const TabNavigation = () => (
         ))}
     </Tab.Navigator>
 )
+
+export default React.memo(TabNavigation)

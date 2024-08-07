@@ -29,5 +29,8 @@ export default StyleSheet.create({
         fontSize: 25,
         color: "#b3b3b3",
         marginRight: 10
+    },
+    iconContainer: {
+        flexDirection: "row"
     }
 })

@@ -1,5 +1,5 @@
+import Container from 'container/container'
 import React, { useEffect } from 'react'
-import { Container } from 'container/container'
 import { Platform, StatusBar } from 'react-native'
 import BootSplash from "react-native-bootsplash"
 
@@ -26,4 +26,4 @@ const App = () => {
   )
 }
 
-export default App
+export default React.memo(App)
