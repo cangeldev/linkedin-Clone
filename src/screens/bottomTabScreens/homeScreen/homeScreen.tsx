@@ -1,15 +1,14 @@
-import { View, Text, Button } from 'react-native'
+import { View } from 'react-native'
 import React from 'react'
-import { useNavigation } from '@react-navigation/native'
 import style from './style'
-
+import PostCard from 'components/cards/postCardComponents/postCard/postCard'
+import { profileExample } from 'assets'
 
 export const HomeScreen = () => {
-    const navigation = useNavigation<any>()
+
     return (
         <View style={style.container}>
-            <Text>homeScreen</Text>
-            <Button title={"geç"} onPress={() => navigation.navigate("NotificationScreen")} />
+            <PostCard reactionName='Salih Rzayev' reactionImage={profileExample} />
         </View>
     )
 }
