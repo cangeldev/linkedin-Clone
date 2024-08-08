@@ -1,7 +1,7 @@
 import React from 'react'
 import { createDrawerNavigator } from '@react-navigation/drawer'
-import { DrawerMenuPage } from 'screens/pages'
-import { CustomDrawerMenuHeader } from 'components'
+import { DrawerContentPage } from 'screens/pages'
+import { Header } from 'components'
 import tabNavigation from './tabNavigation'
 
 const Drawer = createDrawerNavigator()
@@ -9,10 +9,10 @@ const Drawer = createDrawerNavigator()
 const DrawerNavigation = () => {
     return (
         <Drawer.Navigator
-            drawerContent={() => <DrawerMenuPage />}
+            drawerContent={() => <DrawerContentPage />}
             screenOptions={({ navigation }) => ({
                 headerLeft: () => null,
-                headerTitle: () => <CustomDrawerMenuHeader navigation={navigation} />
+                headerTitle: () => <Header navigation={navigation} />
             })}
         >
             <Drawer.Screen name="TabNavigation" component={tabNavigation} />

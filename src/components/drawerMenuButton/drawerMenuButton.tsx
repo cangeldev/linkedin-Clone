@@ -4,12 +4,12 @@ import { useNavigation } from '@react-navigation/native'
 import style from './style'
 import colors from 'assets/colors/colors'
 
-interface ICustomDrawerMenuButton {
+interface IDrawerMenuButton {
     pageName: string
     page: string
 }
 
-export const CustomDrawerMenuButton: FC<ICustomDrawerMenuButton> = ({ page, pageName }) => {
+export const DrawerMenuButton: FC<IDrawerMenuButton> = ({ page, pageName }) => {
 
     const navigation = useNavigation<any>()
 

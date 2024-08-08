@@ -4,7 +4,7 @@ import style from './style'
 import PostCard from 'components/cards/postCardComponents/postCard/postCard'
 import { profileExample } from 'assets'
 
-export const HomeScreen = () => {
+export const Home = () => {
 
     return (
         <View style={style.container}>

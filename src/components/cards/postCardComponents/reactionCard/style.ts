@@ -5,7 +5,7 @@ export default StyleSheet.create({
     container: {
         padding: 10
     },
-    reactionUserView: {
+    innerContainer: {
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
@@ -16,7 +16,7 @@ export default StyleSheet.create({
         height: 30,
         borderRadius: 25
     },
-    reactionUserIconView: {
+    iconView: {
         flexDirection: "row"
     },
     reactionName: {

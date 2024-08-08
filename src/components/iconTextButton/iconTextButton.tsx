@@ -3,12 +3,12 @@ import React, { FC } from 'react'
 import style from './style'
 import colors from 'assets/colors/colors'
 
-interface ICustomIconTextButton {
+interface IiconTextButton {
     icon: any,
     title: string
 }
 
-export const CustomIconTextButton: FC<ICustomIconTextButton> = ({ icon, title }) => {
+export const IconTextButton: FC<IiconTextButton> = ({ icon, title }) => {
     return (
         <TouchableHighlight underlayColor={colors.lightGrey} onPress={() => console.log("first")}>
             <View style={style.container}>

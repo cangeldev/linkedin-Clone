@@ -2,12 +2,12 @@ import { TouchableHighlight } from 'react-native'
 import React, { FC } from 'react'
 import colors from 'assets/colors/colors'
 
-interface ICustomTabBarButton {
+interface ITabBarButton {
     onPress?: any
     children: any
 }
 
-export const CustomTabBarButton: FC<ICustomTabBarButton> = ({ children, onPress }) => {
+export const TabBarButton: FC<ITabBarButton> = ({ children, onPress }) => {
     return (
         <TouchableHighlight
             style={{

@@ -1,7 +1,7 @@
 import { View, } from 'react-native'
 import React, { FC } from 'react'
 import style from './style'
-import PostCardReaction from '../postCardReaction/postCardReaction'
+import PostCardReaction from '../reactionCard/reactionCard'
 
 interface IPostCard {
     reactionName?: string

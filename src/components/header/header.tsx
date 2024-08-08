@@ -6,11 +6,11 @@ import IconE from 'react-native-vector-icons/Entypo'
 import style from './style'
 import { profileExample } from 'assets'
 
-interface ICustomDrawerMenuHeader {
+interface IHeader {
     navigation: any
 }
 
-export const CustomDrawerMenuHeader: FC<ICustomDrawerMenuHeader> = ({ navigation }) => {
+export const Header: FC<IHeader> = ({ navigation }) => {
     const [inputValue, setInputValue] = useState('')
     const { index: tabIndex = 0 } = useNavigationState(state => state.routes[state.index].state ?? {} as any)
 

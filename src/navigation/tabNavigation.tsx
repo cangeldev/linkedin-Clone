@@ -1,7 +1,7 @@
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import colors from 'assets/colors/colors'
-import { CustomTabBarButton } from 'components'
+import { TabBarButton } from 'components'
 import { screens } from 'components/getTabBarIcon/getTabBarIcon'
 
 const Tab = createBottomTabNavigator()
@@ -10,7 +10,7 @@ const TabNavigation = () => (
 
     <Tab.Navigator
         screenOptions={({ route }) => ({
-            tabBarButton: (props) => <CustomTabBarButton {...props} />,
+            tabBarButton: (props) => <TabBarButton {...props} />,
             headerShown: false,
             tabBarActiveTintColor: colors.black,
             tabBarInactiveTintColor: colors.grey,

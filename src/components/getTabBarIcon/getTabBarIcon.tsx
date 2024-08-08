@@ -1,5 +1,5 @@
 import React from 'react'
-import { JobsScreen, MyNetworkScreen, NotificationScreen, PostScreen } from 'screens/bottomTabScreens'
+import { Jobs, MyNetwork, Notification, Post } from 'screens/bottomTabScreens'
 import Icon from 'react-native-vector-icons/FontAwesome6'
 import IconF from 'react-native-vector-icons/MaterialCommunityIcons'
 import IconI from 'react-native-vector-icons/Octicons'
@@ -20,7 +20,7 @@ const screens = [
     },
     {
         name: "MyNetworkScreen",
-        component: MyNetworkScreen,
+        component: MyNetwork,
         options: {
             title: "Ağım",
             tabBarIcon: getTabBarIcon("user-group")
@@ -28,7 +28,7 @@ const screens = [
     },
     {
         name: "PostScreen",
-        component: PostScreen,
+        component: Post,
         options: {
             title: "Yayınla",
             tabBarIcon: getTabBarIcon("plus-box", 24, IconF)
@@ -36,7 +36,7 @@ const screens = [
     },
     {
         name: "NotificationScreen",
-        component: NotificationScreen,
+        component: Notification,
         options: {
             title: "Bildirimler",
             tabBarIcon: getTabBarIcon("bell-fill", 19, IconI)
@@ -44,7 +44,7 @@ const screens = [
     },
     {
         name: "JobsScreen",
-        component: JobsScreen,
+        component: Jobs,
         options: {
             title: "İş ilanları",
             tabBarIcon: getTabBarIcon("briefcase")

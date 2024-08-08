@@ -2,10 +2,10 @@ import { View, Text, Image, TouchableHighlight, } from 'react-native'
 import React from 'react'
 import { premium, profileExample, settings } from 'assets'
 import style from './style'
-import { CustomDrawerMenuButton, CustomIconTextButton, Divider } from 'components'
+import { DrawerMenuButton, IconTextButton, Divider } from 'components'
 import colors from 'assets/colors/colors'
 
-export const DrawerMenuPage = () => {
+export const DrawerContentPage = () => {
 
     return (
         <View style={{ flex: 1 }}>
@@ -29,11 +29,11 @@ export const DrawerMenuPage = () => {
             </View>
             <Divider />
             <View style={style.container}>
-                <CustomDrawerMenuButton
+                <DrawerMenuButton
                     page='SavedPostsPage'
                     pageName='Kaydedilen gönderiler'
                 />
-                <CustomDrawerMenuButton
+                <DrawerMenuButton
                     page='GroupsPage'
                     pageName='Gruplar'
                 />
@@ -48,7 +48,7 @@ export const DrawerMenuPage = () => {
                         </Text>
                     </View>
                 </TouchableHighlight>
-                <CustomIconTextButton title='Ayarlar' icon={settings} />
+                <IconTextButton title='Ayarlar' icon={settings} />
             </View>
         </View>
     )

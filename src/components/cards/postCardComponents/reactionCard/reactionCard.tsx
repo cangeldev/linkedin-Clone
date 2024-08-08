@@ -12,7 +12,7 @@ interface IPostCardReaction {
 const PostCardReaction: FC<IPostCardReaction> = ({ reactionImage, reactionName }) => {
     return (
         <View style={style.container}>
-            <View style={style.reactionUserView}>
+            <View style={style.innerContainer}>
                 <Image source={reactionImage} style={style.reactionImage} />
                 <Text numberOfLines={1} style={style.reactionName}>
                     {reactionName}
@@ -20,7 +20,7 @@ const PostCardReaction: FC<IPostCardReaction> = ({ reactionImage, reactionName }
                         {""} bunu beğendi
                     </Text>
                 </Text>
-                <View style={style.reactionUserIconView}>
+                <View style={style.iconView}>
                     <IconM name="dots-vertical" style={style.icons} />
                     <IconM name="close" style={style.icons} />
                 </View>
