@@ -1,6 +1,8 @@
 import colors from "assets/colors/colors"
 import { StyleSheet } from "react-native"
+
 export default StyleSheet.create({
+
     container: {
         backgroundColor: colors.white,
         paddingHorizontal: 10,
@@ -11,8 +13,7 @@ export default StyleSheet.create({
     profileImage: {
         width: 45,
         height: 45,
-        borderRadius: 50,
-        backgroundColor: "red"
+        borderRadius: 50
     },
     contentView: {
         flex: 1,
@@ -24,7 +25,7 @@ export default StyleSheet.create({
         fontSize: 15
     },
     description: {
-        fontSize: 14,
+        fontSize: 13,
         lineHeight: 15
     },
     footerView: {
@@ -34,9 +35,11 @@ export default StyleSheet.create({
     followButton: {
         alignItems: "center",
         flexDirection: "row",
+        marginBottom: 20,
+        marginLeft: 10
     },
     buttonPlus: {
-        fontSize: 25,
+        fontSize: 23,
         color: "#0e67c1"
     },
     buttonText: {
