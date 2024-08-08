@@ -8,7 +8,12 @@ export const Home = () => {
 
     return (
         <View style={style.container}>
-            <PostCard reactionName='Salih Rzayev' reactionImage={profileExample} />
+            <PostCard
+                reactionName='Salih Rzayev'
+                reactionImage={profileExample}
+                sharingName='Lamiya Safarova'
+                sharingImage={profileExample}
+            />
         </View>
     )
 }

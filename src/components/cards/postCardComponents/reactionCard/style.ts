@@ -3,7 +3,8 @@ import { StyleSheet } from "react-native"
 
 export default StyleSheet.create({
     container: {
-        padding: 10
+        paddingHorizontal: 10,
+        paddingVertical: 5
     },
     innerContainer: {
         flexDirection: "row",
@@ -29,8 +30,8 @@ export default StyleSheet.create({
         color: colors.grey
     },
     icons: {
-        fontSize: 22,
-        color: "#b3b3b3",
+        fontSize: 21,
+        color: colors.darkGrey,
         marginLeft: 6
     }
 })

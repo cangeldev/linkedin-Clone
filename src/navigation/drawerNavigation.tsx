@@ -11,6 +11,7 @@ const DrawerNavigation = () => {
         <Drawer.Navigator
             drawerContent={() => <DrawerContentPage />}
             screenOptions={({ navigation }) => ({
+                headerStyle: { height: 40 },
                 headerLeft: () => null,
                 headerTitle: () => <Header navigation={navigation} />
             })}

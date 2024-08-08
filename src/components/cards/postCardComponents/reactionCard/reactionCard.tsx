@@ -4,12 +4,14 @@ import style from './style'
 import { Divider } from 'components/divider/divider'
 import IconM from 'react-native-vector-icons/MaterialCommunityIcons'
 
-interface IPostCardReaction {
+interface IReactionCard {
     reactionName?: string
     reactionImage?: any
 }
 
-const PostCardReaction: FC<IPostCardReaction> = ({ reactionImage, reactionName }) => {
+const Icon = ({ name }: any) => <IconM name={name} style={style.icons} />
+
+const ReactionCard: FC<IReactionCard> = ({ reactionImage, reactionName }) => {
     return (
         <View style={style.container}>
             <View style={style.innerContainer}>
@@ -21,12 +23,12 @@ const PostCardReaction: FC<IPostCardReaction> = ({ reactionImage, reactionName }
                     </Text>
                 </Text>
                 <View style={style.iconView}>
-                    <IconM name="dots-vertical" style={style.icons} />
-                    <IconM name="close" style={style.icons} />
+                    <Icon name="dots-vertical" />
+                    <Icon name="close" />
                 </View>
             </View>
-                <Divider />
+            <Divider />
         </View>
     )
 }
-export default React.memo(PostCardReaction)
+export default React.memo(ReactionCard)
