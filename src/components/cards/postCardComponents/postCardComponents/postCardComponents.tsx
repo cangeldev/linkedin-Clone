@@ -3,6 +3,7 @@ import { View } from 'react-native'
 import styles from './style'
 import ContentCard from '../contentCard/contentCard'
 import ReactionsAndCommentsCard from '../reactionsAndCommentsCard/reactionsAndCommentsCard'
+import ActionMenuCard from '../actionMenuCard/actionMenuCard'
 import ShareOwnerInformationCard from '../shareOwnerInformationCard/shareOwnerInformationCard'
 import ReactingPersonInformationCard from '../reactingPersonInformationCard/reactingPersonInformationCard'
 
@@ -31,7 +32,7 @@ const PostCardComponents: FC<IPostCardComponents> = ({
             />
             <ContentCard />
             <ReactionsAndCommentsCard />
-           
+            <ActionMenuCard />
         </View>
     )
 }
