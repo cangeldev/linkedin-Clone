@@ -1,32 +1,36 @@
 import React, { useCallback, useState } from 'react'
 import { Text, View } from 'react-native'
-import style from './style'
+import styles from './style'
 
 const ContentCard = () => {
-    const [textShown, setTextShown] = useState(false)
-    const [lengthMore, setLengthMore] = useState(false)
+    const [isTextExpanded, setIsTextExpanded] = useState(false)
+    const [hasMoreText, setHasMoreText] = useState(false)
 
-    const toggleNumberOfLines = () => {
-        setTextShown(!textShown)
+    const toggleTextExpansion = () => {
+        setIsTextExpanded(prev => !prev)
     }
 
-    const onTextLayout = useCallback((e: { nativeEvent: { lines: string | any[] } }) => {
-        setLengthMore(e.nativeEvent.lines.length >= 4)
+    const handleTextLayout = useCallback((e: any) => {
+        setHasMoreText(e.nativeEvent.lines.length >= 4)
     }, [])
 
     return (
-        <View style={style.container}>
+        <View style={styles.cardContainer}>
             <Text
-                onTextLayout={onTextLayout}
-                numberOfLines={textShown ? undefined : 3}
-                style={style.contentText}>
-                {"Deneme İçeriği"}</Text>
-            {
-                lengthMore ? <Text
-                    onPress={toggleNumberOfLines}
-                    style={style.moreText}>{textShown ? 'hide more' : 'see more'}</Text>
-                    : null
-            }
+                onTextLayout={handleTextLayout}
+                numberOfLines={isTextExpanded ? undefined : 3}
+                style={styles.textContent}
+            >
+                Deneme İçeriği {"\n"}Deneme 2 {"\n"}Deneme 3{"\n"}Deneme 4
+            </Text>
+            {hasMoreText && (
+                <Text
+                    onPress={toggleTextExpansion}
+                    style={styles.toggleText}
+                >
+                    {isTextExpanded ? 'hide more' : 'see more'}
+                </Text>
+            )}
         </View>
     )
 }

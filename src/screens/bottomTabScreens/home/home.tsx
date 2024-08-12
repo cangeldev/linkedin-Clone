@@ -1,14 +1,14 @@
 import { View } from 'react-native'
 import React from 'react'
 import style from './style'
-import PostCard from 'components/cards/postCardComponents/postCard/postCard'
 import { profileExample } from 'assets'
+import PostCardComponents from 'components/cards/postCardComponents/postCardComponents/postCardComponents'
 
 export const Home = () => {
 
     return (
         <View style={style.container}>
-            <PostCard
+            <PostCardComponents
                 reactionName='Salih Rzayev'
                 reactionImage={profileExample}
                 sharingName='Lamiya Safarova'
