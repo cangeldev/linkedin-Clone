@@ -14,6 +14,11 @@ export default StyleSheet.create({
         height: 30,
         borderRadius: 50
     },
+    inputView: {
+        flex: 1,
+        flexDirection: "row",
+        alignItems: "center"
+    },
     input: {
         flex: 1,
         height: 31,
@@ -22,7 +27,8 @@ export default StyleSheet.create({
         backgroundColor: colors.textInputBackground,
         marginHorizontal: 12,
         paddingTop: 0,
-        paddingBottom: 0
+        paddingBottom: 0,
+        paddingLeft: 27
     },
     icon: {
         fontSize: 25,
@@ -31,5 +37,12 @@ export default StyleSheet.create({
     },
     iconContainer: {
         flexDirection: "row"
+    },
+    searchIcon:
+    {
+        position: "absolute",
+        left: 20,
+        color: colors.darkGrey,
+        fontSize: 13
     }
 })
