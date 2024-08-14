@@ -6,5 +6,7 @@ export default {
     grey: "#808080",
     lightGrey: "#e7e7e7",
     darkGrey: "#666666",
-    textInputBackground: "#eef3f7"
+    textInputBackground: "#eef3f7",
+    darkBlue: "#0b66c3"
+
 }

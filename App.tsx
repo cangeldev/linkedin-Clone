@@ -2,6 +2,7 @@ import Container from 'container/container'
 import React, { useEffect } from 'react'
 import { Platform, StatusBar } from 'react-native'
 import BootSplash from "react-native-bootsplash"
+import { WelcomeScreen } from 'screens/welcomeScreen/welcomeScreen'
 
 const App = () => {
 
@@ -22,7 +23,8 @@ const App = () => {
   }
 
   return (
-    <Container />
+    //<Container />
+    <WelcomeScreen />
   )
 }
 
