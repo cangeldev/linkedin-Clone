@@ -24,6 +24,7 @@ export default StyleSheet.create({
         fontWeight: "500",
         color: colors.black,
         borderWidth: 1,
+        borderColor:colors.darkGrey,
         paddingVertical: 10,
         borderRadius: 30,
         textAlign: "center"

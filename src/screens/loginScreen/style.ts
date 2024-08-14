@@ -27,17 +27,45 @@ export default StyleSheet.create({
     },
     separatorContainer: {
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginVertical: 15
     },
     separatorLine: {
         flex: 1,
         height: 1,
-        backgroundColor: colors.grey
+        backgroundColor: colors.lightGrey
     },
     separatorText: {
         width: 60,
         textAlign: 'center',
         fontWeight: '600',
         color: colors.black
+    },
+    iconUnchecked: {
+        fontSize: 24,
+        color: colors.grey
+    },
+    iconChecked: {
+        fontSize: 24,
+        color: colors.darkGreen
+    },
+    rememberMeContainer: {
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    rememberMeText: {
+        fontSize: 15,
+        color: colors.black
+    },
+    moreInfoText: {
+        color: colors.darkBlue,
+        fontWeight: '500',
+        fontSize: 15,
+        marginVertical: 15
+    },
+    forgotPasswordText: {
+        color: colors.darkBlue,
+        fontSize: 15,
+        marginVertical: 15
     }
-})
+});
