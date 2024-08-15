@@ -7,6 +7,9 @@ export default StyleSheet.create({
         backgroundColor: colors.white,
         paddingHorizontal: 15
     },
+    scrollContainer: {
+        flexGrow: 1
+    },
     logo: {
         width: 90,
         height: 45,
@@ -68,4 +71,4 @@ export default StyleSheet.create({
         fontSize: 15,
         marginVertical: 15
     }
-});
+})
