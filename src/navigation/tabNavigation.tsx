@@ -16,7 +16,6 @@ const TabNavigation = () => {
     return (
         <>
             <PostModal isVisible={isModalVisible} onClose={handleModalClose} />
-
             <Tab.Navigator
                 screenOptions={({ route }) => ({
                     tabBarButton: (props) =>

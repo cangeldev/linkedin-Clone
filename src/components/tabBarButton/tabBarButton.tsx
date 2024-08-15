@@ -1,21 +1,23 @@
 import { TouchableHighlight } from 'react-native'
 import React, { FC } from 'react'
 import colors from 'assets/colors/colors'
+import style from './style'
 
 interface ITabBarButton {
     onPress?: any
     children: any
+    accessibilityState?: any
 }
 
-export const TabBarButton: FC<ITabBarButton> = ({ children, onPress }) => {
+export const TabBarButton: FC<ITabBarButton> = ({ children, onPress, accessibilityState }) => {
+    const isActive = accessibilityState?.selected
+
     return (
         <TouchableHighlight
-            style={{
-                flex: 1,
-                justifyContent: 'center',
-                alignItems: 'center',
-                marginBottom: 5,
-            }}
+            style={[style.container, {
+                borderTopWidth: isActive ? 2 : 0,
+                borderTopColor: isActive ? colors.darkGrey : 'transparent',
+            }]}
             onPress={onPress}
             underlayColor={colors.lightGrey}
         >
@@ -23,3 +25,6 @@ export const TabBarButton: FC<ITabBarButton> = ({ children, onPress }) => {
         </TouchableHighlight>
     )
 }
+
+export default React.memo(TabBarButton)
+
