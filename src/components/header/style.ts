@@ -9,10 +9,9 @@ export default StyleSheet.create({
         justifyContent: "space-between",
         width: "100%"
     },
-    profileImage: {
+    profileImageView: {
         width: 30,
-        height: 30,
-        borderRadius: 50
+        height: 30
     },
     inputView: {
         flex: 1,

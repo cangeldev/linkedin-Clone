@@ -1,8 +1,8 @@
 import { View, Text, Image, TouchableHighlight, } from 'react-native'
 import React from 'react'
-import { premium, profileExample, settings } from 'assets'
+import { premium, settings } from 'assets'
 import style from './style'
-import { DrawerMenuButton, IconTextButton, Divider } from 'components'
+import { DrawerMenuButton, IconTextButton, Divider, ProfileImage } from 'components'
 import colors from 'assets/colors/colors'
 
 export const DrawerContentPage = () => {
@@ -10,10 +10,9 @@ export const DrawerContentPage = () => {
     return (
         <View style={style.container}>
             <View style={style.headerContainer}>
-                <Image
-                    source={profileExample}
-                    style={style.profileImage}
-                />
+                <View style={style.profileImageView}>
+                    <ProfileImage />
+                </View>
                 <Text style={style.name}>
                     Can Gel
                 </Text>

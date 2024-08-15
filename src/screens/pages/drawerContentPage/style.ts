@@ -9,11 +9,9 @@ export default StyleSheet.create({
         paddingVertical: "12%",
         paddingHorizontal: "9%"
     },
-    profileImage: {
+    profileImageView: {
         width: 60,
-        height: 60,
-        resizeMode: 'cover',
-        borderRadius: 50
+        height: 60
     },
     name: {
         fontSize: 19,

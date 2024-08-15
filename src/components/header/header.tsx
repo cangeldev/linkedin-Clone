@@ -1,9 +1,9 @@
 import React, { FC, useState } from 'react'
-import { View, Pressable, TextInput, Image } from 'react-native'
+import { View, Pressable, TextInput } from 'react-native'
 import { useNavigationState } from '@react-navigation/native'
 import style from './style'
-import { profileExample } from 'assets'
 import Icon from 'components/icon/icon'
+import { ProfileImage } from 'components'
 
 interface IHeader {
     navigation: any
@@ -15,8 +15,8 @@ export const Header: FC<IHeader> = ({ navigation }) => {
 
     return (
         <View style={style.container}>
-            <Pressable onPress={navigation.toggleDrawer}>
-                <Image source={profileExample} style={style.profileImage} />
+            <Pressable style={style.profileImageView} onPress={navigation.toggleDrawer}>
+                <ProfileImage />
             </Pressable>
             <View style={style.inputView}>
 
