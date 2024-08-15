@@ -32,8 +32,12 @@ export default StyleSheet.create({
     },
     icon: {
         fontSize: 25,
-        color: "#b3b3b3",
+        color: colors.darkGrey,
         marginRight: 10
+    },
+    messageIcon: {
+        fontSize: 25,
+        color: colors.darkGrey
     },
     iconContainer: {
         flexDirection: "row"

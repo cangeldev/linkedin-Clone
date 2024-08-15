@@ -3,35 +3,31 @@ import { View, Text, FlatList, Dimensions } from 'react-native'
 import style from './style'
 import colors from 'assets/colors/colors'
 import { Divider } from 'components/divider/divider'
-
-// Icons
-import IconM from 'react-native-vector-icons/MaterialIcons'
-import IconF from 'react-native-vector-icons/FontAwesome6'
-import IconI from 'react-native-vector-icons/Ionicons'
+import Icon from 'components/icon/icon'
 
 // List of items
 const actionItems = [
     {
         label: "Beğendim",
-        iconLibrary: IconM,
+        iconType: "MaterialIcons",
         iconName: "thumb-up"
     },
     {
         label: "Yorum Yap",
-        iconLibrary: IconM,
+        iconType: "MaterialIcons",
         iconName: "message"
     },
     {
         label: "Yeniden yayınla",
-        iconLibrary: IconF,
+        iconType: "FontAwesome6",
         iconName: "retweet"
     },
     {
         label: "Gönder",
-        iconLibrary: IconI,
+        iconType: "Ionicons",
         iconName: "paper-plane"
     }
-];
+]
 
 const ActionMenuCard = () => {
     // Calculate item width for FlatList
@@ -40,11 +36,11 @@ const ActionMenuCard = () => {
 
     // Render item function
     const renderItem = ({ item }: any) => {
-        const { iconLibrary: IconLibrary, iconName, label } = item
+        const { iconType, iconName, label } = item
 
         return (
             <View style={[style.iconContainer, { width: itemWidth }]}>
-                <IconLibrary name={iconName} color={colors.darkGrey} size={18} />
+                <Icon type={iconType} name={iconName} style={{ color: colors.darkGrey, fontSize: 18 }} />
                 <Text style={style.iconLabel}>{label}</Text>
             </View>
         )

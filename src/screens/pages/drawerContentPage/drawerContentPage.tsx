@@ -8,7 +8,7 @@ import colors from 'assets/colors/colors'
 export const DrawerContentPage = () => {
 
     return (
-        <View style={{ flex: 1 }}>
+        <View style={style.container}>
             <View style={style.headerContainer}>
                 <Image
                     source={profileExample}

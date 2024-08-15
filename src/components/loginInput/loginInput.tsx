@@ -1,7 +1,7 @@
-import { View, Text, TextInput } from 'react-native'
+import { View, TextInput } from 'react-native'
 import React, { FC, useState } from 'react'
 import style from './style'
-import IconM from 'react-native-vector-icons/MaterialCommunityIcons'
+import Icon from 'components/icon/icon'
 
 interface ILoginInput {
     placeholder: string
@@ -9,7 +9,6 @@ interface ILoginInput {
 
 export const LoginInput: FC<ILoginInput> = ({ placeholder }) => {
     const [visiblePassword, setVisiblePassword] = useState(true)
-    const [rememberMe, setRememberMe] = useState(true)
 
     return (
         <View style={style.inputView}>
@@ -20,7 +19,7 @@ export const LoginInput: FC<ILoginInput> = ({ placeholder }) => {
                 placeholderTextColor="#5b5d5f"
             />
             {
-                placeholder == "Şifre" ? <IconM onPress={() => setVisiblePassword(!visiblePassword)} name={visiblePassword == false ? "eye-off" : "eye"} style={style.eyeIcon} /> : null
+                placeholder == "Şifre" ? <Icon type='MaterialCommunityIcons' onPress={() => setVisiblePassword(!visiblePassword)} name={visiblePassword == false ? "eye-off" : "eye"} style={style.eyeIcon} /> : null
             }
         </View >
     )

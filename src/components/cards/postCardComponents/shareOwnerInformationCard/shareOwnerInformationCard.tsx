@@ -1,9 +1,7 @@
 import React, { FC } from 'react'
 import { View, Text, Image, TouchableOpacity } from 'react-native'
-import IconE from 'react-native-vector-icons/Entypo'
-import IconM from 'react-native-vector-icons/MaterialCommunityIcons'
-import colors from 'assets/colors/colors'
 import styles from './style'
+import Icon from 'components/icon/icon'
 
 interface IShareOwnerInformationCard {
     sharingName: string
@@ -23,8 +21,8 @@ const ShareOwnerInformationCard: FC<IShareOwnerInformationCard> = ({ sharingImag
                 </Text>
                 <View style={styles.footerContainer}>
                     <Text style={styles.textDescription}>20 saat</Text>
-                    <IconE name="dot-single" color={colors.darkGrey} size={22} />
-                    <IconM name="earth" color={colors.darkGrey} size={18} />
+                    <Icon type="Entypo" name="dot-single" style={styles.dotIcon} />
+                    <Icon type="MaterialCommunityIcons" name="earth" style={styles.earthIcon} />
                 </View>
             </View>
             <TouchableOpacity style={styles.followButton}>

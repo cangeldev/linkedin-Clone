@@ -1,12 +1,10 @@
 import React from 'react'
 import { Jobs, MyNetwork, Notification, Post } from 'screens/bottomTabScreens'
-import Icon from 'react-native-vector-icons/FontAwesome6'
-import IconF from 'react-native-vector-icons/MaterialCommunityIcons'
-import IconI from 'react-native-vector-icons/Octicons'
 import stackNavigation from 'navigation/stackNavigation'
+import Icon from 'components/icon/icon'
 
-const getTabBarIcon = (name: any, size = 19, IconComponent = Icon) => ({ color }: any) => (
-    <IconComponent name={name} color={color} style={{ fontSize: size }} />
+const getIcon = (name: any, IconComponent: any, size = 19,) => ({ color }: any) => (
+    <Icon type={IconComponent} name={name} style={{ fontSize: size, color: color }} />
 )
 
 const screens = [
@@ -15,7 +13,7 @@ const screens = [
         component: stackNavigation,
         options: {
             title: "Ana Sayfa",
-            tabBarIcon: getTabBarIcon("house-chimney")
+            tabBarIcon: getIcon("house-chimney", "FontAwesome6")
         }
     },
     {
@@ -23,7 +21,7 @@ const screens = [
         component: MyNetwork,
         options: {
             title: "Ağım",
-            tabBarIcon: getTabBarIcon("user-group")
+            tabBarIcon: getIcon("user-group", "FontAwesome6")
         }
     },
     {
@@ -31,7 +29,7 @@ const screens = [
         component: Post,
         options: {
             title: "Yayınla",
-            tabBarIcon: getTabBarIcon("plus-box", 24, IconF)
+            tabBarIcon: getIcon("plus-box", "MaterialCommunityIcons", 24)
         }
     },
     {
@@ -39,7 +37,7 @@ const screens = [
         component: Notification,
         options: {
             title: "Bildirimler",
-            tabBarIcon: getTabBarIcon("bell-fill", 19, IconI)
+            tabBarIcon: getIcon("bell-fill", "Octicons")
         }
     },
     {
@@ -47,9 +45,9 @@ const screens = [
         component: Jobs,
         options: {
             title: "İş ilanları",
-            tabBarIcon: getTabBarIcon("briefcase")
+            tabBarIcon: getIcon("briefcase", "FontAwesome6")
         }
     }
 ]
 
-export { getTabBarIcon, screens }
+export { getIcon, screens }

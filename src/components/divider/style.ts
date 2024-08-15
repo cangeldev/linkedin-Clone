@@ -1,5 +1,5 @@
-import colors from "assets/colors/colors";
-import { StyleSheet } from "react-native";
+import colors from "assets/colors/colors"
+import { StyleSheet } from "react-native"
 
 export default StyleSheet.create({
     container: {
@@ -11,5 +11,4 @@ export default StyleSheet.create({
         height: 1,
         backgroundColor: colors.lightGrey
     }
-
 })

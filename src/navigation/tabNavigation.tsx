@@ -2,35 +2,29 @@ import React, { useState } from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import colors from 'assets/colors/colors'
 import { TabBarButton } from 'components'
-import { screens } from 'components/getTabBarIcon/getTabBarIcon'
 import PostModal from 'screens/bottomTabScreens/post/postModal'
-
+import { screens } from 'components/getIcon/getIcon'
 
 const Tab = createBottomTabNavigator()
 
 const TabNavigation = () => {
     const [isModalVisible, setIsModalVisible] = useState(false)
 
+    const handleModalClose = () => setIsModalVisible(false)
+    const handlePostButtonPress = () => setIsModalVisible(true)
+
     return (
         <>
-            <PostModal
-                isVisible={isModalVisible}
-                onClose={() => setIsModalVisible(false)}
-            />
+            <PostModal isVisible={isModalVisible} onClose={handleModalClose} />
 
             <Tab.Navigator
                 screenOptions={({ route }) => ({
-                    tabBarButton: (props) => {
-                        if (route.name === "PostScreen") {
-                            return (
-                                <TabBarButton
-                                    {...props}
-                                    onPress={() => setIsModalVisible(true)}
-                                />
-                            )
-                        }
-                        return <TabBarButton {...props} />
-                    },
+                    tabBarButton: (props) =>
+                        route.name === 'PostScreen' ? (
+                            <TabBarButton {...props} onPress={handlePostButtonPress} />
+                        ) : (
+                            <TabBarButton {...props} />
+                        ),
                     headerShown: false,
                     tabBarActiveTintColor: colors.black,
                     tabBarInactiveTintColor: colors.grey,
@@ -39,7 +33,7 @@ const TabNavigation = () => {
                         marginBottom: 4,
                         fontWeight: '500',
                     },
-                    tabBarHideOnKeyboard: true
+                    tabBarHideOnKeyboard: true,
                 })}
             >
                 {screens.map((screen) => (

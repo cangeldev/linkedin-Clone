@@ -4,7 +4,7 @@ import style from './style'
 import { apple, facebook, google, linkedinLogo } from 'assets'
 import { WelcomeScreenButton } from 'components'
 import { LoginInput } from 'components/loginInput/loginInput'
-import IconM from 'react-native-vector-icons/MaterialCommunityIcons'
+import Icon from 'components/icon/icon'
 
 export const LoginScreen = () => {
     const [rememberMe, setRememberMe] = useState(true)
@@ -33,7 +33,8 @@ export const LoginScreen = () => {
             <LoginInput placeholder='E-posta veya Telefon' />
             <LoginInput placeholder='Şifre' />
             <View style={style.rememberMeContainer}>
-                <IconM
+                <Icon
+                    type='MaterialCommunityIcons'
                     onPress={toggleRememberMe}
                     name={rememberMe ? "checkbox-marked" : "checkbox-blank-outline"}
                     style={rememberMe ? style.iconChecked : style.iconUnchecked}

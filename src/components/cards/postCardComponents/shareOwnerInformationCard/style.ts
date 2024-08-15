@@ -1,6 +1,6 @@
 // style.js
-import { StyleSheet } from 'react-native';
-import colors from 'assets/colors/colors';
+import { StyleSheet } from 'react-native'
+import colors from 'assets/colors/colors'
 
 const styles = StyleSheet.create({
     cardContainer: {
@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     profileImage: {
         width: 45,
         height: 45,
-        borderRadius: 22.5 // Profil resmini daha yuvarlak yapmak için
+        borderRadius: 22.5
     },
     infoContainer: {
         flex: 1,
@@ -42,11 +42,19 @@ const styles = StyleSheet.create({
         fontSize: 23,
         color: "#0e67c1"
     },
+    dotIcon: {
+        color: colors.darkGrey,
+        fontSize: 22
+    },
+    earthIcon: {
+        color: colors.darkGrey,
+        fontSize: 18
+    },
     followButtonText: {
         fontSize: 15,
         color: "#0e67c1",
         fontWeight: '600'
     }
-});
+})
 
 export default styles;
