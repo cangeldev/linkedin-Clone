@@ -2,12 +2,12 @@ import React, { FC } from 'react'
 import { Text, TouchableOpacity, Image } from 'react-native'
 import style from './style'
 
-interface IWelcomeScreenButton {
+interface ICustomButton {
     title: string
     icon?: any
 }
 
-export const WelcomeScreenButton: FC<IWelcomeScreenButton> = ({ title, icon }) => {
+export const CustomButton: FC<ICustomButton> = ({ title, icon }) => {
     return (
         <TouchableOpacity style={style.buttonContainer}>
             <Text style={icon ? style.buttonTextWithIcon : style.buttonText}>

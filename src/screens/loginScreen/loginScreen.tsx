@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { View, Text, Image, KeyboardAvoidingView, ScrollView, Platform } from 'react-native'
 import style from './style'
 import { apple, facebook, google, linkedinLogo } from 'assets'
-import { LoginInput, WelcomeScreenButton } from 'components'
+import { LoginInput, CustomButton } from 'components'
 import Icon from 'components/icon/icon'
 
 export const LoginScreen = () => {
@@ -25,7 +25,7 @@ export const LoginScreen = () => {
                     veya <Text style={style.highlightedText}>LinkedIn'e Katılın</Text>
                 </Text>
                 {['Google', 'Apple', 'Facebook'].map(platform => (
-                    <WelcomeScreenButton
+                    <CustomButton
                         key={platform}
                         title={`${platform} ile oturum açın`}
                         icon={{ google: google, apple: apple, facebook: facebook }[platform.toLowerCase()]}
@@ -49,7 +49,7 @@ export const LoginScreen = () => {
                     <Text style={style.moreInfoText}> Daha fazla bilgi edinin</Text>
                 </View>
                 <Text style={style.forgotPasswordText}>Şifrenizi mi unuttunuz?</Text>
-                <WelcomeScreenButton title='Devam Et' />
+                <CustomButton title='Devam Et' />
             </ScrollView>
         </KeyboardAvoidingView>
     )

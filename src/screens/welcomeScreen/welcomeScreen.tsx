@@ -4,7 +4,7 @@ import { facebook, google, linkedinLogo } from 'assets'
 import style from './style'
 import { WelcomeScreenButton } from 'components'
 
-export const WelcomeScreen = () => {
+const WelcomeScreen = () => {
     return (
         <View style={style.container}>
             <Image source={linkedinLogo} style={style.logo} />
@@ -24,3 +24,4 @@ export const WelcomeScreen = () => {
         </View>
     )
 }
+export default React.memo(WelcomeScreen)
