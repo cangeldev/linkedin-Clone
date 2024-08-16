@@ -20,5 +20,30 @@ export default StyleSheet.create({
     },
     inputView: {
         marginVertical: 30
+    },
+    iconUnchecked: {
+        fontSize: 24,
+        color: colors.grey
+    },
+    iconChecked: {
+        fontSize: 24,
+        color: colors.darkGreen
+    },
+    rememberMeContainer: {
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    rememberMeText: {
+        fontSize: 15,
+        color: colors.black
+    },
+    moreInfoText: {
+        color: colors.darkBlue,
+        fontWeight: '500',
+        fontSize: 15,
+        marginVertical: 15
+    },
+    passwordInfo: {
+        fontSize: 12
     }
 })
