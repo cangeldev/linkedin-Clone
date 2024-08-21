@@ -4,6 +4,7 @@ import { Platform, StatusBar } from 'react-native'
 import BootSplash from "react-native-bootsplash"
 import { LoginScreen, } from 'screens/loginScreen/loginScreen'
 import ContactInfoScreen from 'screens/signInScreens/contactInfoScreen/contactInfoScreen'
+import ProfilePictureSettingsScreen from 'screens/signInScreens/profilePictureSettingsScreen/profilePictureSettingsScreen'
 import UserInfoScreen from 'screens/signInScreens/userInfoScreen/userInfoScreen'
 
 
@@ -30,7 +31,8 @@ const App = () => {
     //<WelcomeScreen />
     //<LoginScreen />
     //<UserInfoScreen />
-    <ContactInfoScreen />
+    //<ContactInfoScreen />
+    <ProfilePictureSettingsScreen />
 
   )
 }
