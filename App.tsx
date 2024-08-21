@@ -6,6 +6,7 @@ import { LoginScreen, } from 'screens/loginScreen/loginScreen'
 import ContactInfoScreen from 'screens/signInScreens/contactInfoScreen/contactInfoScreen'
 import ProfilePictureSettingsScreen from 'screens/signInScreens/profilePictureSettingsScreen/profilePictureSettingsScreen'
 import UserInfoScreen from 'screens/signInScreens/userInfoScreen/userInfoScreen'
+import VerificationCodeScreen from 'screens/signInScreens/verificationCodeScreen/verificationCodeScreen'
 
 
 const App = () => {
@@ -32,7 +33,8 @@ const App = () => {
     //<LoginScreen />
     //<UserInfoScreen />
     //<ContactInfoScreen />
-    <ProfilePictureSettingsScreen />
+    //<ProfilePictureSettingsScreen />
+    <VerificationCodeScreen />
 
   )
 }
