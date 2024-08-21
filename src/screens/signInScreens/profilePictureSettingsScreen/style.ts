@@ -7,18 +7,6 @@ export default StyleSheet.create({
         backgroundColor: colors.white,
         paddingHorizontal: 15
     },
-    logo: {
-        width: 85,
-        height: 40,
-        resizeMode: 'contain',
-        marginVertical: 10
-    },
-    infoText: {
-        color: colors.black,
-        fontSize: 23,
-        fontWeight: "bold",
-        marginVertical: 30
-    },
     pictureContainer: {
         width: "96%",
         height: "29%",

@@ -31,10 +31,10 @@ const App = () => {
     //<Container />
     //<WelcomeScreen />
     //<LoginScreen />
-    //<UserInfoScreen />
+    <UserInfoScreen />
     //<ContactInfoScreen />
     //<ProfilePictureSettingsScreen />
-    <VerificationCodeScreen />
+    //<VerificationCodeScreen />
 
   )
 }

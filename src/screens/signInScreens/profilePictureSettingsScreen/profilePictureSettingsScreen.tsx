@@ -1,14 +1,14 @@
 import { View, Text, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
-import { camera, linkedinLogo } from 'assets'
+import { camera } from 'assets'
 import styles from './style'
 import { CustomButton } from 'components'
+import SignInHeader from 'components/signInHeader/signInHeader'
 
 const ProfilePictureSettingsScreen = () => {
     return (
         <View style={styles.container}>
-            <Image source={linkedinLogo} style={styles.logo} />
-            <Text style={styles.infoText}>Fotoğraf eklemeniz tanınmanıza yardımcı olur</Text>
+            <SignInHeader title='Fotoğraf eklemeniz tanınmanıza yardımcı olur'/>
             <View style={styles.pictureContainer}>
                 <TouchableOpacity onPress={() => console.log("Sonradan eklenecek")} style={styles.cameraButton}>
                     <Image source={camera} style={styles.cameraIcon} />

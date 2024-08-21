@@ -1,15 +1,14 @@
-import { View, Text, Image } from 'react-native'
+import { View, Text } from 'react-native'
 import React from 'react'
-import { linkedinLogo } from 'assets'
 import styles from './style'
 import { CustomButton, LoginInput } from 'components'
+import SignInHeader from 'components/signInHeader/signInHeader'
 
 const VerificationCodeScreen = () => {
     return (
         <View style={styles.container}>
-            <Image source={linkedinLogo} style={styles.logo} />
-            <Text style={styles.title}>Doğrulama kodunu gir</Text>
-            <Text>
+            <SignInHeader title='Doğrulama kodunu gir' />
+            <Text style={styles.info}>
                 Doğrulama kodu şuraya gönderildi:
                 <Text style={styles.email}> sidobar577@brinkc.com</Text>
                 <Text style={styles.editEmail}> E-postayı düzenle</Text>
