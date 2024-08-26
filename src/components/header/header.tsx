@@ -1,9 +1,8 @@
 import React, { FC, useState } from 'react'
 import { View, Pressable, TextInput } from 'react-native'
-import { useNavigationState } from '@react-navigation/native'
+import { useRoute } from '@react-navigation/native'
 import style from './style'
-import Icon from 'components/icon/icon'
-import { ProfileImage } from 'components'
+import { Icon, ProfileImage } from 'components'
 
 interface IHeader {
     navigation: any
@@ -11,7 +10,8 @@ interface IHeader {
 
 export const Header: FC<IHeader> = ({ navigation }) => {
     const [inputValue, setInputValue] = useState('')
-    const { index: tabIndex = 0 } = useNavigationState(state => state.routes[state.index].state ?? {} as any)
+    const route = useRoute()
+    const tabIndex = route.name
 
     return (
         <View style={style.container}>
@@ -19,7 +19,6 @@ export const Header: FC<IHeader> = ({ navigation }) => {
                 <ProfileImage />
             </Pressable>
             <View style={style.inputView}>
-
                 <TextInput
                     style={style.input}
                     value={inputValue}
@@ -30,8 +29,8 @@ export const Header: FC<IHeader> = ({ navigation }) => {
                 <Icon type="FontAwesome5" name="search" style={style.searchIcon} />
             </View>
             <View style={style.iconContainer}>
-                {tabIndex === 3 && <Icon type="FontAwesome" name="gear" style={style.icon} />}
-                {tabIndex === 4 && <Icon type="Entypo" name="dots-three-vertical" style={style.icon} />}
+                {tabIndex === 'NotificationScreen' && <Icon type="FontAwesome" name="gear" style={style.icon} />}
+                {tabIndex === 'JobsScreen' && <Icon type="Entypo" name="dots-three-vertical" style={style.icon} />}
                 <Icon type="FontAwesome" name="commenting" style={style.messageIcon} />
             </View>
         </View>

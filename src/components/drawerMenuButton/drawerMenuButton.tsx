@@ -9,7 +9,7 @@ interface IDrawerMenuButton {
     page: string
 }
 
-export const DrawerMenuButton: FC<IDrawerMenuButton> = ({ page, pageName }) => {
+export const DrawerMenuButton: FC<IDrawerMenuButton> = React.memo(({ page, pageName }) => {
 
     const navigation = useNavigation<any>()
 
@@ -24,4 +24,4 @@ export const DrawerMenuButton: FC<IDrawerMenuButton> = ({ page, pageName }) => {
         </TouchableHighlight>
 
     )
-}
+})

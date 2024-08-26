@@ -1,15 +1,16 @@
-import { View, Text, Image } from 'react-native'
 import React, { useState } from 'react'
+import { View, Text, Image } from 'react-native'
 import { linkedinLogo } from 'assets'
-import { CustomButton, LoginInput } from 'components'
+import { CustomButton, Icon, LoginInput } from 'components'
 import style from './style'
-import Icon from 'components/icon/icon'
+import { useNavigation } from '@react-navigation/native'
 
-const ContactInfoScreen = () => {
-
+export const ContactInfoScreen = () => {
+    const navigation = useNavigation<any>()
     const [rememberMe, setRememberMe] = useState(true);
 
-    const toggleRememberMe = () => setRememberMe(prev => !prev);
+    const toggleRememberMe = () => setRememberMe(prev => !prev)
+    const handleButton = () => navigation.navigate("VerificationCodeScreen")
 
     return (
         <View style={style.container}>
@@ -18,9 +19,7 @@ const ContactInfoScreen = () => {
             <View style={style.inputView}>
                 <LoginInput placeholder='E-posta veya Telefon*' />
                 <LoginInput placeholder='Şifre' />
-                <Text style={style.passwordInfo}>
-                    6 veya daha fazla karakter
-                </Text>
+                <Text style={style.passwordInfo}>6 veya daha fazla karakter</Text>
             </View>
             <View style={style.rememberMeContainer}>
                 <Icon
@@ -32,9 +31,7 @@ const ContactInfoScreen = () => {
                 <Text style={style.rememberMeText}>Beni hatırla.</Text>
                 <Text style={style.moreInfoText}> Daha fazla bilgi edinin</Text>
             </View>
-            <CustomButton title='Devam Et' />
+            <CustomButton title='Devam Et' onPress={handleButton} />
         </View>
     )
 }
-
-export default React.memo(ContactInfoScreen)

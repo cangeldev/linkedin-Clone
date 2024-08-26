@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import colors from 'assets/colors/colors'
-import { TabBarButton } from 'components'
-import PostModal from 'screens/bottomTabScreens/post/postModal'
+import { Header, TabBarButton } from 'components'
 import { screens } from 'components/getIcon/getIcon'
+import { PostModal } from 'screens/bottomTabScreens'
 
-const TabNavigation = () => {
+export const TabNavigation = React.memo(() => {
 
     const Tab = createBottomTabNavigator()
     const [isModalVisible, setIsModalVisible] = useState(false)
@@ -16,14 +16,17 @@ const TabNavigation = () => {
         <>
             <PostModal isVisible={isModalVisible} onClose={handleModalClose} />
             <Tab.Navigator
-                screenOptions={({ route }) => ({
+                screenOptions={({ route, navigation }) => ({
+                    headerStyle: { height: 40 },
+                    headerLeft: () => null,
+                    headerTitle: () => <Header navigation={navigation} />,
                     tabBarButton: (props) =>
                         route.name === 'PostScreen' ? (
                             <TabBarButton {...props} onPress={handlePostButtonPress} />
                         ) : (
                             <TabBarButton {...props} />
                         ),
-                    headerShown: false,
+
                     tabBarActiveTintColor: colors.black,
                     tabBarInactiveTintColor: colors.grey,
                     tabBarLabelStyle: {
@@ -45,6 +48,4 @@ const TabNavigation = () => {
             </Tab.Navigator>
         </>
     )
-}
-
-export default React.memo(TabNavigation)
+})

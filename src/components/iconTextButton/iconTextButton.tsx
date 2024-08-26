@@ -8,7 +8,7 @@ interface IiconTextButton {
     title: string
 }
 
-export const IconTextButton: FC<IiconTextButton> = ({ icon, title }) => {
+export const IconTextButton: FC<IiconTextButton> = React.memo(({ icon, title }) => {
     return (
         <TouchableHighlight underlayColor={colors.lightGrey} onPress={() => console.log("first")}>
             <View style={style.container}>
@@ -19,4 +19,4 @@ export const IconTextButton: FC<IiconTextButton> = ({ icon, title }) => {
             </View>
         </TouchableHighlight>
     )
-}
+})

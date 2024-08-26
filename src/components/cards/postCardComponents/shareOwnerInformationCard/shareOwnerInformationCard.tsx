@@ -1,14 +1,14 @@
 import React, { FC } from 'react'
 import { View, Text, Image, TouchableOpacity } from 'react-native'
 import styles from './style'
-import Icon from 'components/icon/icon'
+import { Icon } from 'components'
 
 interface IShareOwnerInformationCard {
     sharingName: string
     sharingImage: any
 }
 
-const ShareOwnerInformationCard: FC<IShareOwnerInformationCard> = ({ sharingImage, sharingName }) => {
+export const ShareOwnerInformationCard: FC<IShareOwnerInformationCard> = React.memo(({ sharingImage, sharingName }) => {
     return (
         <View style={styles.cardContainer}>
             <Image source={sharingImage} style={styles.profileImage} />
@@ -31,6 +31,4 @@ const ShareOwnerInformationCard: FC<IShareOwnerInformationCard> = ({ sharingImag
             </TouchableOpacity>
         </View>
     )
-}
-
-export default React.memo(ShareOwnerInformationCard)
+})

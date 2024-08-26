@@ -3,14 +3,14 @@ import { Modal, View, Text, Image, TouchableOpacity, TextInput } from 'react-nat
 import styles from './style'
 import { profileExample } from 'assets'
 import colors from 'assets/colors/colors'
-import Icon from 'components/icon/icon'
+import { Icon } from 'components'
 
 interface PostModalProps {
     isVisible: boolean
     onClose: () => void
 }
 
-const PostModal: React.FC<PostModalProps> = ({ isVisible, onClose }) => {
+export const PostModal: React.FC<PostModalProps> = React.memo(({ isVisible, onClose }) => {
     const [postContent, setPostContent] = useState<string>('')
     const isPostButtonDisabled = postContent.trim().length === 0
 
@@ -55,6 +55,4 @@ const PostModal: React.FC<PostModalProps> = ({ isVisible, onClose }) => {
             </View>
         </Modal>
     )
-}
-
-export default React.memo(PostModal)
+})

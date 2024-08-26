@@ -1,11 +1,9 @@
 import React from 'react'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import { DrawerContentPage } from 'screens/pages'
-import stackNavigation from './stackNavigation'
+import { StackNavigation } from 'navigation'
 
-
-
-const DrawerNavigation = () => {
+export const DrawerNavigation = React.memo(() => {
 
     const Drawer = createDrawerNavigator()
 
@@ -13,9 +11,7 @@ const DrawerNavigation = () => {
         <Drawer.Navigator
             screenOptions={{ headerShown: false }}
             drawerContent={() => <DrawerContentPage />}>
-            <Drawer.Screen name="StackNavigation" component={stackNavigation} />
+            <Drawer.Screen name="StackNavigation" component={StackNavigation} />
         </Drawer.Navigator>
     )
-}
-
-export default React.memo(DrawerNavigation)
+})

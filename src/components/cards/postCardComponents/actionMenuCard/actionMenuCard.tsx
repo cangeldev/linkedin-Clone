@@ -1,11 +1,8 @@
 import React, { useMemo } from 'react'
 import { View, Text, FlatList, Dimensions } from 'react-native'
 import style from './style'
-import colors from 'assets/colors/colors'
-import { Divider } from 'components/divider/divider'
-import Icon from 'components/icon/icon'
+import { Divider, Icon } from 'components'
 
-// List of items
 const actionItems = [
     {
         label: "Beğendim",
@@ -29,7 +26,7 @@ const actionItems = [
     }
 ]
 
-const ActionMenuCard = () => {
+export const ActionMenuCard = React.memo(() => {
     // Calculate item width for FlatList
     const screenWidth = Dimensions.get('window').width
     const itemWidth = useMemo(() => screenWidth / actionItems.length, [screenWidth])
@@ -40,7 +37,7 @@ const ActionMenuCard = () => {
 
         return (
             <View style={[style.iconContainer, { width: itemWidth }]}>
-                <Icon type={iconType} name={iconName} style={{ color: colors.darkGrey, fontSize: 18 }} />
+                <Icon type={iconType} name={iconName} style={style.icon} />
                 <Text style={style.iconLabel}>{label}</Text>
             </View>
         )
@@ -58,6 +55,4 @@ const ActionMenuCard = () => {
             />
         </View>
     )
-}
-
-export default React.memo(ActionMenuCard)
+})

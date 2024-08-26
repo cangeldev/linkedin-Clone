@@ -1,7 +1,7 @@
 import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import BootSplash from "react-native-bootsplash"
-import DrawerNavigation from 'navigation/drawerNavigation'
+import { DrawerNavigation } from 'navigation'
 
 const Container = () => {
 

@@ -1,10 +1,14 @@
-import { View, Text, Image } from 'react-native'
 import React from 'react'
+import { View, Text, Image } from 'react-native'
 import style from './style'
 import { linkedinLogo } from 'assets'
 import { CustomButton, LoginInput } from 'components'
+import { useNavigation } from '@react-navigation/native'
 
-const UserInfoScreen = () => {
+export const UserInfoScreen = () => {
+    const navigation = useNavigation<any>()
+    const handleButton = () => navigation.navigate("ContactInfoScreen")
+
     return (
         <View style={style.container}>
             <Image source={linkedinLogo} style={style.logo} />
@@ -13,11 +17,9 @@ const UserInfoScreen = () => {
                 <LoginInput placeholder='Ad*' />
                 <LoginInput placeholder='Soyadı*' />
             </View>
-            <View >
-                <CustomButton title='Devam Et' />
+            <View>
+                <CustomButton title='Devam Et' onPress={handleButton} />
             </View>
         </View>
     )
 }
-
-export default React.memo(UserInfoScreen)

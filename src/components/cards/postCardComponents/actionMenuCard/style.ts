@@ -13,6 +13,10 @@ const style = StyleSheet.create({
         color: colors.darkGrey,
         fontSize: 12,
         fontWeight: '500'
+    },
+    icon: {
+        color: colors.darkGrey,
+        fontSize: 18
     }
 })
 

@@ -1,11 +1,7 @@
 import React, { FC } from 'react'
 import { View } from 'react-native'
 import styles from './style'
-import ContentCard from '../contentCard/contentCard'
-import ReactionsAndCommentsCard from '../reactionsAndCommentsCard/reactionsAndCommentsCard'
-import ActionMenuCard from '../actionMenuCard/actionMenuCard'
-import ShareOwnerInformationCard from '../shareOwnerInformationCard/shareOwnerInformationCard'
-import ReactingPersonInformationCard from '../reactingPersonInformationCard/reactingPersonInformationCard'
+import { ReactingPersonInformationCard, ShareOwnerInformationCard, ActionMenuCard, ReactionsAndCommentsCard, ContentCard } from 'components/cards/postCardComponents'
 
 interface IPostCardComponents {
     reactionName?: string
@@ -14,7 +10,7 @@ interface IPostCardComponents {
     sharingImage: any
 }
 
-const PostCardComponents: FC<IPostCardComponents> = ({
+export const PostCardComponents: FC<IPostCardComponents> = React.memo(({
     reactionName,
     reactionImage,
     sharingName,
@@ -35,6 +31,4 @@ const PostCardComponents: FC<IPostCardComponents> = ({
             <ActionMenuCard />
         </View>
     )
-}
-
-export default React.memo(PostCardComponents)
+})

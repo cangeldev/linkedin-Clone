@@ -1,30 +1,25 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
-import { Notification } from 'screens/bottomTabScreens'
 import { GroupsPage, SavedPostsPage } from 'screens/pages'
-import tabNavigation from './tabNavigation'
-import { Header } from 'components'
+import { ContactInfoScreen, ProfilePictureSettingsScreen, UserInfoScreen, VerificationCodeScreen } from 'screens/signInScreens'
+import { LoginScreen, WelcomeScreen } from 'screens'
+import { TabNavigation } from 'navigation'
 
-
-
-const StackNavigation = () => {
-
+export const StackNavigation = React.memo(() => {
     const Stack = createStackNavigator()
 
     return (
         <Stack.Navigator initialRouteName='TabNavigation'
-            screenOptions={({ navigation }) => ({
-                headerStyle: { height: 40 },
-                headerLeft: () => null,
-                headerTitle: () => <Header navigation={navigation} />
-            })}
-        >
-            <Stack.Screen name="TabNavigation" component={tabNavigation} />
-            <Stack.Screen name="NotificationScreen" component={Notification} />
+            screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="TabNavigation" component={TabNavigation} />
+            <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
+            <Stack.Screen name="LoginScreen" component={LoginScreen} />
+            <Stack.Screen name="UserInfoScreen" component={UserInfoScreen} />
+            <Stack.Screen name="ContactInfoScreen" component={ContactInfoScreen} />
+            <Stack.Screen name="VerificationCodeScreen" component={VerificationCodeScreen} />
+            <Stack.Screen name="ProfilePictureSettingsScreen" component={ProfilePictureSettingsScreen} />
             <Stack.Screen name="GroupsPage" component={GroupsPage} />
             <Stack.Screen name="SavedPostsPage" component={SavedPostsPage} />
         </Stack.Navigator>
     )
-}
-
-export default React.memo(StackNavigation)
+})

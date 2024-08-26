@@ -2,7 +2,7 @@ import { View } from 'react-native'
 import React from 'react'
 import style from './style'
 import { profileExample } from 'assets'
-import PostCardComponents from 'components/cards/postCardComponents/postCardComponents/postCardComponents'
+import { PostCardComponents } from 'components/cards/postCardComponents'
 
 export const Home = () => {
 

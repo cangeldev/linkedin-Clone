@@ -1,10 +1,13 @@
-import { View, Text } from 'react-native'
 import React from 'react'
+import { View, Text } from 'react-native'
 import styles from './style'
-import { CustomButton, LoginInput } from 'components'
-import SignInHeader from 'components/signInHeader/signInHeader'
+import { CustomButton, LoginInput, SignInHeader } from 'components'
+import { useNavigation } from '@react-navigation/native'
 
-const VerificationCodeScreen = () => {
+export const VerificationCodeScreen = () => {
+    const navigation = useNavigation<any>()
+    const handleButton = () => navigation.navigate("ProfilePictureSettingsScreen")
+
     return (
         <View style={styles.container}>
             <SignInHeader title='Doğrulama kodunu gir' />
@@ -15,11 +18,11 @@ const VerificationCodeScreen = () => {
             </Text>
             <LoginInput placeholder='6 haneli kod*' />
             <View style={styles.footer}>
-                <CustomButton title='İleri' />
-                <Text onPress={() => console.log("Sonradan eklenecek")} style={styles.resendCode}>Kodu yeniden gönder</Text>
+                <CustomButton title='İleri' onPress={handleButton} />
+                <Text onPress={() => console.log("Sonradan eklenecek")} style={styles.resendCode}>
+                    Kodu yeniden gönder
+                </Text>
             </View>
         </View>
     )
 }
-
-export default React.memo(VerificationCodeScreen)

@@ -9,7 +9,7 @@ interface ITabBarButton {
     accessibilityState?: any
 }
 
-export const TabBarButton: FC<ITabBarButton> = ({ children, onPress, accessibilityState }) => {
+export const TabBarButton: FC<ITabBarButton> = React.memo(({ children, onPress, accessibilityState }) => {
     const isActive = accessibilityState?.selected
 
     return (
@@ -24,7 +24,4 @@ export const TabBarButton: FC<ITabBarButton> = ({ children, onPress, accessibili
             {children}
         </TouchableHighlight>
     )
-}
-
-export default React.memo(TabBarButton)
-
+})

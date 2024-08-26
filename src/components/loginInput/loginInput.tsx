@@ -1,13 +1,13 @@
 import { View, TextInput } from 'react-native'
 import React, { FC, useState } from 'react'
 import style from './style'
-import Icon from 'components/icon/icon'
+import { Icon } from 'components'
 
 interface ILoginInput {
     placeholder: string
 }
 
-export const LoginInput: FC<ILoginInput> = ({ placeholder }) => {
+export const LoginInput: FC<ILoginInput> = React.memo(({ placeholder }) => {
     const [visiblePassword, setVisiblePassword] = useState(true)
 
     return (
@@ -23,4 +23,4 @@ export const LoginInput: FC<ILoginInput> = ({ placeholder }) => {
             }
         </View >
     )
-}
+})

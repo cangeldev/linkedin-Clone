@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react'
 import { Text, View } from 'react-native'
 import styles from './style'
 
-const ContentCard = () => {
+export const ContentCard = React.memo(() => {
     const [isTextExpanded, setIsTextExpanded] = useState(false)
     const [hasMoreText, setHasMoreText] = useState(false)
 
@@ -33,6 +33,4 @@ const ContentCard = () => {
             )}
         </View>
     )
-}
-
-export default React.memo(ContentCard)
+})

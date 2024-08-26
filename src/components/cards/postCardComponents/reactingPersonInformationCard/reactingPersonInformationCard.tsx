@@ -2,17 +2,14 @@
 import React, { FC } from 'react'
 import { View, Text, Image } from 'react-native'
 import styles from './style'
-import { Divider } from 'components/divider/divider'
-import IconM from 'react-native-vector-icons/MaterialCommunityIcons'
+import { Divider, Icon } from 'components'
 
 interface IReactingPersonInformationCard {
     reactionName?: string
     reactionImage?: any
 }
 
-const Icon = ({ name }: { name: string }) => <IconM name={name} style={styles.icon} />
-
-const ReactingPersonInformationCard: FC<IReactingPersonInformationCard> = ({ reactionImage, reactionName }) => {
+export const ReactingPersonInformationCard: FC<IReactingPersonInformationCard> = React.memo(({ reactionImage, reactionName }) => {
     return (
         <View style={styles.cardContainer}>
             <View style={styles.contentContainer}>
@@ -26,13 +23,11 @@ const ReactingPersonInformationCard: FC<IReactingPersonInformationCard> = ({ rea
                     </Text>
                 </View>
                 <View style={styles.iconContainer}>
-                    <Icon name="dots-vertical" />
-                    <Icon name="close" />
+                    <Icon name='dots-vertical' type='MaterialCommunityIcons' style={styles.icon} />
+                    <Icon name='close' type='MaterialCommunityIcons' style={styles.icon} />
                 </View>
             </View>
             <Divider />
         </View>
     )
-}
-
-export default React.memo(ReactingPersonInformationCard)
+})

@@ -2,13 +2,11 @@ import React, { useState } from 'react'
 import { View, Text, Image, KeyboardAvoidingView, ScrollView, Platform } from 'react-native'
 import style from './style'
 import { apple, facebook, google, linkedinLogo } from 'assets'
-import { LoginInput, CustomButton } from 'components'
-import Icon from 'components/icon/icon'
+import { LoginInput, CustomButton, Icon } from 'components'
 
 export const LoginScreen = () => {
-    const [rememberMe, setRememberMe] = useState(true);
-
-    const toggleRememberMe = () => setRememberMe(prev => !prev);
+    const [rememberMe, setRememberMe] = useState(true)
+    const toggleRememberMe = () => setRememberMe(prev => !prev)
 
     return (
         <KeyboardAvoidingView
@@ -28,7 +26,7 @@ export const LoginScreen = () => {
                     <CustomButton
                         key={platform}
                         title={`${platform} ile oturum açın`}
-                        icon={{ google: google, apple: apple, facebook: facebook }[platform.toLowerCase()]}
+                        icon={{ google, apple, facebook }[platform.toLowerCase()]}
                     />
                 ))}
                 <View style={style.separatorContainer}>
@@ -54,3 +52,4 @@ export const LoginScreen = () => {
         </KeyboardAvoidingView>
     )
 }
+

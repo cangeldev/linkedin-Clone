@@ -4,17 +4,18 @@ import style from './style'
 
 interface ICustomButton {
     title: string
-    icon?: any
+    icon?: any,
+    onPress?: () => void
 }
 
-export const CustomButton: FC<ICustomButton> = ({ title, icon }) => {
+export const CustomButton: FC<ICustomButton> = React.memo(({ title, icon, onPress }) => {
     return (
-        <TouchableOpacity style={style.buttonContainer}>
+        <TouchableOpacity onPress={onPress} style={style.buttonContainer}>
             <Text style={icon ? style.buttonTextWithIcon : style.buttonText}>
                 {icon && <Image source={icon} style={style.icon} />}
                 {icon && " "}
                 {title}
             </Text>
         </TouchableOpacity>
-    );
-};
+    )
+})

@@ -3,7 +3,7 @@ import React from 'react'
 import { clapping, heart, idea, laughing, like, support } from 'assets'
 import style from './style'
 
-const ReactionsAndCommentsCard = () => {
+export const ReactionsAndCommentsCard = React.memo(() => {
     const reactionList = [
         { image: like },
         { image: clapping },
@@ -30,6 +30,4 @@ const ReactionsAndCommentsCard = () => {
             <Text style={style.comment}>28 yorum</Text>
         </View>
     )
-}
-
-export default React.memo(ReactionsAndCommentsCard)
+})

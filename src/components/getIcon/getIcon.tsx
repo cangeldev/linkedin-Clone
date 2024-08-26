@@ -1,6 +1,6 @@
 import React from 'react'
 import { Home, Jobs, MyNetwork, Notification, Post } from 'screens/bottomTabScreens'
-import Icon from 'components/icon/icon'
+import { Icon } from 'components'
 
 const getIcon = (name: any, IconComponent: any, size = 19,) => ({ color }: any) => (
     <Icon type={IconComponent} name={name} style={{ fontSize: size, color: color }} />
