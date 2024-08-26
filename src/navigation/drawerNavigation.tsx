@@ -1,22 +1,19 @@
 import React from 'react'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import { DrawerContentPage } from 'screens/pages'
-import { Header } from 'components'
-import tabNavigation from './tabNavigation'
+import stackNavigation from './stackNavigation'
 
-const Drawer = createDrawerNavigator()
+
 
 const DrawerNavigation = () => {
+
+    const Drawer = createDrawerNavigator()
+
     return (
         <Drawer.Navigator
-            drawerContent={() => <DrawerContentPage />}
-            screenOptions={({ navigation }) => ({
-                headerStyle: { height: 40 },
-                headerLeft: () => null,
-                headerTitle: () => <Header navigation={navigation} />
-            })}
-        >
-            <Drawer.Screen name="TabNavigation" component={tabNavigation} />
+            screenOptions={{ headerShown: false }}
+            drawerContent={() => <DrawerContentPage />}>
+            <Drawer.Screen name="StackNavigation" component={stackNavigation} />
         </Drawer.Navigator>
     )
 }

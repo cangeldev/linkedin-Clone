@@ -1,6 +1,5 @@
 import React from 'react'
-import { Jobs, MyNetwork, Notification, Post } from 'screens/bottomTabScreens'
-import stackNavigation from 'navigation/stackNavigation'
+import { Home, Jobs, MyNetwork, Notification, Post } from 'screens/bottomTabScreens'
 import Icon from 'components/icon/icon'
 
 const getIcon = (name: any, IconComponent: any, size = 19,) => ({ color }: any) => (
@@ -9,8 +8,8 @@ const getIcon = (name: any, IconComponent: any, size = 19,) => ({ color }: any) 
 
 const screens = [
     {
-        name: "StackNavigation",
-        component: stackNavigation,
+        name: "Home",
+        component: Home,
         options: {
             title: "Ana Sayfa",
             tabBarIcon: getIcon("house-chimney", "FontAwesome6")

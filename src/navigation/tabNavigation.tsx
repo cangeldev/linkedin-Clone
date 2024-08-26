@@ -5,11 +5,10 @@ import { TabBarButton } from 'components'
 import PostModal from 'screens/bottomTabScreens/post/postModal'
 import { screens } from 'components/getIcon/getIcon'
 
-const Tab = createBottomTabNavigator()
-
 const TabNavigation = () => {
-    const [isModalVisible, setIsModalVisible] = useState(false)
 
+    const Tab = createBottomTabNavigator()
+    const [isModalVisible, setIsModalVisible] = useState(false)
     const handleModalClose = () => setIsModalVisible(false)
     const handlePostButtonPress = () => setIsModalVisible(true)
 

@@ -2,12 +2,6 @@ import Container from 'container/container'
 import React, { useEffect } from 'react'
 import { Platform, StatusBar } from 'react-native'
 import BootSplash from "react-native-bootsplash"
-import { LoginScreen, } from 'screens/loginScreen/loginScreen'
-import ContactInfoScreen from 'screens/signInScreens/contactInfoScreen/contactInfoScreen'
-import ProfilePictureSettingsScreen from 'screens/signInScreens/profilePictureSettingsScreen/profilePictureSettingsScreen'
-import UserInfoScreen from 'screens/signInScreens/userInfoScreen/userInfoScreen'
-import VerificationCodeScreen from 'screens/signInScreens/verificationCodeScreen/verificationCodeScreen'
-
 
 const App = () => {
 
@@ -28,14 +22,7 @@ const App = () => {
   }
 
   return (
-    //<Container />
-    //<WelcomeScreen />
-    //<LoginScreen />
-    <UserInfoScreen />
-    //<ContactInfoScreen />
-    //<ProfilePictureSettingsScreen />
-    //<VerificationCodeScreen />
-
+    <Container />
   )
 }
 
