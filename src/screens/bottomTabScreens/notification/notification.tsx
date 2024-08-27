@@ -1,60 +1,41 @@
-import { TabViewButton } from 'components'
 import React, { useState } from 'react'
-import { View, Text, useWindowDimensions } from 'react-native'
+import { View, useWindowDimensions } from 'react-native'
 import { TabView, SceneMap } from 'react-native-tab-view'
+import { TabViewButton } from 'components'
 import style from './style'
+import { AllNotifications, MentionsNotifications, MyPostsNotifications } from './tabViewScreens'
 
-const FirstRoute = () => (
-    <View style={[style.container, { backgroundColor: 'white' }]}>
-        <Text style={style.text}>Chats</Text>
-    </View>
-)
-
-const SecondRoute = () => (
-    <View style={[style.container, { backgroundColor: '#673ab7' }]}>
-        <Text style={style.text}>Status</Text>
-    </View>
-)
-
-const ThirdRoute = () => (
-    <View style={[style.container, { backgroundColor: '#4caf50' }]}>
-        <Text style={style.text}>Calls</Text>
-    </View>
-)
+type Route = {
+    key: string
+    title: string
+}
 
 export const Notification: React.FC = () => {
     const layout = useWindowDimensions()
-    const [index, setIndex] = useState<number>(0)
-    const [routes] = useState<{ key: string; title: string }[]>([
-        { key: 'first', title: 'Chats' },
-        { key: 'second', title: 'Status' },
-        { key: 'third', title: 'Calls' },
+    const [index, setIndex] = useState<number>(0);
+    const [routes] = useState<Route[]>([
+        { key: 'first', title: 'Tümü' },
+        { key: 'second', title: 'Gönderilerim' },
+        { key: 'third', title: 'Bahsetmeler' },
     ]);
 
     const renderScene = SceneMap({
-        first: FirstRoute,
-        second: SecondRoute,
-        third: ThirdRoute,
+        first: AllNotifications,
+        second: MyPostsNotifications,
+        third: MentionsNotifications,
     });
 
     return (
         <View style={style.container}>
             <View style={style.header}>
-                <TabViewButton
-                    onPress={() => setIndex(0)}
-                    isActive={index === 0}
-                    label="Tümü"
-                />
-                <TabViewButton
-                    onPress={() => setIndex(1)}
-                    isActive={index === 1}
-                    label="Gönderilerim"
-                />
-                <TabViewButton
-                    onPress={() => setIndex(2)}
-                    isActive={index === 2}
-                    label="Bahsetmeler"
-                />
+                {routes.map((route, i) => (
+                    <TabViewButton
+                        key={route.key}
+                        onPress={() => setIndex(i)}
+                        isActive={index === i}
+                        label={route.title}
+                    />
+                ))}
             </View>
             <TabView
                 navigationState={{ index, routes }}
@@ -66,4 +47,3 @@ export const Notification: React.FC = () => {
         </View>
     )
 }
-
