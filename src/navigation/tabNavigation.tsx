@@ -16,6 +16,7 @@ export const TabNavigation = React.memo(() => {
         <>
             <PostModal isVisible={isModalVisible} onClose={handleModalClose} />
             <Tab.Navigator
+                initialRouteName='NotificationScreen'
                 screenOptions={({ route, navigation }) => ({
                     headerStyle: { height: 40 },
                     headerLeft: () => null,
