@@ -1,31 +1,31 @@
-import colors from 'assets/colors/colors'
+import { TabViewButton } from 'components'
 import React, { useState } from 'react'
-import { View, Text, StyleSheet, useWindowDimensions, TouchableOpacity } from 'react-native'
+import { View, Text, useWindowDimensions } from 'react-native'
 import { TabView, SceneMap } from 'react-native-tab-view'
-
+import style from './style'
 
 const FirstRoute = () => (
-    <View style={[styles.container, { backgroundColor: '#ff4081' }]}>
-        <Text style={styles.text}>Chats</Text>
+    <View style={[style.container, { backgroundColor: 'white' }]}>
+        <Text style={style.text}>Chats</Text>
     </View>
 )
 
 const SecondRoute = () => (
-    <View style={[styles.container, { backgroundColor: '#673ab7' }]}>
-        <Text style={styles.text}>Status</Text>
+    <View style={[style.container, { backgroundColor: '#673ab7' }]}>
+        <Text style={style.text}>Status</Text>
     </View>
 )
 
 const ThirdRoute = () => (
-    <View style={[styles.container, { backgroundColor: '#4caf50' }]}>
-        <Text style={styles.text}>Calls</Text>
+    <View style={[style.container, { backgroundColor: '#4caf50' }]}>
+        <Text style={style.text}>Calls</Text>
     </View>
 )
 
-export const Notification = () => {
+export const Notification: React.FC = () => {
     const layout = useWindowDimensions()
-    const [index, setIndex] = useState(0)
-    const [routes] = useState([
+    const [index, setIndex] = useState<number>(0)
+    const [routes] = useState<{ key: string; title: string }[]>([
         { key: 'first', title: 'Chats' },
         { key: 'second', title: 'Status' },
         { key: 'third', title: 'Calls' },
@@ -37,78 +37,33 @@ export const Notification = () => {
         third: ThirdRoute,
     });
 
-    const getButtonStyle = (tabIndex: any) => (
-        index === tabIndex ? styles.activeButton : styles.inactiveButton
-    );
-
-    const getTextStyle = (tabIndex: any) => (
-        index === tabIndex ? styles.activeText : styles.inactiveText
-    );
-
     return (
-        <View style={styles.container}>
-            <View style={styles.header}>
-                <TouchableOpacity onPress={() => setIndex(0)} style={getButtonStyle(0)}>
-                    <Text style={getTextStyle(0)}>Tümü</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => setIndex(1)} style={getButtonStyle(1)}>
-                    <Text style={getTextStyle(1)}>Gönderilerim</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => setIndex(2)} style={getButtonStyle(2)}>
-                    <Text style={getTextStyle(2)}>Bahsetmeler</Text>
-                </TouchableOpacity>
+        <View style={style.container}>
+            <View style={style.header}>
+                <TabViewButton
+                    onPress={() => setIndex(0)}
+                    isActive={index === 0}
+                    label="Tümü"
+                />
+                <TabViewButton
+                    onPress={() => setIndex(1)}
+                    isActive={index === 1}
+                    label="Gönderilerim"
+                />
+                <TabViewButton
+                    onPress={() => setIndex(2)}
+                    isActive={index === 2}
+                    label="Bahsetmeler"
+                />
             </View>
             <TabView
                 navigationState={{ index, routes }}
                 renderScene={renderScene}
                 onIndexChange={setIndex}
                 initialLayout={{ width: layout.width }}
-                renderTabBar={() => null} 
+                renderTabBar={() => null}
             />
         </View>
-    );
+    )
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-    header: {
-        flexDirection: 'row',
-        padding: 15,
-        backgroundColor: 'white',
-        elevation: 2,
-        borderBottomWidth: 1,
-        borderBottomColor:"yellow"
-    },
-    activeButton: {
-        fontSize: 15,
-        borderRadius: 25,
-        marginRight: 5,
-        paddingHorizontal: 12,
-        paddingVertical: 6,
-        backgroundColor: 'green',
-    },
-    inactiveButton: {
-        fontSize: 15,
-        borderRadius: 25,
-        marginRight: 5,
-        paddingHorizontal: 12,
-        paddingVertical: 6,
-        borderWidth: 1,
-        borderColor: colors.darkGrey,
-    },
-    activeText: {
-        color: 'white',
-        fontWeight: '600',
-    },
-    inactiveText: {
-        color: colors.darkGrey,
-        fontWeight: '600',
-    },
-
-    text: {
-        color: 'white',
-        fontSize: 24,
-    },
-})
