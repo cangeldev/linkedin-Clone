@@ -1,7 +1,8 @@
-import { View, Text, Image, TouchableOpacity } from 'react-native'
+import { View, Text, Image } from 'react-native'
 import React, { FC } from 'react'
 import { notificationEmpty } from 'assets'
 import styles from './style'
+import { NotificationsButton } from 'components'
 
 interface IEmptyNotificationsCard {
     notification: string
@@ -15,13 +16,11 @@ export const EmptyNotificationsCard: FC<IEmptyNotificationsCard> = React.memo(({
             <Image source={notificationEmpty} style={styles.image} />
             <Text style={styles.notification}>{notification}</Text>
             <Text style={styles.notificationInfo}>{notificationInfo}</Text>
-
             {
-                buttonTitle == "" ? <TouchableOpacity style={styles.button}>
-                    <Text style={styles.buttonText}>{buttonTitle}</Text>
-                </TouchableOpacity> : null
+                buttonTitle ? (
+                    <NotificationsButton buttonTitle={buttonTitle} />
+                ) : null
             }
-
         </View >
     )
 })

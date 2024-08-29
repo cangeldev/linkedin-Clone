@@ -12,18 +12,6 @@ export default StyleSheet.create({
         height: 130,
         marginBottom: 15
     },
-    button: {
-        borderRadius: 25,
-        paddingHorizontal: 12,
-        paddingVertical: 5,
-        borderWidth: 1,
-        borderColor: colors.darkBlue
-    },
-    buttonText: {
-        color: colors.darkBlue,
-        fontWeight: '700',
-        fontSize: 16
-    },
     notification: {
         fontSize: 23,
         color: colors.darkGrey
@@ -31,6 +19,7 @@ export default StyleSheet.create({
     notificationInfo: {
         fontSize: 15,
         marginVertical: 15,
-        color: colors.grey
+        color: colors.grey,
+        textAlign: "center"
     }
 })
