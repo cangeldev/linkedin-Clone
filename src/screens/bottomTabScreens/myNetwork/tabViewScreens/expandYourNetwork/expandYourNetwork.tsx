@@ -1,11 +1,13 @@
-import { View, Text } from 'react-native'
+import { View } from 'react-native'
 import React from 'react'
 import style from './style'
+import { MyNetworkButton } from 'components'
 
 export const ExpandYourNetwork = () => {
     return (
         <View style={style.container}>
-            <Text>expandYournetwork</Text>
+            <MyNetworkButton title='Davetiyeler (0)' />
+            <MyNetworkButton title='Ağımı yönet' />
         </View>
     )
 }
