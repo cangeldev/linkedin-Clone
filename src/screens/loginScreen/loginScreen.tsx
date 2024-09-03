@@ -3,10 +3,12 @@ import { View, Text, Image, KeyboardAvoidingView, ScrollView, Platform } from 'r
 import style from './style'
 import { apple, facebook, google, linkedinLogo } from 'assets'
 import { LoginInput, CustomButton, Icon } from 'components'
+import { signInWithEmailPassword } from 'services/firebase/firebase'
 
 export const LoginScreen = () => {
     const [rememberMe, setRememberMe] = useState(true)
     const toggleRememberMe = () => setRememberMe(prev => !prev)
+    const handleButton = () => signInWithEmailPassword("denemehesap@gmail.com", "deneme2")
 
     return (
         <KeyboardAvoidingView
@@ -47,7 +49,7 @@ export const LoginScreen = () => {
                     <Text style={style.moreInfoText}> Daha fazla bilgi edinin</Text>
                 </View>
                 <Text style={style.forgotPasswordText}>Şifrenizi mi unuttunuz?</Text>
-                <CustomButton title='Devam Et' />
+                <CustomButton onPress={handleButton} title='Devam Et' />
             </ScrollView>
         </KeyboardAvoidingView>
     )
