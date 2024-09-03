@@ -1,9 +1,10 @@
 import React, { useState, useCallback } from 'react'
-import { View, Text, Image, KeyboardAvoidingView, ScrollView, Platform } from 'react-native'
+import { View, Text, Image, KeyboardAvoidingView, ScrollView, Platform, Alert } from 'react-native'
 import style from './style'
 import { apple, facebook, google, linkedinLogo } from 'assets'
 import { LoginInput, CustomButton, Icon } from 'components'
-import { handleSignOut, signInWithEmailPassword } from 'services/firebase/firebase'
+import { handleSignOut, LoginWithEmailPassword } from 'services/firebase/firebase'
+import { useNavigation } from '@react-navigation/native'
 
 const platformIcons = {
     google,
@@ -13,9 +14,11 @@ const platformIcons = {
 
 export const LoginScreen = () => {
     const [rememberMe, setRememberMe] = useState(true)
+    const navigation = useNavigation<any>()
     const [inputValueMail, setInputValueMail] = useState('')
     const [inputValuePassword, setInputValuePassword] = useState('')
     const toggleRememberMe = useCallback(() => setRememberMe(prev => !prev), [])
+    const handleSignInText = () => navigation.navigate("UserInfoScreen")
     const handleInputChangeMail = useCallback((inputText: string) => {
         setInputValueMail(inputText)
     }, [])
@@ -26,10 +29,10 @@ export const LoginScreen = () => {
 
     const handleButton = useCallback(async () => {
         if (inputValueMail.trim() === '' || inputValuePassword.trim() === '') {
-            console.log('Hata', 'E-posta ve şifre alanlarını doldurmalısınız.')
+            Alert.alert('Hata', 'E-posta ve şifre alanlarını doldurmalısınız.')
             return
         }
-        await signInWithEmailPassword(inputValueMail, inputValuePassword)
+        await LoginWithEmailPassword(inputValueMail, inputValuePassword, navigation)
     }, [inputValueMail, inputValuePassword])
 
     const handleButton2 = useCallback(async () => {
@@ -47,7 +50,7 @@ export const LoginScreen = () => {
             >
                 <Image source={linkedinLogo} style={style.logo} />
                 <Text style={style.title}>Oturum aç</Text>
-                <Text style={style.subtitle}>
+                <Text onPress={handleSignInText} style={style.subtitle}>
                     veya <Text style={style.highlightedText}>LinkedIn'e Katılın</Text>
                 </Text>
                 {['Google', 'Apple', 'Facebook'].map(platform => (

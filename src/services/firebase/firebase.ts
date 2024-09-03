@@ -1,9 +1,10 @@
 import auth from '@react-native-firebase/auth'
 
-export const signInWithEmailPassword = async (email: string, password: string) => {
+export const LoginWithEmailPassword = async (email: string, password: string, navigation: any) => {
     try {
         await auth().signInWithEmailAndPassword(email, password)
         console.log('User account signed in!')
+        navigation.navigate("TabNavigation")
     } catch (error) {
         const firebaseError = error as Error as any
         switch (firebaseError.code) {
@@ -15,6 +16,29 @@ export const signInWithEmailPassword = async (email: string, password: string) =
                 break;
             case 'auth/invalid-email':
                 console.log('Verilen mail bilgisi yanlış!')
+                break;
+            default:
+                console.error(firebaseError.message)
+        }
+    }
+}
+export const SignUpWithEmailPassword = async (email: string, password: string, navigation: any) => {
+    try {
+        await auth()
+            .createUserWithEmailAndPassword(email, password)
+        console.log('User account signed in!')
+        navigation.navigate("ProfilePictureSettingsScreen")
+    } catch (error) {
+        const firebaseError = error as Error as any
+        switch (firebaseError.code) {
+            case 'auth/weak-password':
+                console.log('Şifreniz en az 6 karakter olmalıdır!')
+                break;
+            case 'auth/email-already-in-use':
+                console.log('Bu mail adresi daha önce kullanılmış!')
+                break;
+            case 'auth/invalid-email':
+                console.log('Lütfen geçerli bir mail adresi giriniz!')
                 break;
             default:
                 console.error(firebaseError.message)
