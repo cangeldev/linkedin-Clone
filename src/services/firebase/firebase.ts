@@ -1,20 +1,33 @@
 import auth from '@react-native-firebase/auth'
 
-export const signInWithEmailPassword = (email: string, password: string) => {
-    auth()
-        .createUserWithEmailAndPassword(email, password)
-        .then(() => {
-            console.log('User account created & signed in!');
-        })
-        .catch(error => {
-            if (error.code === 'auth/email-already-in-use') {
-                console.log('That email address is already in use!');
-            }
+export const signInWithEmailPassword = async (email: string, password: string) => {
+    try {
+        await auth().signInWithEmailAndPassword(email, password)
+        console.log('User account signed in!')
+    } catch (error) {
+        const firebaseError = error as Error as any
+        switch (firebaseError.code) {
+            case 'That email address is invalid!':
+                console.log('Bu e-posta adresi geçersiz!')
+                break;
+            case 'auth/invalid-credential':
+                console.log('Verilen kimlik bilgisi yanlış, Böyle bir kullanıcı yok!')
+                break;
+            case 'auth/invalid-email':
+                console.log('Verilen mail bilgisi yanlış!')
+                break;
+            default:
+                console.error(firebaseError.message)
+        }
+    }
+}
 
-            if (error.code === 'auth/invalid-email') {
-                console.log('That email address is invalid!');
-            }
-
-            console.error(error);
-        });
+export const handleSignOut = async () => {
+    try {
+        await auth().signOut()
+        console.log('User signed out!')
+    } catch (error) {
+        const firebaseError = error as Error;
+        console.error('Error signing out:', firebaseError.message)
+    }
 }

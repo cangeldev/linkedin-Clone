@@ -1,14 +1,40 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import { View, Text, Image, KeyboardAvoidingView, ScrollView, Platform } from 'react-native'
 import style from './style'
 import { apple, facebook, google, linkedinLogo } from 'assets'
 import { LoginInput, CustomButton, Icon } from 'components'
-import { signInWithEmailPassword } from 'services/firebase/firebase'
+import { handleSignOut, signInWithEmailPassword } from 'services/firebase/firebase'
+
+const platformIcons = {
+    google,
+    apple,
+    facebook,
+} as any
 
 export const LoginScreen = () => {
     const [rememberMe, setRememberMe] = useState(true)
-    const toggleRememberMe = () => setRememberMe(prev => !prev)
-    const handleButton = () => signInWithEmailPassword("denemehesap@gmail.com", "deneme2")
+    const [inputValueMail, setInputValueMail] = useState('')
+    const [inputValuePassword, setInputValuePassword] = useState('')
+    const toggleRememberMe = useCallback(() => setRememberMe(prev => !prev), [])
+    const handleInputChangeMail = useCallback((inputText: string) => {
+        setInputValueMail(inputText)
+    }, [])
+
+    const handleInputChangePassword = useCallback((inputText: string) => {
+        setInputValuePassword(inputText)
+    }, [])
+
+    const handleButton = useCallback(async () => {
+        if (inputValueMail.trim() === '' || inputValuePassword.trim() === '') {
+            console.log('Hata', 'E-posta ve şifre alanlarını doldurmalısınız.')
+            return
+        }
+        await signInWithEmailPassword(inputValueMail, inputValuePassword)
+    }, [inputValueMail, inputValuePassword])
+
+    const handleButton2 = useCallback(async () => {
+        await handleSignOut()
+    }, [])
 
     return (
         <KeyboardAvoidingView
@@ -28,7 +54,7 @@ export const LoginScreen = () => {
                     <CustomButton
                         key={platform}
                         title={`${platform} ile oturum açın`}
-                        icon={{ google, apple, facebook }[platform.toLowerCase()]}
+                        icon={platformIcons[platform.toLowerCase()]}
                     />
                 ))}
                 <View style={style.separatorContainer}>
@@ -36,8 +62,8 @@ export const LoginScreen = () => {
                     <Text style={style.separatorText}>veya</Text>
                     <View style={style.separatorLine} />
                 </View>
-                <LoginInput placeholder='E-posta veya Telefon' />
-                <LoginInput placeholder='Şifre' />
+                <LoginInput onInputChange={handleInputChangeMail} placeholder='E-posta veya Telefon' />
+                <LoginInput secureTextEntry onInputChange={handleInputChangePassword} placeholder='Şifre' />
                 <View style={style.rememberMeContainer}>
                     <Icon
                         type='MaterialCommunityIcons'
@@ -50,8 +76,8 @@ export const LoginScreen = () => {
                 </View>
                 <Text style={style.forgotPasswordText}>Şifrenizi mi unuttunuz?</Text>
                 <CustomButton onPress={handleButton} title='Devam Et' />
+                <CustomButton onPress={handleButton2} title='Test için sonradan kaldır' />
             </ScrollView>
         </KeyboardAvoidingView>
     )
 }
-
