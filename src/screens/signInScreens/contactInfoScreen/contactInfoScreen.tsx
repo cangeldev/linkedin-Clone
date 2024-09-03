@@ -27,7 +27,6 @@ export const ContactInfoScreen = () => {
     }, [inputValueMail, inputValuePassword])
 
     const toggleRememberMe = () => setRememberMe(prev => !prev)
-    // const handleButton = () => navigation.navigate("VerificationCodeScreen")
 
     return (
         <View style={style.container}>
