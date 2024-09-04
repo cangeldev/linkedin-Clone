@@ -9,7 +9,7 @@ export const StackNavigation = React.memo(() => {
     const Stack = createStackNavigator()
 
     return (
-        <Stack.Navigator initialRouteName='ProfilePictureSettingsScreen'
+        <Stack.Navigator initialRouteName='UserInfoScreen'
             screenOptions={{ headerShown: false }}>
             <Stack.Screen name="TabNavigation" component={TabNavigation} />
             <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
