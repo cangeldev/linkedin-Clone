@@ -1,15 +1,35 @@
 import { Text, Modal, View } from 'react-native'
-import React, { FC, useState } from 'react'
+import React, { FC } from 'react'
 import { launchImageLibrary, launchCamera, ImageLibraryOptions, CameraOptions } from 'react-native-image-picker'
 import style from './style'
+import { useDispatch } from 'react-redux'
+import { AppDispatch } from 'services/features/store'
+import { setProfileImage } from 'services/features/userSlice'
 
-interface IimagePickerModal {
+interface IImagePickerModal {
     visibleModal: boolean
     closeModal: () => void
 }
 
-export const ImagePickerModal: FC<IimagePickerModal> = ({ visibleModal, closeModal }) => {
-    const [deneme, setDeneme] = useState(null)
+export const ImagePickerModal: FC<IImagePickerModal> = ({ visibleModal, closeModal }) => {
+    const dispatch = useDispatch<AppDispatch>()
+
+    const handleImageSelection = (launchFunction: Function, options: ImageLibraryOptions | CameraOptions) => {
+        launchFunction(options, (response:any) => {
+            if (response.didCancel) {
+                console.log('User cancelled operation')
+            } else if (response.errorCode) {
+                console.log('Error: ', response.errorMessage)
+            } else {
+                const imageUri = response.assets?.[0]?.uri
+                if (imageUri) {
+                    dispatch(setProfileImage(imageUri))
+                    closeModal()
+                }
+            }
+        })
+    }
+
     const openImagePicker = () => {
         const options: ImageLibraryOptions = {
             mediaType: 'photo',
@@ -17,20 +37,7 @@ export const ImagePickerModal: FC<IimagePickerModal> = ({ visibleModal, closeMod
             maxHeight: 2000,
             maxWidth: 2000,
         }
-
-        launchImageLibrary(options, (response) => {
-            if (response.didCancel) {
-                console.log('User cancelled image picker')
-            } else if (response.errorCode) {
-                console.log('Image picker error: ', response.errorMessage)
-            } else {
-                let imageUri = response.assets?.[0]?.uri
-                if (imageUri) {
-                    setDeneme(imageUri as any)
-                    closeModal()
-                }
-            }
-        })
+        handleImageSelection(launchImageLibrary, options)
     }
 
     const handleCameraLaunch = () => {
@@ -40,20 +47,7 @@ export const ImagePickerModal: FC<IimagePickerModal> = ({ visibleModal, closeMod
             maxHeight: 2000,
             maxWidth: 2000,
         }
-
-        launchCamera(options, (response) => {
-            if (response.didCancel) {
-                console.log('User cancelled camera')
-            } else if (response.errorCode) {
-                console.log('Camera error: ', response.errorMessage)
-            } else {
-                let imageUri = response.assets?.[0]?.uri
-                if (imageUri) {
-                    setDeneme(imageUri as any)
-                    closeModal()
-                }
-            }
-        })
+        handleImageSelection(launchCamera, options)
     }
 
     return (

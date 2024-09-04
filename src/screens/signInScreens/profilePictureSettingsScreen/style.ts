@@ -19,16 +19,13 @@ export default StyleSheet.create({
         alignSelf: "center"
     },
     cameraButton: {
-        padding: 15,
         backgroundColor: "#f9fafc",
         borderRadius: 50,
         alignSelf: "center",
         borderWidth: 2,
-        borderColor: colors.lightGrey
-    },
-    cameraIcon: {
-        width: 60,
-        height: 60
+        borderColor: colors.lightGrey,
+        width: 80,
+        height: 80
     },
     userName: {
         fontSize: 24,
