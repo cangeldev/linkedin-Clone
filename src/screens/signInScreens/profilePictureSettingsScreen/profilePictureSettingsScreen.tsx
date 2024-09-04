@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
-import { View, Text, Image, TouchableOpacity } from 'react-native'
+import { View, Text, Image, TouchableOpacity,Button } from 'react-native'
 import { camera } from 'assets'
 import styles from './style'
 import { CustomButton, SignInHeader } from 'components'
 import { ImagePickerModal } from 'components/modals'
+import { useDispatch, useSelector } from 'react-redux'
+import { decrement, increment } from 'services/features/userSlice'
+import { AppDispatch, RootState } from 'services/features/store'
 
 export const ProfilePictureSettingsScreen = () => {
     const [imagePickerModal, setImagePickerModal] = useState(false)
@@ -11,6 +14,8 @@ export const ProfilePictureSettingsScreen = () => {
     const toggleImagePickerModal = () => {
         setImagePickerModal(!imagePickerModal)
     }
+    const dispatch = useDispatch<AppDispatch>();
+    const value = useSelector((state: RootState) => state.userSlice.value);
     return (
         <View style={styles.container}>
             <ImagePickerModal
@@ -25,6 +30,9 @@ export const ProfilePictureSettingsScreen = () => {
                 <Text style={styles.userName}>Deneme DenemeHesap</Text>
                 <Text style={styles.userTitle}>Yazılım Mühendisi - Fre</Text>
             </View>
+            <Text>Value: {value}</Text>
+            <Button title="Increment" onPress={() => dispatch(increment())} />
+            <Button title="Decrement" onPress={() => dispatch(decrement())} />
             <View style={styles.footer}>
                 <CustomButton title='Fotoğraf ekle' onPress={toggleImagePickerModal} />
                 <Text onPress={handleButton} style={styles.skipText}>Şimdilik geç</Text>

@@ -2,6 +2,8 @@ import Container from 'container/container'
 import React, { useEffect } from 'react'
 import { Platform, StatusBar } from 'react-native'
 import BootSplash from "react-native-bootsplash"
+import { Provider } from 'react-redux'
+import store from 'services/features/store'
 
 const App = () => {
 
@@ -22,7 +24,10 @@ const App = () => {
   }
 
   return (
-    <Container />
+    <Provider store={store}>
+      <Container />
+    </Provider>
+
   )
 }
 
