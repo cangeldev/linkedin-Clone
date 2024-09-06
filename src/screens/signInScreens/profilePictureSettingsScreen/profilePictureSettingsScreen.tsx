@@ -4,12 +4,15 @@ import styles from './style'
 import { CustomButton, ProfileImage, SignInHeader } from 'components'
 import { ImagePickerModal } from 'components/modals'
 import { camera } from 'assets'
+import { useSelector } from 'react-redux'
+import { RootState } from 'services/features/store'
+import { useNavigation } from '@react-navigation/native'
 
 export const ProfilePictureSettingsScreen = () => {
-
+    const navigation = useNavigation<any>()
+    const { job, name, title, profileImage } = useSelector((state: RootState) => state.userSlice)
     const [imagePickerModal, setImagePickerModal] = useState(false)
-    const handleButton = () => console.log("first")
-
+    const handleButton = () => navigation.navigate("TabNavigation")
     const toggleImagePickerModal = () => {
         setImagePickerModal(!imagePickerModal)
     }
@@ -25,12 +28,15 @@ export const ProfilePictureSettingsScreen = () => {
                 <View style={styles.cameraButton}>
                     <ProfileImage defaultImage={camera} />
                 </View>
-                <Text style={styles.userName}>Deneme DenemeHesap</Text>
-                <Text style={styles.userTitle}>Yazılım Mühendisi - Fre</Text>
+                <Text style={styles.userName}>{name}</Text>
+                <Text style={styles.userTitle}>{job}-{title}</Text>
+
             </View>
             <View style={styles.footer}>
-                <CustomButton title='Fotoğraf ekle' onPress={toggleImagePickerModal} />
-                <Text onPress={handleButton} style={styles.skipText}>Şimdilik geç</Text>
+                <CustomButton title={profileImage == null ? 'Fotoğraf ekle' : "İleri"} onPress={profileImage == null ? toggleImagePickerModal : handleButton} />
+                {
+                    profileImage == null ? <Text onPress={handleButton} style={styles.skipText}>Şimdilik geç</Text> : null
+                }
             </View>
         </View>
     )

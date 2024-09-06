@@ -6,7 +6,7 @@ import colors from 'assets/colors/colors'
 import { CustomButton, LoginInput } from 'components'
 import { useNavigation } from '@react-navigation/native'
 import { useDispatch } from 'react-redux'
-import { setJob, setLocation } from 'services/features/userSlice'
+import { setJob, setLocation, setTitle } from 'services/features/userSlice'
 
 export const JobInfoScreen = () => {
     const dispatch = useDispatch()
@@ -15,6 +15,7 @@ export const JobInfoScreen = () => {
     const toggleSwitch = () => setIsEnabled(prevState => !prevState)
     const [inputValueLocation, setInputValueLocation] = useState('')
     const [inputValueJob, setInputValueJob] = useState('')
+    const [inputValueTitle, setInputValueTitle] = useState('')
     const handleInputChangeLocation = useCallback((inputText: string) => {
         setInputValueLocation(inputText)
     }, [])
@@ -22,18 +23,22 @@ export const JobInfoScreen = () => {
     const handleInputChangeJob = useCallback((inputText: string) => {
         setInputValueJob(inputText)
     }, [])
+    const handleInputChangeTitle = useCallback((inputText: string) => {
+        setInputValueTitle(inputText)
+    }, [])
 
     const handleButton = useCallback(async () => {
-        if (inputValueLocation.trim() === '' || inputValueJob.trim() === '') {
+        if (inputValueLocation.trim() === '' || inputValueJob.trim() === '' || inputValueTitle.trim() === '') {
             Alert.alert('Hata', 'Lütfen boş alanları doldurun.')
             return
         }
         else {
             dispatch(setJob(inputValueJob))
             dispatch(setLocation(inputValueLocation))
+            dispatch(setTitle(inputValueTitle))
             navigation.navigate("ProfilePictureSettingsScreen")
         }
-    }, [inputValueLocation, inputValueJob])
+    }, [inputValueLocation, inputValueJob, inputValueTitle])
 
     return (
         <View style={styles.container}>
@@ -59,8 +64,8 @@ export const JobInfoScreen = () => {
             </View>
             <View style={styles.inputSection}>
                 <LoginInput onInputChange={handleInputChangeLocation} placeholder='Konum*' />
-                <LoginInput onInputChange={handleInputChangeJob} placeholder={isEnabled ? 'En yeni iş unvanı*' : 'Üniversite veya okul*'} />
-                <LoginInput onInputChange={() => null} placeholder={isEnabled ? 'En yeni şirket*' : 'Başlangıç yılı*'} />
+                <LoginInput onInputChange={handleInputChangeJob} placeholder={isEnabled ? 'Üniversite veya okul*' : 'En yeni iş şirket*'} />
+                <LoginInput onInputChange={handleInputChangeTitle} placeholder={isEnabled ? 'Başlangıç yılı*' : 'En yeni unvanı*'} />
             </View>
             <CustomButton title='İleri' onPress={handleButton} />
         </View>

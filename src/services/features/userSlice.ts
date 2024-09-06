@@ -5,7 +5,8 @@ interface userState {
   name: string,
   surname: string
   location: string,
-  job: string
+  job: string,
+  title: string
 }
 
 const initialState: userState = {
@@ -13,7 +14,8 @@ const initialState: userState = {
   name: "",
   surname: "",
   job: "",
-  location: ""
+  location: "",
+  title: ""
 };
 
 const userSlice = createSlice({
@@ -35,9 +37,12 @@ const userSlice = createSlice({
     setJob: (state, action: PayloadAction<any>) => {
       state.job = action.payload
     },
+    setTitle: (state, action: PayloadAction<any>) => {
+      state.title = action.payload
+    },
   },
 });
 
-export const { setProfileImage, setName, setSurname, setJob, setLocation } = userSlice.actions
+export const { setProfileImage, setName, setSurname, setJob, setLocation, setTitle } = userSlice.actions
 
 export default userSlice.reducer

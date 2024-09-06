@@ -2,8 +2,8 @@ import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth'
 
 export const currentUser = (): FirebaseAuthTypes.User | null => {
     return auth().currentUser
-  }
-  
+}
+
 
 export const LoginWithEmailPassword = async (email: string, password: string, navigation: any) => {
     try {
@@ -33,7 +33,7 @@ export const SignUpWithEmailPassword = async (email: string, password: string, n
             .createUserWithEmailAndPassword(email, password)
         console.log('User account signed in!')
         await userCredential.user.sendEmailVerification();
-        navigation.navigate("ProfilePictureSettingsScreen")
+        navigation.navigate("JobInfoScreen")
     } catch (error) {
         const firebaseError = error as Error as any
         switch (firebaseError.code) {
