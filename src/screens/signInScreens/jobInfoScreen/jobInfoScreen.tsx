@@ -4,8 +4,13 @@ import { linkedinLogo } from 'assets'
 import styles from './style'
 import colors from 'assets/colors/colors'
 import { CustomButton, LoginInput } from 'components'
+import { useNavigation } from '@react-navigation/native'
+import { useDispatch } from 'react-redux'
+import { setJob, setLocation } from 'services/features/userSlice'
 
 export const JobInfoScreen = () => {
+    const dispatch = useDispatch()
+    const navigation = useNavigation<any>()
     const [isEnabled, setIsEnabled] = useState(false)
     const toggleSwitch = () => setIsEnabled(prevState => !prevState)
     const [inputValueLocation, setInputValueLocation] = useState('')
@@ -22,6 +27,11 @@ export const JobInfoScreen = () => {
         if (inputValueLocation.trim() === '' || inputValueJob.trim() === '') {
             Alert.alert('Hata', 'Lütfen boş alanları doldurun.')
             return
+        }
+        else {
+            dispatch(setJob(inputValueJob))
+            dispatch(setLocation(inputValueLocation))
+            navigation.navigate("ProfilePictureSettingsScreen")
         }
     }, [inputValueLocation, inputValueJob])
 
