@@ -1,6 +1,6 @@
 import { View, Text, Image } from 'react-native'
 import React from 'react'
-import { profileExample } from 'assets'
+import { defaultProfileImage } from 'assets'
 import { NotificationsButton } from 'components'
 import { Icon } from 'components/icon/icon'
 import styles from './style'
@@ -9,7 +9,7 @@ export const AddFriendCard = () => {
     return (
         <View style={styles.card}>
             <View style={styles.banner} />
-            <Image style={styles.profileImage} source={profileExample} />
+            <Image style={styles.profileImage} source={defaultProfileImage} />
             <Text style={styles.name}>Fatma Sena Tan</Text>
             <Text style={styles.description} numberOfLines={2}>Social Media and Digital Marketing Specialist at...afdasadasd</Text>
             <Text style={styles.profileInfo}>

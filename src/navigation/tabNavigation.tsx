@@ -5,8 +5,21 @@ import { Header, TabBarButton } from 'components'
 import { screens } from 'components/getIcon/getIcon'
 import { PostModal } from 'screens/bottomTabScreens'
 
-export const TabNavigation = React.memo(() => {
+const headerStyle = { height: 40 }
+const tabBarLabelStyle = {
+    marginTop: -10,
+    marginBottom: 4,
+    fontWeight: '500' as '100' | '200' | '300' | '400' | '500' | '600' | '700' | '800' | '900'
+}
 
+const tabBarOptions = {
+    tabBarActiveTintColor: colors.black,
+    tabBarInactiveTintColor: colors.grey,
+    tabBarLabelStyle: tabBarLabelStyle,
+    tabBarHideOnKeyboard: true,
+}
+
+export const TabNavigation = React.memo(() => {
     const Tab = createBottomTabNavigator()
     const [isModalVisible, setIsModalVisible] = useState(false)
     const handleModalClose = () => setIsModalVisible(false)
@@ -16,9 +29,9 @@ export const TabNavigation = React.memo(() => {
         <>
             <PostModal isVisible={isModalVisible} onClose={handleModalClose} />
             <Tab.Navigator
-                initialRouteName='MyNetworkScreen'
+                initialRouteName='HomeScreen'
                 screenOptions={({ route, navigation }) => ({
-                    headerStyle: { height: 40 },
+                    headerStyle: headerStyle,
                     headerLeft: () => null,
                     headerTitle: () => <Header navigation={navigation} />,
                     tabBarButton: (props) =>
@@ -27,15 +40,7 @@ export const TabNavigation = React.memo(() => {
                         ) : (
                             <TabBarButton {...props} />
                         ),
-
-                    tabBarActiveTintColor: colors.black,
-                    tabBarInactiveTintColor: colors.grey,
-                    tabBarLabelStyle: {
-                        marginTop: -10,
-                        marginBottom: 4,
-                        fontWeight: '500',
-                    },
-                    tabBarHideOnKeyboard: true,
+                    ...tabBarOptions,
                 })}
             >
                 {screens.map((screen) => (

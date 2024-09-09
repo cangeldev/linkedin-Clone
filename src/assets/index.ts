@@ -1,7 +1,7 @@
 export const logo = require("./images/logo.png")
 export const premium = require("./images/premium.png")
 export const settings = require("./images/settings.png")
-export const profileExample = require("./images/profileExample.png")
+export const defaultProfileImage = require("./images/defaultProfileImage.png")
 export const clapping = require("./images/clapping.png")
 export const heart = require("./images/heart.png")
 export const idea = require("./images/idea.png")

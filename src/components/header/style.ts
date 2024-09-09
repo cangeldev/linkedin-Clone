@@ -30,16 +30,17 @@ export default StyleSheet.create({
         paddingLeft: 27
     },
     icon: {
-        fontSize: 25,
+        fontSize: 22,
         color: colors.darkGrey,
         marginRight: 10
     },
     messageIcon: {
-        fontSize: 25,
+        fontSize: 22,
         color: colors.darkGrey
     },
     iconContainer: {
-        flexDirection: "row"
+        flexDirection: "row",
+        alignItems: "center"
     },
     searchIcon:
     {

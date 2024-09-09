@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Modal, View, Text, Image, TouchableOpacity, TextInput } from 'react-native'
 import styles from './style'
-import { profileExample } from 'assets'
+import { defaultProfileImage } from 'assets'
 import colors from 'assets/colors/colors'
 import { Icon } from 'components'
 
@@ -19,7 +19,7 @@ export const PostModal: React.FC<PostModalProps> = React.memo(({ isVisible, onCl
             <View style={styles.container}>
                 <View style={styles.header}>
                     <Icon type="AntDesign" name="close" style={styles.closeIcon} onPress={onClose} />
-                    <Image source={profileExample} style={styles.profileImage} />
+                    <Image source={defaultProfileImage} style={styles.profileImage} />
                     <Text style={styles.username}>
                         Herhangi biri{" "}
                         <Icon type="AntDesign" name="caretdown" style={styles.dropdownIcon} />

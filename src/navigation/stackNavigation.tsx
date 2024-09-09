@@ -4,11 +4,13 @@ import { GroupsPage, SavedPostsPage } from 'screens/pages'
 import { ContactInfoScreen, JobInfoScreen, ProfilePictureSettingsScreen, UserInfoScreen, VerificationCodeScreen } from 'screens/signInScreens'
 import { LoginScreen, WelcomeScreen } from 'screens'
 import { TabNavigation } from 'navigation'
+import { currentUser } from 'services/firebase/firebase'
 
 const Stack = createStackNavigator()
+const user = currentUser()
 
 export const StackNavigation = () => (
-    <Stack.Navigator initialRouteName='WelcomeScreen'
+    <Stack.Navigator initialRouteName={!user ? 'WelcomeScreen' : "TabNavigation"}
         screenOptions={{ headerShown: false }}>
         <Stack.Screen name="TabNavigation" component={TabNavigation} />
         <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
