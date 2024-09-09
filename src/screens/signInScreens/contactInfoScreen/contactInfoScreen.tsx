@@ -4,9 +4,13 @@ import { linkedinLogo } from 'assets'
 import { CustomButton, LoginInput, Icon } from 'components'
 import style from './style'
 import { useNavigation } from '@react-navigation/native'
-import { SignUpWithEmailPassword } from 'services/firebase/firebase'
+import { signUpWithEmailPassword } from 'services/firebase/firebase'
 import { useForm } from 'hooks/useForm'
+import { useDispatch } from 'react-redux'
+import { setEmail } from 'services/features/userSlice'
+
 export const ContactInfoScreen = () => {
+    const dispatch = useDispatch()
     const navigation = useNavigation<any>()
     const [formData, handleInputChange] = useForm({ email: '', password: '' })
     const [rememberMe, setRememberMe] = useState(true)
@@ -17,8 +21,13 @@ export const ContactInfoScreen = () => {
             Alert.alert('Hata', 'E-posta ve şifre alanlarını doldurmalısınız.')
             return
         }
-        await SignUpWithEmailPassword(email, password, navigation)
-    }, [formData])
+        try {
+            await signUpWithEmailPassword(email, password, navigation)
+            dispatch(setEmail(email))
+        } catch (error) {
+            console.error('Error during sign up:', error)
+        }
+    }, [formData, navigation, dispatch])
 
     const toggleRememberMe = useCallback(() => setRememberMe(prev => !prev), [])
 
@@ -27,8 +36,15 @@ export const ContactInfoScreen = () => {
             <Image source={linkedinLogo} style={style.logo} />
             <Text style={style.info}>E-postanızı veya telefonunuzu ekleyin</Text>
             <View style={style.inputView}>
-                <LoginInput onInputChange={(text) => handleInputChange('email', text)} placeholder='E-posta veya Telefon*' />
-                <LoginInput onInputChange={(text) => handleInputChange('password', text)} placeholder='Şifre' />
+                <LoginInput
+                    onInputChange={(text) => handleInputChange('email', text)}
+                    placeholder='E-posta veya Telefon*'
+                />
+                <LoginInput
+                    onInputChange={(text) => handleInputChange('password', text)}
+                    placeholder='Şifre'
+                    secureTextEntry
+                />
                 <Text style={style.passwordInfo}>6 veya daha fazla karakter</Text>
             </View>
             <View style={style.rememberMeContainer}>

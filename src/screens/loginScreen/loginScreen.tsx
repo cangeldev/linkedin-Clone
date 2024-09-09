@@ -3,7 +3,7 @@ import { View, Text, Image, KeyboardAvoidingView, ScrollView, Platform, Alert } 
 import style from './style'
 import { apple, facebook, google, linkedinLogo } from 'assets'
 import { LoginInput, CustomButton, Icon } from 'components'
-import { LoginWithEmailPassword } from 'services/firebase/firebase'
+import { loginWithEmailPassword } from 'services/firebase/firebase'
 import { useNavigation } from '@react-navigation/native'
 import { useForm } from 'hooks/useForm'
 
@@ -31,7 +31,7 @@ export const LoginScreen = () => {
 
     const handleLogin = useCallback(async () => {
         if (validateInputs()) {
-            await LoginWithEmailPassword(formData.email, formData.password, navigation)
+            await loginWithEmailPassword(formData.email, formData.password, navigation)
         }
     }, [formData])
 
