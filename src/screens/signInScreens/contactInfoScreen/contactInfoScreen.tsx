@@ -1,40 +1,34 @@
 import React, { useCallback, useState } from 'react'
 import { View, Text, Image, Alert } from 'react-native'
 import { linkedinLogo } from 'assets'
-import { CustomButton, Icon, LoginInput } from 'components'
+import { CustomButton, LoginInput, Icon } from 'components'
 import style from './style'
 import { useNavigation } from '@react-navigation/native'
 import { SignUpWithEmailPassword } from 'services/firebase/firebase'
-
+import { useForm } from 'hooks/useForm'
 export const ContactInfoScreen = () => {
     const navigation = useNavigation<any>()
+    const [formData, handleInputChange] = useForm({ email: '', password: '' })
     const [rememberMe, setRememberMe] = useState(true)
-    const [inputValueMail, setInputValueMail] = useState('')
-    const [inputValuePassword, setInputValuePassword] = useState('')
-    const handleInputChangeMail = useCallback((inputText: string) => {
-        setInputValueMail(inputText)
-    }, [])
 
-    const handleInputChangePassword = useCallback((inputText: string) => {
-        setInputValuePassword(inputText)
-    }, [])
     const handleButton = useCallback(async () => {
-        if (inputValueMail.trim() === '' || inputValuePassword.trim() === '') {
+        const { email, password } = formData
+        if (!email.trim() || !password.trim()) {
             Alert.alert('Hata', 'E-posta ve şifre alanlarını doldurmalısınız.')
             return
         }
-        await SignUpWithEmailPassword(inputValueMail, inputValuePassword, navigation)
-    }, [inputValueMail, inputValuePassword])
+        await SignUpWithEmailPassword(email, password, navigation)
+    }, [formData])
 
-    const toggleRememberMe = () => setRememberMe(prev => !prev)
+    const toggleRememberMe = useCallback(() => setRememberMe(prev => !prev), [])
 
     return (
         <View style={style.container}>
             <Image source={linkedinLogo} style={style.logo} />
             <Text style={style.info}>E-postanızı veya telefonunuzu ekleyin</Text>
             <View style={style.inputView}>
-                <LoginInput onInputChange={handleInputChangeMail} placeholder='E-posta veya Telefon*' />
-                <LoginInput onInputChange={handleInputChangePassword} placeholder='Şifre' />
+                <LoginInput onInputChange={(text) => handleInputChange('email', text)} placeholder='E-posta veya Telefon*' />
+                <LoginInput onInputChange={(text) => handleInputChange('password', text)} placeholder='Şifre' />
                 <Text style={style.passwordInfo}>6 veya daha fazla karakter</Text>
             </View>
             <View style={style.rememberMeContainer}>
@@ -45,7 +39,6 @@ export const ContactInfoScreen = () => {
                     style={rememberMe ? style.iconChecked : style.iconUnchecked}
                 />
                 <Text style={style.rememberMeText}>Beni hatırla.</Text>
-                <Text style={style.moreInfoText}> Daha fazla bilgi edinin</Text>
             </View>
             <CustomButton title='Devam Et' onPress={handleButton} />
         </View>

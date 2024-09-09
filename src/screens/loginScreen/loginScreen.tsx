@@ -3,8 +3,9 @@ import { View, Text, Image, KeyboardAvoidingView, ScrollView, Platform, Alert } 
 import style from './style'
 import { apple, facebook, google, linkedinLogo } from 'assets'
 import { LoginInput, CustomButton, Icon } from 'components'
-import { handleSignOut, LoginWithEmailPassword } from 'services/firebase/firebase'
+import { LoginWithEmailPassword } from 'services/firebase/firebase'
 import { useNavigation } from '@react-navigation/native'
+import { useForm } from 'hooks/useForm'
 
 const platformIcons = {
     google,
@@ -13,60 +14,45 @@ const platformIcons = {
 } as any
 
 export const LoginScreen = () => {
-    const [rememberMe, setRememberMe] = useState(true)
     const navigation = useNavigation<any>()
-    const [inputValueMail, setInputValueMail] = useState('')
-    const [inputValuePassword, setInputValuePassword] = useState('')
+    const [rememberMe, setRememberMe] = useState(true)
+    const [formData, handleInputChange] = useForm({ email: '', password: '' })
+
     const toggleRememberMe = useCallback(() => setRememberMe(prev => !prev), [])
-    const handleSignInText = () => navigation.navigate("UserInfoScreen")
-    const handleInputChangeMail = useCallback((inputText: string) => {
-        setInputValueMail(inputText)
-    }, [])
 
-    const handleInputChangePassword = useCallback((inputText: string) => {
-        setInputValuePassword(inputText)
-    }, [])
-
-    const handleButton = useCallback(async () => {
-        if (inputValueMail.trim() === '' || inputValuePassword.trim() === '') {
+    const validateInputs = () => {
+        const { email, password } = formData
+        if (!email.trim() || !password.trim()) {
             Alert.alert('Hata', 'E-posta ve şifre alanlarını doldurmalısınız.')
-            return
+            return false
         }
-        await LoginWithEmailPassword(inputValueMail, inputValuePassword, navigation)
-    }, [inputValueMail, inputValuePassword])
+        return true
+    }
 
-    const handleButton2 = useCallback(async () => {
-        await handleSignOut()
-    }, [])
+    const handleLogin = useCallback(async () => {
+        if (validateInputs()) {
+            await LoginWithEmailPassword(formData.email, formData.password, navigation)
+        }
+    }, [formData])
 
     return (
-        <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            style={style.container}
-        >
-            <ScrollView
-                contentContainerStyle={style.scrollContainer}
-                keyboardShouldPersistTaps="handled"
-            >
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={style.container}>
+            <ScrollView contentContainerStyle={style.scrollContainer} keyboardShouldPersistTaps="handled">
                 <Image source={linkedinLogo} style={style.logo} />
                 <Text style={style.title}>Oturum aç</Text>
-                <Text onPress={handleSignInText} style={style.subtitle}>
+                <Text onPress={() => navigation.navigate("UserInfoScreen")} style={style.subtitle}>
                     veya <Text style={style.highlightedText}>LinkedIn'e Katılın</Text>
                 </Text>
                 {['Google', 'Apple', 'Facebook'].map(platform => (
-                    <CustomButton
-                        key={platform}
-                        title={`${platform} ile oturum açın`}
-                        icon={platformIcons[platform.toLowerCase()]}
-                    />
+                    <CustomButton key={platform} title={`${platform} ile oturum açın`} icon={platformIcons[platform.toLowerCase()]} />
                 ))}
                 <View style={style.separatorContainer}>
                     <View style={style.separatorLine} />
                     <Text style={style.separatorText}>veya</Text>
                     <View style={style.separatorLine} />
                 </View>
-                <LoginInput onInputChange={handleInputChangeMail} placeholder='E-posta veya Telefon' />
-                <LoginInput secureTextEntry onInputChange={handleInputChangePassword} placeholder='Şifre' />
+                <LoginInput onInputChange={(text) => handleInputChange('email', text)} placeholder='E-posta veya Telefon' />
+                <LoginInput secureTextEntry onInputChange={(text) => handleInputChange('password', text)} placeholder='Şifre' />
                 <View style={style.rememberMeContainer}>
                     <Icon
                         type='MaterialCommunityIcons'
@@ -78,8 +64,7 @@ export const LoginScreen = () => {
                     <Text style={style.moreInfoText}> Daha fazla bilgi edinin</Text>
                 </View>
                 <Text style={style.forgotPasswordText}>Şifrenizi mi unuttunuz?</Text>
-                <CustomButton onPress={handleButton} title='Devam Et' />
-                <CustomButton onPress={handleButton2} title='Test için sonradan kaldır' />
+                <CustomButton onPress={handleLogin} title='Devam Et' />
             </ScrollView>
         </KeyboardAvoidingView>
     )
