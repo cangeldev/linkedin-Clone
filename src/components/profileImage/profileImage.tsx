@@ -1,19 +1,26 @@
-import React from 'react'
-import { Image, ImageSourcePropType } from 'react-native'
-import { useSelector } from 'react-redux'
-import { RootState } from 'services/features/store'
+import React, { useEffect, useState } from 'react'
+import { Image } from 'react-native'
 import style from './style'
+import { getUserData } from 'services/firebase/firebase'
 import { defaultProfileImage } from 'assets'
 
-interface ProfileImageProps {
-    defaultImage?: ImageSourcePropType
-}
+export const ProfileImage = () => {
 
-export const ProfileImage: React.FC<ProfileImageProps> = React.memo(({ defaultImage }) => {
-    const profileImage = useSelector((state: RootState) => state.userSlice.profileImage)
-    const imageSource = profileImage ? { uri: profileImage } : (defaultImage || defaultProfileImage)
+    const [profileImage, setProfileImage] = useState()
+    const imageSource = profileImage ? { uri: profileImage as any } : defaultProfileImage
+
+    useEffect(() => {
+        const getUsers = async () => {
+            const fetchedUsersInfo = await getUserData("profileImageUrl")
+            setProfileImage(fetchedUsersInfo)
+        }
+        getUsers()
+    }, [])
 
     return (
-        <Image source={imageSource} style={style.profileImage} />
+        <Image
+            source={imageSource}
+            style={style.profileImage}
+        />
     )
-})
+}

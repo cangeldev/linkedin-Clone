@@ -11,7 +11,7 @@ import { getCurrentUser, saveUserProfile, uploadProfileImage } from 'services/fi
 
 export const ProfilePictureSettingsScreen = () => {
     const navigation = useNavigation<any>()
-    const { job, name, surname, title, location, profileImage, email, uId } = useSelector((state: RootState) => state.userSlice)
+    const { job, name, surname, title, location, profileImage, email } = useSelector((state: RootState) => state.userSlice)
     const [imagePickerModal, setImagePickerModal] = useState(false)
 
     const toggleImagePickerModal = () => {
@@ -22,9 +22,9 @@ export const ProfilePictureSettingsScreen = () => {
         try {
             const user = getCurrentUser()
             if (user) {
-                const profileImageUrl = await uploadProfileImage(uId, { uri: profileImage })
+                const profileImageUrl = await uploadProfileImage(user.uid, { uri: profileImage })
                 const userProfile = {
-                    uid: uId,
+                    uid: user.uid,
                     name: name,
                     surname: surname,
                     email: email,
@@ -34,7 +34,7 @@ export const ProfilePictureSettingsScreen = () => {
                     profileImageUrl: profileImageUrl
                 }
                 await saveUserProfile(userProfile)
-                navigation.navigate("TabNavigation")
+                navigation.navigate("DrawerNavigation")
             }
         } catch (error) {
             console.error('Error saving user profile:', error)
@@ -50,7 +50,8 @@ export const ProfilePictureSettingsScreen = () => {
             <SignInHeader title='Fotoğraf eklemeniz tanınmanıza yardımcı olur' />
             <View style={styles.pictureContainer}>
                 <View style={styles.cameraButton}>
-                    <ProfileImage defaultImage={camera} />
+                    {/* <ProfileImage defaultImage={camera} /> */}
+                    <ProfileImage />
                 </View>
                 <Text style={styles.userName}>{name}</Text>
                 <Text style={styles.userTitle}>{job} - {title}</Text>

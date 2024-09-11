@@ -8,7 +8,7 @@ export const loginWithEmailPassword = async (email: string, password: string, na
     try {
         await auth().signInWithEmailAndPassword(email, password)
         console.log('User account signed in!')
-        navigation.navigate("TabNavigation")
+        navigation.navigate("DrawerNavigation")
     } catch (error) {
         handleFirebaseError(error, 'login')
     }
@@ -68,4 +68,32 @@ export const uploadProfileImage = async (uid: string, profileImage: any): Promis
         }
     }
     return null
+}
+
+export const getUserData = async (type: string) => {
+
+    try {
+        const userUID = auth().currentUser?.uid
+        const userRef = firestore().doc(`users/${userUID}`)
+        const userSnapshot = await userRef.get()
+        if (userSnapshot.exists) {
+            const userData = userSnapshot.data()
+            if (type === "name") {
+                return userData?.name
+            }
+            if (type === "surname") {
+                return userData?.surname
+            }
+            if (type === "profileImageUrl") {
+                return userData?.profileImageUrl
+            }
+        }
+        else {
+            console.log('User document does not existasdasdas.')
+            return null
+        }
+    } catch (error) {
+        console.error('Error fetching user data:', error)
+        return null
+    }
 }

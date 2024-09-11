@@ -1,11 +1,26 @@
-import { View, Text, Image, TouchableHighlight, } from 'react-native'
-import React from 'react'
+import { View, Text, Image, TouchableHighlight } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import { premium, settings } from 'assets'
 import style from './style'
 import { DrawerMenuButton, IconTextButton, Divider, ProfileImage } from 'components'
 import colors from 'assets/colors/colors'
+import { getUserData } from 'services/firebase/firebase'
 
 export const DrawerContentPage = () => {
+    const [userInfo, setUserInfo] = useState({ name: '', surname: '' })
+
+    useEffect(() => {
+        const getUsers = async () => {
+            try {
+                const name = await getUserData("name")
+                const surname = await getUserData("surname")
+                setUserInfo({ name, surname })
+            } catch (error) {
+                console.error("Failed to fetch user data:", error)
+            }
+        }
+        getUsers()
+    }, [])
 
     return (
         <View style={style.container}>
@@ -14,31 +29,21 @@ export const DrawerContentPage = () => {
                     <ProfileImage />
                 </View>
                 <Text style={style.name}>
-                    Can Gel
+                    {userInfo.name} {userInfo.surname}
                 </Text>
-                <Text style={style.goProfileText}>
-                    Profili görüntüle
-                </Text>
+                <Text style={style.goProfileText}>Profili görüntüle</Text>
                 <Text style={style.whoViewedText}>
-                    <Text style={style.whoViewedCountText}>
-                        3{" "}
-                    </Text>
+                    <Text style={style.whoViewedCountText}>3 </Text>
                     profil görüntülesi
                 </Text>
             </View>
             <Divider />
             <View style={style.container}>
-                <DrawerMenuButton
-                    page='SavedPostsPage'
-                    pageName='Kaydedilen gönderiler'
-                />
-                <DrawerMenuButton
-                    page='GroupsPage'
-                    pageName='Gruplar'
-                />
+                <DrawerMenuButton page='SavedPostsPage' pageName='Kaydedilen gönderiler' />
+                <DrawerMenuButton page='GroupsPage' pageName='Gruplar' />
             </View>
             <Divider />
-            <View >
+            <View>
                 <TouchableHighlight onPress={() => console.log("first")} underlayColor={colors.lightGrey}>
                     <View style={style.premiumContainer}>
                         <Image source={premium} style={style.premiumImage} />

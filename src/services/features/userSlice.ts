@@ -8,7 +8,6 @@ interface UserState {
   job: string
   title: string
   email: string
-  uId: string
 }
 
 const initialState: UserState = {
@@ -18,8 +17,7 @@ const initialState: UserState = {
   location: '',
   job: '',
   title: '',
-  email: '',
-  uId: ''
+  email: ''
 }
 
 const userSlice = createSlice({
@@ -46,9 +44,8 @@ const userSlice = createSlice({
     },
     setEmail: (state, action: PayloadAction<string>) => {
       state.email = action.payload
-      state.uId = action.payload.substring(0, action.payload.indexOf('@'))
-    },
-  },
+    }
+  }
 })
 
 export const { setProfileImage, setName, setSurname, setJob, setLocation, setTitle, setEmail } = userSlice.actions

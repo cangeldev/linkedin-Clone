@@ -1,7 +1,7 @@
 import React from 'react'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import { DrawerContentPage } from 'screens/pages'
-import { StackNavigation } from 'navigation'
+import { TabNavigation } from 'navigation'
 
 export const DrawerNavigation = React.memo(() => {
 
@@ -11,7 +11,7 @@ export const DrawerNavigation = React.memo(() => {
         <Drawer.Navigator
             screenOptions={{ headerShown: false }}
             drawerContent={() => <DrawerContentPage />}>
-            <Drawer.Screen name="StackNavigation" component={StackNavigation} />
+            <Drawer.Screen name="TabNavigation" component={TabNavigation} />
         </Drawer.Navigator>
     )
 })
