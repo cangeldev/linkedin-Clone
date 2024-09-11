@@ -7,7 +7,7 @@ import { camera } from 'assets'
 import { useSelector } from 'react-redux'
 import { RootState } from 'services/features/store'
 import { useNavigation } from '@react-navigation/native'
-import { getCurrentUser, saveUserProfile } from 'services/firebase/firebase'
+import { getCurrentUser, saveUserProfile, uploadProfileImage } from 'services/firebase/firebase'
 
 export const ProfilePictureSettingsScreen = () => {
     const navigation = useNavigation<any>()
@@ -18,12 +18,11 @@ export const ProfilePictureSettingsScreen = () => {
         setImagePickerModal(!imagePickerModal)
     }
 
-
     const saveUserProfileToFirebase = async () => {
         try {
             const user = getCurrentUser()
             if (user) {
-   
+                const profileImageUrl = await uploadProfileImage(uId, { uri: profileImage })
                 const userProfile = {
                     uid: uId,
                     name: name,
@@ -32,9 +31,10 @@ export const ProfilePictureSettingsScreen = () => {
                     location: location,
                     job: job,
                     title: title,
+                    profileImageUrl: profileImageUrl
                 }
-                await saveUserProfile(userProfile) 
-                navigation.navigate("TabNavigation") 
+                await saveUserProfile(userProfile)
+                navigation.navigate("TabNavigation")
             }
         } catch (error) {
             console.error('Error saving user profile:', error)
