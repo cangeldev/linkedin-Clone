@@ -6,6 +6,9 @@ import { DrawerMenuButton, IconTextButton, Divider, ProfileImage } from 'compone
 import colors from 'assets/colors/colors'
 import { getUserData } from 'services/firebase/firebase'
 
+/**
+ * DrawerContentPage - bu sayfa  drawer navigationun sunduğu hazır düzeni harici bir tasarım kullanmak istersek diye sunulan özellik için oluşturulan sayfadır uygulamanın gereksinizleri ile dizayn edilmiştir.
+ */
 export const DrawerContentPage = () => {
     const [userInfo, setUserInfo] = useState({ name: '', surname: '' })
 

@@ -10,6 +10,9 @@ const socialLoginButtons = [
     { title: 'Facebook ile Devam Et', icon: facebook },
 ]
 
+/**
+ * WelcomeScreen - Bu sayfa  uygulama ilk açıldığı zaman kullanıcıları karşılayan ve uygulama hakkında ön bilgi veren daha sonrasında üyelik durumuna göre yönlendirmeleri yapan sayfadır.
+ */
 export const WelcomeScreen = () => {
     const navigation = useNavigation<any>()
 

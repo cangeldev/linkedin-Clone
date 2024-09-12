@@ -19,7 +19,9 @@ const renderTabBar = (props: any) => (
         inactiveColor='gray'
     />
 )
-
+/**
+ * MyNetwork - Ağım ile ilgili tüm bilgilerin, ayarlamaların olduğu sayfadır.
+ */
 export const MyNetwork = () => {
     const layout = useWindowDimensions()
     const [index, setIndex] = React.useState(0)

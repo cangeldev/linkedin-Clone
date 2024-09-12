@@ -8,6 +8,9 @@ import { useDispatch } from 'react-redux'
 import { setName, setSurname } from 'services/features/userSlice'
 import { useForm } from 'hooks/useForm'
 
+/**
+ * UserInfoScreen - Bu sayfa  kayıt olma sırasında kullanıcının isim ve soyisim bilgisinin alındığı kısımdır ilk olarak redux toolkite kaydedilir daha sonrasında tüm bilgilerle beraber firebaseye aktarılır.
+ */
 export const UserInfoScreen = () => {
 
     const dispatch = useDispatch()

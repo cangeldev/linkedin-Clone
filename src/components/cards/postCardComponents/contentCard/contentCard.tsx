@@ -2,10 +2,15 @@ import React, { useCallback, useState } from 'react'
 import { Text, View } from 'react-native'
 import styles from './style'
 
+/**
+ * `ContentCard` bileşeni, kullanıcıların paylaşımlarının içeriğini gösteren bir karttır.
+ */
 export const ContentCard = React.memo(() => {
+
     const [isTextExpanded, setIsTextExpanded] = useState(false)
     const [hasMoreText, setHasMoreText] = useState(false)
 
+    //  Metni genişletme veya daraltma işlemi için kullanılan fonksiyon
     const toggleTextExpansion = () => {
         setIsTextExpanded(prev => !prev)
     }

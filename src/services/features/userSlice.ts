@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
+// Defines the shape of the user state in the Redux store
 interface UserState {
   profileImage: string | null
   name: string
@@ -10,6 +11,7 @@ interface UserState {
   email: string
 }
 
+// Initial state of the user slice with default values
 const initialState: UserState = {
   profileImage: null,
   name: '',
@@ -20,6 +22,7 @@ const initialState: UserState = {
   email: ''
 }
 
+// Creates a slice of the Redux store for user-related state management
 const userSlice = createSlice({
   name: 'userSlice',
   initialState,
@@ -47,7 +50,5 @@ const userSlice = createSlice({
     }
   }
 })
-
 export const { setProfileImage, setName, setSurname, setJob, setLocation, setTitle, setEmail } = userSlice.actions
-
 export default userSlice.reducer

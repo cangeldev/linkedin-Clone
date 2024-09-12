@@ -9,7 +9,10 @@ interface PostModalProps {
     isVisible: boolean
     onClose: () => void
 }
-
+/**
+ * Post - uygulamada payaşım yapmam için tasarlanan sayfadır hazırladığım metin veya resim gibi bilgileri girdiğim sayfadır.
+ * Tab navigationda PostScreen'e tıklayınca otomatik postModal yani bu sayfa gösterilir, açılır.
+ */
 export const PostModal: React.FC<PostModalProps> = React.memo(({ isVisible, onClose }) => {
     const [postContent, setPostContent] = useState<string>('')
     const isPostButtonDisabled = postContent.trim().length === 0

@@ -4,6 +4,9 @@ import style from './style'
 import { getUserData } from 'services/firebase/firebase'
 import { defaultProfileImage } from 'assets'
 
+/**
+ * `ProfileImage` bileşeni, , kullanıcının profil fotoğrafını yükleyen ve gösteren bir bileşendir. Kullanıcı fotoğrafını Firebase'den alır ve varsayılan bir profil resmi ile birlikte gösterir.
+ */
 export const ProfileImage = () => {
 
     const [profileImage, setProfileImage] = useState()

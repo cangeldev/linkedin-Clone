@@ -5,6 +5,9 @@ import { MyNetworkButton } from 'components'
 import { AddFriendCard } from 'components/cards'
 
 //Uygulamaya kayıt olan kullanıcılar ile değiş ilerki aşamalarda  onları listele
+/**
+ * ExpandYourNetwork - Uygulamaya yeni katılan kullanıcıların göründüğü sayfadır.
+ */
 const DATA = Array.from({ length: 10 }, (_, index) => ({ id: index.toString() }))
 
 export const ExpandYourNetwork = () => {

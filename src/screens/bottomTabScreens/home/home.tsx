@@ -5,6 +5,9 @@ import { defaultProfileImage } from 'assets'
 import { PostCardComponents } from 'components/cards/postCardComponents'
 import { handleSignOut } from 'services/firebase/firebase'
 
+/**
+ * HomeScreen - Uygulamanın anasayfasıdır yapılan paylaşımların felan listelendiği sayfadır.
+ */
 export const Home = () => {
 
     return (

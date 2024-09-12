@@ -11,11 +11,15 @@ interface IImagePickerModal {
     closeModal: () => void
 }
 
+/**
+ * `ImagePickerModal` bileşeni, kullanıcıların profil fotoğraflarını seçmelerini veya çekmelerini sağlayan bir modal sağlar.
+ *  Seçilen resim daha sonra farklı işlemlerde kullanılmak üzere redux toolkite kaydedilir.
+ */
 export const ImagePickerModal: FC<IImagePickerModal> = ({ visibleModal, closeModal }) => {
     const dispatch = useDispatch<AppDispatch>()
 
     const handleImageSelection = (launchFunction: Function, options: ImageLibraryOptions | CameraOptions) => {
-        launchFunction(options, (response:any) => {
+        launchFunction(options, (response: any) => {
             if (response.didCancel) {
                 console.log('User cancelled operation')
             } else if (response.errorCode) {

@@ -19,6 +19,9 @@ const tabBarOptions = {
     tabBarHideOnKeyboard: true,
 }
 
+/**
+ * TabNavigation - Uygulamanın alt sekme (bottom tab) navigasyonunu yönetir ve özel olarak yapılandırılmış tab bar ile modallar içerir.
+ */
 export const TabNavigation = React.memo(() => {
     const Tab = createBottomTabNavigator()
     const [isModalVisible, setIsModalVisible] = useState(false)

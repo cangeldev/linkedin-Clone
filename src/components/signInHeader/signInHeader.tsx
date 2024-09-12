@@ -7,6 +7,9 @@ interface ISignInHeader {
     title: string
 }
 
+/**
+ * `SignInHeader` bileşeni, , giriş sayfalarında kullanılan özel bir başlıktır.
+ */
 export const SignInHeader: FC<ISignInHeader> = React.memo(({ title }) => {
     return (
         <View>

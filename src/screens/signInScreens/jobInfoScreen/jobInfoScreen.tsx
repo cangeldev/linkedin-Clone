@@ -9,6 +9,9 @@ import { useDispatch } from 'react-redux'
 import { setJob, setLocation, setTitle } from 'services/features/userSlice'
 import { useForm } from 'hooks/useForm'
 
+/**
+ * JobInfoScreen - Bu sayfa  kayıt olma sırasında kullanıcının iş bilgilerinin ve konum bilgisinin alındı kısımdır ilk olarak redux toolkite kaydedilir daha sonrasında tüm bilgilerle beraber firebaseye aktarılır.
+ */
 export const JobInfoScreen = () => {
     const dispatch = useDispatch()
     const navigation = useNavigation<any>()

@@ -10,6 +10,11 @@ interface IPostCardComponents {
     sharingImage: any
 }
 
+/**
+ * `PostCardComponents` bileşeni, bir paylaşımın tüm öğelerini tek bir kartta toplar.
+ * Bu bileşen, paylaşımı oluşturan kişinin bilgilerini, paylaşımı yapan kişinin bilgilerini,
+ * paylaşım içeriğini, tepkileri ve yorumları, ve aksiyon menüsünü içerir.
+ */
 export const PostCardComponents: FC<IPostCardComponents> = React.memo(({
     reactionName,
     reactionImage,

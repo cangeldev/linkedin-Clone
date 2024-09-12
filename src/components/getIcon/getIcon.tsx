@@ -6,6 +6,9 @@ const getIcon = (name: any, IconComponent: any, size = 19,) => ({ color }: any) 
     <Icon type={IconComponent} name={name} style={{ fontSize: size, color: color }} />
 )
 
+/**
+ * Tab navigationdaki ekranların kullandıkları iconların  ve başlıklarının bilgilerinin tutulduğu sayfa
+ */
 const screens = [
     {
         name: "Home",

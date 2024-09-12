@@ -5,14 +5,19 @@ import BootSplash from "react-native-bootsplash"
 import { Provider } from 'react-redux'
 import store from 'services/features/store'
 
+/**
+ * App - Bu sayfa uygulamamızın başlangıç yapılandırmasını, durum yönetimini ve navigasyonunu kurar.
+ */
 const App = () => {
 
   useEffect(() => {
+    // Hides the splash screen and sets the status bar when the app loads
     BootSplash.hide({ fade: true })
     setStatusBar()
   }, [])
 
   const setStatusBar = () => {
+    // Sets the status bar style based on the platform
     if (Platform.OS === 'android') {
       StatusBar.setBackgroundColor('white')
       StatusBar.setBarStyle("dark-content")

@@ -9,6 +9,9 @@ import { useForm } from 'hooks/useForm'
 import { useDispatch } from 'react-redux'
 import { setEmail } from 'services/features/userSlice'
 
+/**
+ * ContactInfoScreen - Bu sayfa  kayıt olma sırasında kullanıcının email ve şifre bilgisinin alındı kısımdır ilk olarak redux toolkite kaydedilir daha sonrasında tüm bilgilerle beraber firebaseye aktarılır.
+ */
 export const ContactInfoScreen = () => {
     const dispatch = useDispatch()
     const navigation = useNavigation<any>()

@@ -13,6 +13,10 @@ const platformIcons = {
     facebook,
 } as any
 
+/**
+ * LoginScreen - bu sayfa kullanıcıların giriş yapmalarını sağlar veya henüz üye değillerse üye olma sayfasına yönlendirir veya sosyal medya ile giriş seçenekleri sunar. 
+ * girilen bilgileri firebasede kayıtlı olup olmadığına bakar ve gerekli yönlendirmeleri yapar.
+ */
 export const LoginScreen = () => {
     const navigation = useNavigation<any>()
     const [rememberMe, setRememberMe] = useState(true)

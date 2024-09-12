@@ -19,7 +19,13 @@ interface IconProps {
     disabled?: boolean
 }
 
+/**
+ * `Icon` bileşeni, belirtilen simge türüne göre uygun simge bileşenini render eder.
+ * Bu, uygulamadaki farklı simgeleri tek bir bileşende yönetmeyi sağlar.
+ */
 export const Icon: React.FC<IconProps> = React.memo(({ type, name, style, onPress, disabled }) => {
+    
+    // Belirtilen simge türüne göre uygun simge bileşenini döndürmek için kullanılır.
     const getIconComponent = () => {
         switch (type) {
 

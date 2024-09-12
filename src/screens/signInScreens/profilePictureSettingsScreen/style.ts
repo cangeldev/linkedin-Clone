@@ -51,5 +51,11 @@ export default StyleSheet.create({
         fontSize: 20,
         fontWeight: "600",
         color: colors.black
+    },
+    profileImage: {
+        resizeMode: "cover",
+        width: "100%",
+        height: "100%",
+        borderRadius: 50
     }
 })

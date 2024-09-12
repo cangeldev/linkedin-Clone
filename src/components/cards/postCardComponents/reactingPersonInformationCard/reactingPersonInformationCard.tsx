@@ -1,4 +1,3 @@
-
 import React, { FC } from 'react'
 import { View, Text, Image } from 'react-native'
 import styles from './style'
@@ -9,6 +8,10 @@ interface IReactingPersonInformationCard {
     reactionImage?: any
 }
 
+/**
+ * `ReactingPersonInformationCard` bileşeni, bir gönderiye verilen tepkinin bilgilerini gösterir.
+ * Bu kart, tepki veren kişinin adını ve görüntüsünü, tepkinin açıklamasını ve ek seçenekleri içerir.
+ */
 export const ReactingPersonInformationCard: FC<IReactingPersonInformationCard> = React.memo(({ reactionImage, reactionName }) => {
     return (
         <View style={styles.cardContainer}>

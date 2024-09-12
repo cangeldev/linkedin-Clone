@@ -8,6 +8,10 @@ interface IShareOwnerInformationCard {
     sharingImage: any
 }
 
+/**
+ * `ShareOwnerInformationCard` bileşeni, paylaşımı yapan kişinin bilgilerini gösterir.
+ * Bu kart, kişinin profil resmini, adını, kısa açıklamasını, paylaşım zamanını ve bir takip butonunu içerir.
+ */
 export const ShareOwnerInformationCard: FC<IShareOwnerInformationCard> = React.memo(({ sharingImage, sharingName }) => {
     return (
         <View style={styles.cardContainer}>

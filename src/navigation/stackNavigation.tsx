@@ -9,6 +9,9 @@ import { getCurrentUser } from 'services/firebase/firebase'
 const Stack = createStackNavigator()
 const user = getCurrentUser()
 
+/**
+ * StackNavigation - Uygulamanın yığın navigasyonunu yönetir sayfa yönlendirmeleri için.
+ */
 export const StackNavigation = () => (
     <Stack.Navigator initialRouteName={!user ? 'WelcomeScreen' : "DrawerNavigation"}
         screenOptions={{ headerShown: false }}>

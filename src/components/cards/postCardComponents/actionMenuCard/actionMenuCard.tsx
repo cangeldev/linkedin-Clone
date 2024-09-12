@@ -3,6 +3,7 @@ import { View, Text, FlatList, Dimensions } from 'react-native'
 import style from './style'
 import { Divider, Icon } from 'components'
 
+// Aksiyon menüsünde gösterilecek öğeler ve ikon bilgileri
 const actionItems = [
     {
         label: "Beğendim",
@@ -26,12 +27,14 @@ const actionItems = [
     }
 ]
 
+/**
+ * `ActionMenuCard` bileşeni, kullanıcının diğer kullanıcıların paylaşımlarına verebileceği tepkileri gösterir.
+ * Tepkiler, beğenme, yorum yapma, yeniden yayınlama ve gönderme gibi seçenekleri içerir.
+ */
 export const ActionMenuCard = React.memo(() => {
-    // Calculate item width for FlatList
     const screenWidth = Dimensions.get('window').width
     const itemWidth = useMemo(() => screenWidth / actionItems.length, [screenWidth])
 
-    // Render item function
     const renderItem = ({ item }: any) => {
         const { iconType, iconName, label } = item
 

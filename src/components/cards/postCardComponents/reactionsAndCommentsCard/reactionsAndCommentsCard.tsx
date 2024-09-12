@@ -1,9 +1,13 @@
 import { View, Text, FlatList, Image } from 'react-native'
 import React from 'react'
 import { clapping, heart, idea, laughing, like, support } from 'assets'
-import style from './style'
+import styles from './style'
 
+/**
+ * `ReactionsAndCommentsCard` bileşeni, bir gönderiye verilen tepkilerin hangi türde olduklarını kaç adet olduklarını ve varsa yorum bilgisini gösterir.
+ */
 export const ReactionsAndCommentsCard = React.memo(() => {
+    // Beğenme çeşitlerini ve ikonlarını içeren liste
     const reactionList = [
         { image: like },
         { image: clapping },
@@ -14,20 +18,20 @@ export const ReactionsAndCommentsCard = React.memo(() => {
     ]
 
     const renderItem = ({ item }: any) =>
-        <View style={style.reactionIconContainer}>
-            <Image resizeMode='contain' source={item.image} style={style.reactionIcon} />
+        <View style={styles.reactionIconContainer}>
+            <Image resizeMode='contain' source={item.image} style={styles.reactionIcon} />
         </View>
 
     return (
-        <View style={style.container}>
+        <View style={styles.container}>
             <View >
                 <FlatList keyExtractor={(item, index) => index.toString()}
-                    ItemSeparatorComponent={() => <View style={style.separator}></View>}
+                    ItemSeparatorComponent={() => <View style={styles.separator}></View>}
                     horizontal data={reactionList} renderItem={renderItem}
                 />
             </View>
-            <Text style={style.userCount}>5.043</Text>
-            <Text style={style.comment}>28 yorum</Text>
+            <Text style={styles.userCount}>5.043</Text>
+            <Text style={styles.comment}>28 yorum</Text>
         </View>
     )
 })
