@@ -37,7 +37,7 @@ export const ExpandYourNetwork = () => {
     return (
         <ScrollView style={styles.container}>
             <MyNetworkButton title='Davetiyeler (0)' />
-            <MyNetworkButton title='Ağımı yönet' />
+            <MyNetworkButton goPage="ManageMyNetworkPage" title='Ağımı yönet' />
             <View style={styles.infoSection}>
                 <Text style={styles.infoText}>
                     Son faaliyetlerinize göre tanıyabileceğiniz kişiler
