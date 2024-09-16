@@ -16,10 +16,10 @@ export const VerificationCodeScreen = () => {
                 <Text style={styles.email}> sidobar577@brinkc.com</Text>
                 <Text style={styles.editEmail}> E-postayı düzenle</Text>
             </Text>
-            <LoginInput placeholder='6 haneli kod*' />
+            <LoginInput onInputChange={() => null} placeholder='6 haneli kod*' />
             <View style={styles.footer}>
                 <CustomButton title='İleri' onPress={handleButton} />
-                <Text onPress={() => console.log("Sonradan eklenecek")} style={styles.resendCode}>
+                <Text onPress={() => null} style={styles.resendCode}>
                     Kodu yeniden gönder
                 </Text>
             </View>

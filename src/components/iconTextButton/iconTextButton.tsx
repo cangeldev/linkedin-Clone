@@ -10,7 +10,7 @@ interface IiconTextButton {
 
 export const IconTextButton: FC<IiconTextButton> = React.memo(({ icon, title }) => {
     return (
-        <TouchableHighlight underlayColor={colors.lightGrey} onPress={() => console.log("first")}>
+        <TouchableHighlight underlayColor={colors.lightGrey} onPress={() => null}>
             <View style={style.container}>
                 <Image source={icon} style={style.image} />
                 <Text style={style.title}>

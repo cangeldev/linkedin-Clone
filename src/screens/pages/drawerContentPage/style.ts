@@ -46,5 +46,8 @@ export default StyleSheet.create({
         marginLeft: 10,
         fontWeight: "bold",
         color: colors.black
+    },
+    signOutButtonView: {
+        marginHorizontal: 15
     }
 })

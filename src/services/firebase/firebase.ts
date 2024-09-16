@@ -9,7 +9,6 @@ export const getCurrentUser = (): FirebaseAuthTypes.User | null => auth().curren
 export const loginWithEmailPassword = async (email: string, password: string, navigation: any) => {
     try {
         await auth().signInWithEmailAndPassword(email, password)
-        console.log('User account signed in!')
         navigation.navigate("DrawerNavigation")
     } catch (error) {
         handleFirebaseError(error, 'login')
@@ -21,7 +20,6 @@ export const signUpWithEmailPassword = async (email: string, password: string, n
     try {
         // Creates a new user and sends email verification
         const userCredential = await auth().createUserWithEmailAndPassword(email, password)
-        console.log('User account created!')
         await userCredential.user.sendEmailVerification()
         // Navigates to the job information screen on successful signup
         navigation.navigate("JobInfoScreen")
@@ -32,11 +30,11 @@ export const signUpWithEmailPassword = async (email: string, password: string, n
 }
 
 // Signs out the current user
-export const handleSignOut = async () => {
+export const handleSignOut = async (navigation: any) => {
     try {
         // Signs out the user
         await auth().signOut()
-        console.log('User signed out!')
+        navigation.navigate("WelcomeScreen")
     } catch (error) {
         // Logs error message to the console
         console.error('Error signing out:', error)

@@ -51,8 +51,8 @@ export const JobInfoScreen = () => {
             </View>
             <View style={styles.inputSection}>
                 <LoginInput onInputChange={(text) => handleInputChange('location', text)} placeholder='Konum*' />
-                <LoginInput onInputChange={(text) => handleInputChange('job', text)} placeholder={isEnabled ? 'Üniversite veya okul*' : 'En yeni iş şirket*'} />
-                <LoginInput onInputChange={(text) => handleInputChange('title', text)} placeholder={isEnabled ? 'Başlangıç yılı*' : 'En yeni unvanı*'} />
+                <LoginInput onInputChange={(text) => handleInputChange('job', text)} placeholder={isEnabled ? 'Üniversite veya okul*' : 'En yeni şirket*'} />
+                <LoginInput onInputChange={(text) => handleInputChange('title', text)} placeholder={isEnabled ? 'Başlangıç yılı*' : 'En yeni iş unvanı*'} />
             </View>
             <CustomButton title='İleri' onPress={handleButton} />
         </View>
