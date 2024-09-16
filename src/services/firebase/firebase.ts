@@ -96,3 +96,18 @@ export const getUserData = async (field: string) => {
         return null
     }
 }
+
+
+//Kullanıcıları Listelemek için
+export const fetchUsers = async () => {
+    try {
+        const currentUser = auth().currentUser?.uid
+        const usersCollection = await firestore().collection('users').get()
+        const usersList = usersCollection.docs
+            .map(doc => ({ ...doc.data(), uid: doc.id }))
+            .filter(user => user.uid !== currentUser)
+        return usersList
+    } catch (error) {
+        console.error('Error fetching users:', error)
+    }
+}

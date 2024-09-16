@@ -1,21 +1,38 @@
 import { Text, View, FlatList, ScrollView } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import styles from './style'
 import { MyNetworkButton } from 'components'
 import { AddFriendCard } from 'components/cards'
+import { fetchUsers } from 'services/firebase/firebase'
+import { generateRandomHex } from 'utils/randomColor'
 
-//Uygulamaya kayıt olan kullanıcılar ile değiş ilerki aşamalarda  onları listele
 /**
  * ExpandYourNetwork - Uygulamaya yeni katılan kullanıcıların göründüğü sayfadır.
  */
-const DATA = Array.from({ length: 10 }, (_, index) => ({ id: index.toString() }))
-
 export const ExpandYourNetwork = () => {
-    const renderItem = ({ item }: any) => (
+    const [users, setUsers] = useState<any[]>([])
+
+    useEffect(() => {
+        const getUsers = async () => {
+            const fetchedUsersInfo = await fetchUsers()
+            setUsers(fetchedUsersInfo)
+        }
+        getUsers()
+    }, [])
+
+    const renderItem = useCallback(({ item }: any) => (
         <View style={styles.cardWrapper}>
-            <AddFriendCard />
+            <AddFriendCard
+                title={item.title}
+                name={item.name}
+                surname={item.surname}
+                profilePicture={{ uri: item.profileImageUrl }}
+                backgroundColor={generateRandomHex()}
+            />
         </View>
-    )
+    ), [])
+
+    const keyExtractor = (item: any, index: number) => item.id ? item.id.toString() : index.toString()
 
     return (
         <ScrollView style={styles.container}>
@@ -27,11 +44,10 @@ export const ExpandYourNetwork = () => {
                 </Text>
                 <FlatList
                     scrollEnabled={false}
-                    data={DATA}
+                    data={users}
                     renderItem={renderItem}
-                    keyExtractor={item => item.id}
+                    keyExtractor={keyExtractor}
                     numColumns={2}
-                    columnWrapperStyle={styles.columnWrapper}
                 />
             </View>
         </ScrollView>

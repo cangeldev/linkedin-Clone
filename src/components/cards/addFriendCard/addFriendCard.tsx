@@ -1,21 +1,35 @@
 import { View, Text, Image } from 'react-native'
-import React from 'react'
+import React, { FC } from 'react'
 import { defaultProfileImage } from 'assets'
 import { NotificationsButton, Icon } from 'components'
 import styles from './style'
 
-/**
- * `AddFriendCard` bileşeni, uygulamaya yeni eklenmiş kişileri göstermek için kullanılan bir karttır.
- * Bu kart, kişinin profil bilgilerini ve istersek onunla bağlantı kurmak için bir buton içerir.
- */
-export const AddFriendCard = () => {
+interface IAddFriendCard {
+    name: string,
+    surname: string
+    profilePicture: string | { uri: string } | null,
+    title: string,
+    backgroundColor: string
+}
+
+export const AddFriendCard: FC<IAddFriendCard> = ({ name, surname, profilePicture, title, backgroundColor }) => {
+    // Determine the source of the profile picture
+    let profileImageSource;
+    if (typeof profilePicture === 'string') {
+        profileImageSource = { uri: profilePicture };
+    } else if (profilePicture && profilePicture.uri) {
+        profileImageSource = profilePicture;
+    } else {
+        profileImageSource = defaultProfileImage;
+    }
+
     return (
         <View style={styles.card}>
-            <View style={styles.banner} />
-            <Image style={styles.profileImage} source={defaultProfileImage} />
-            <Text style={styles.name}>Fatma Sena Tan</Text>
+            <View style={[styles.banner, { backgroundColor }]} />
+            <Image style={styles.profileImage} source={profileImageSource} />
+            <Text style={styles.name}>{name + " " + surname}</Text>
             <Text style={styles.description} numberOfLines={2}>
-                Social Media and Digital Marketing Specialist at...afdasadasd
+                {title}
             </Text>
             <Text style={styles.profileInfo}>Profiliniz esas alınmıştır</Text>
             <NotificationsButton buttonTitle='Bağlantı kur' />

@@ -3,13 +3,14 @@ import colors from 'assets/colors/colors'
 
 export default StyleSheet.create({
     card: {
-        flex: 1,
         backgroundColor: colors.white,
         elevation: 2,
         borderRadius: 10,
         paddingVertical: 10,
         marginBottom: 5,
-        alignItems: "center"
+        alignItems: "center",
+        width: 175,
+        alignSelf: "center"
     },
     description: {
         minHeight: 36,

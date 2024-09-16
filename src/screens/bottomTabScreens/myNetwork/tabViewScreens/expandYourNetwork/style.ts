@@ -20,8 +20,5 @@ export default StyleSheet.create({
     cardWrapper: {
         flex: 1,
         margin: 5
-    },
-    columnWrapper: {
-        justifyContent: 'space-between'
     }
 })
