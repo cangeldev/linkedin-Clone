@@ -3,7 +3,8 @@ import React from 'react'
 import { useNavigation } from '@react-navigation/native'
 import style from './style'
 import { Divider, Icon } from 'components'
-
+import { ConnectionsUserCard } from 'components/cards'
+import { defaultProfileImage } from 'assets'
 
 /**
  * ConnectionsPage - iletişimde olduğum kullanıcıların listelendiği sayfadır. Bu sayfadan kullanıcılar ile iletişim kurulabilir veya iletişim sonlandırma gibi işlemlere yönelinebilinir.
@@ -29,6 +30,7 @@ export const ConnectionsPage = () => {
                 <Icon name='sliders-h' type='FontAwesome5' style={style.toolbarIcons} />
             </View>
             <Divider />
+            <ConnectionsUserCard profileImage={defaultProfileImage} name='Can GEL' title="Yazılım Mühendisi" job="Düzce Belediyesi" />
         </View>
     )
 }
