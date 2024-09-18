@@ -23,6 +23,7 @@ export const ExpandYourNetwork = () => {
     const renderItem = useCallback(({ item }: any) => (
         <View style={styles.cardWrapper}>
             <AddFriendCard
+                uid={item.uid}
                 title={item.title}
                 name={item.name}
                 surname={item.surname}

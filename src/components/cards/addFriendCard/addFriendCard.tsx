@@ -3,8 +3,10 @@ import React, { FC } from 'react'
 import { defaultProfileImage } from 'assets'
 import { NotificationsButton, Icon } from 'components'
 import styles from './style'
+import { getCurrentUserUid, sendFriendRequest } from 'services/firebase/firebase'
 
 interface IAddFriendCard {
+    uid: string
     name: string,
     surname: string
     profilePicture: string | { uri: string } | null,
@@ -12,7 +14,7 @@ interface IAddFriendCard {
     backgroundColor: string
 }
 
-export const AddFriendCard: FC<IAddFriendCard> = ({ name, surname, profilePicture, title, backgroundColor }) => {
+export const AddFriendCard: FC<IAddFriendCard> = ({ name, surname, profilePicture, title, backgroundColor, uid }) => {
     // Determine the source of the profile picture
     let profileImageSource;
     if (typeof profilePicture === 'string') {
@@ -32,7 +34,7 @@ export const AddFriendCard: FC<IAddFriendCard> = ({ name, surname, profilePictur
                 {title}
             </Text>
             <Text style={styles.profileInfo}>Profiliniz esas alınmıştır</Text>
-            <NotificationsButton buttonTitle='Bağlantı kur' />
+            <NotificationsButton onPress={() => sendFriendRequest(getCurrentUserUid, uid)} buttonTitle='Bağlantı kur' />
             <View style={styles.iconWrapper}>
                 <Icon name='closecircle' type='AntDesign' style={styles.icon} />
             </View>

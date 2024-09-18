@@ -5,6 +5,8 @@ import storage from '@react-native-firebase/storage'
 // Returns the current authenticated user
 export const getCurrentUser = (): FirebaseAuthTypes.User | null => auth().currentUser
 
+export const getCurrentUserUid = auth().currentUser?.uid
+
 // Signs in a user with email and password
 export const loginWithEmailPassword = async (email: string, password: string, navigation: any) => {
     try {
@@ -111,3 +113,59 @@ export const fetchUsers = async () => {
         console.error('Error fetching users:', error)
     }
 }
+
+
+export const sendFriendRequest = async (currentUserId: any, friendUserId: any) => {
+    await firestore().collection('friendRequests').add({
+        from: currentUserId,
+        to: friendUserId,
+        status: 'pending',
+    });
+};
+
+
+
+export const acceptFriendRequest = async (requestId: any) => {
+    const request = await firestore().collection('friendRequests').doc(requestId).get()
+
+    if (request.exists) {
+        const { from, to }: any = request.data()
+        await firestore().collection('friends').add({ user1: from, user2: to })
+        await firestore().collection('friendRequests').doc(requestId).delete()
+    }
+};
+export const fetchUsersWithSenderInfo = async () => {
+    try {
+        const currentUser = auth().currentUser?.uid;
+        if (!currentUser) return []; // Kullanıcı yoksa boş döndür
+
+        const requestsCollection = await firestore()
+            .collection('friendRequests')
+            .where('to', '==', currentUser) // Sadece currentUser için gelen istekleri al
+            .get();
+
+        const requestsList = requestsCollection.docs.map(doc => ({
+            ...doc.data(),
+            id: doc.id, // İsteğin ID'sini ekle
+        }));
+
+        // Gönderen kullanıcı bilgilerini almak için parallel fetch
+        const usersPromises = requestsList.map(async request => {
+            const senderDoc = await firestore()
+                .collection('users') // Kullanıcı bilgilerini içeren koleksiyon
+                .doc(request.from)
+                .get();
+
+            return {
+                ...request,
+                senderInfo: senderDoc.exists ? senderDoc.data() : null, // Gönderen kullanıcının bilgileri
+            };
+        });
+
+        const requestsWithSenderInfo = await Promise.all(usersPromises);
+        return requestsWithSenderInfo;
+    } catch (error) {
+        console.error('Error fetching users:', error);
+        return []; // Hata durumunda boş döndür
+    }
+};
