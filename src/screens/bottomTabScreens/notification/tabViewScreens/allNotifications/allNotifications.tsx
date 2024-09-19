@@ -15,12 +15,18 @@ export const AllNotifications = () => {
         getRequests()
     }, [])
 
+    const handleAcceptRequest = async (id: string) => {
+        await acceptFriendRequest(id)
+        // İsteği kabul ettikten sonra, requests listesinden sil
+        setRequests(prevRequests => prevRequests.filter(request => request.id !== id))
+    };
+
     const renderItem = useCallback(({ item }: any) => (
         <View>
             <Image source={{ uri: item.senderInfo?.profileImageUrl }} style={{ width: 50, height: 50 }} />
             <Text>{item.senderInfo?.name}</Text>
             <Text>{item.id}</Text>
-            <Button title='Kabul Et' onPress={() => acceptFriendRequest(item.id)} />
+            <Button title='Kabul Et' onPress={() => handleAcceptRequest(item.id)} />
         </View>
     ), [])
 

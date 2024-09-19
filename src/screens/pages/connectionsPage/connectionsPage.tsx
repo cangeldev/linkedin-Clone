@@ -15,7 +15,6 @@ export const ConnectionsPage = () => {
     const [friendsList, setFriendsList] = useState<any[]>([])
     const renderItem = ({ item }: any) => <ConnectionsUserCard name={item.name} job={item.job} title={item.title} profileImage={item.profileImageUrl} />
 
-
     useEffect(() => {
         const getUsers = async () => {
             const fetchedUsersInfo = await fetchFriendsList()

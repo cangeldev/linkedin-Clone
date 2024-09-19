@@ -9,7 +9,7 @@ import { defaultProfileImage } from 'assets'
  */
 export const ProfileImage = () => {
 
-    const [profileImage, setProfileImage] = useState()
+    const [profileImage, setProfileImage] = useState<any>()
     const imageSource = profileImage ? { uri: profileImage as any } : defaultProfileImage
 
     useEffect(() => {
