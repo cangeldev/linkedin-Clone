@@ -2,6 +2,7 @@ import { View, Text, Image } from 'react-native'
 import React, { FC } from 'react'
 import style from './style'
 import { Icon } from 'components/icon/icon'
+import { defaultProfileImage } from 'assets'
 
 interface IConnectionsUserCard {
     profileImage: any
@@ -10,9 +11,18 @@ interface IConnectionsUserCard {
     job: string
 }
 export const ConnectionsUserCard: FC<IConnectionsUserCard> = ({ profileImage, name, title, job }) => {
+
+    let profileImageSource
+    if (typeof profileImage === 'string') {
+        profileImageSource = { uri: profileImage }
+    } else if (profileImage && profileImage.uri) {
+        profileImageSource = profileImage
+    } else {
+        profileImageSource = defaultProfileImage
+    }
     return (
         <View style={style.container}>
-            <Image source={profileImage} style={style.profileImage} />
+            <Image source={profileImageSource} style={style.profileImage} />
             <View style={style.textContainer}>
                 <Text style={style.userName} >{name}</Text>
                 <Text numberOfLines={1} style={style.userDetails}>{title}</Text>

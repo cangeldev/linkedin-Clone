@@ -3,7 +3,7 @@ import React, { useEffect, useState, useCallback } from 'react'
 import styles from './style'
 import { MyNetworkButton } from 'components'
 import { AddFriendCard } from 'components/cards'
-import { fetchUsers } from 'services/firebase/firebase'
+import { fetchNonFriendsList } from 'services/firebase/firebase'
 import { generateRandomHex } from 'utils/randomColor'
 
 /**
@@ -14,7 +14,7 @@ export const ExpandYourNetwork = () => {
 
     useEffect(() => {
         const getUsers = async () => {
-            const fetchedUsersInfo = await fetchUsers()
+            const fetchedUsersInfo = await fetchNonFriendsList()
             setUsers(fetchedUsersInfo)
         }
         getUsers()
