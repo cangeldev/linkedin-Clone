@@ -7,22 +7,34 @@ import { getCurrentUserUid, sendFriendRequest } from 'services/firebase/firebase
 
 interface IAddFriendCard {
     uid: string
-    name: string,
+    name: string
     surname: string
-    profilePicture: string | { uri: string } | null,
-    title: string,
+    profilePicture: string | { uri: string } | null
+    title: string
     backgroundColor: string
 }
 
 export const AddFriendCard: FC<IAddFriendCard> = ({ name, surname, profilePicture, title, backgroundColor, uid }) => {
     // Determine the source of the profile picture
-    let profileImageSource;
+    let profileImageSource
     if (typeof profilePicture === 'string') {
-        profileImageSource = { uri: profilePicture };
+        profileImageSource = { uri: profilePicture }
     } else if (profilePicture && profilePicture.uri) {
-        profileImageSource = profilePicture;
+        profileImageSource = profilePicture
     } else {
-        profileImageSource = defaultProfileImage;
+        profileImageSource = defaultProfileImage
+    }
+
+    // Get the current user's UID
+    const currentUserUid = getCurrentUserUid()
+
+    // Handle friend request
+    const handleSendFriendRequest = () => {
+        if (currentUserUid) {
+            sendFriendRequest(currentUserUid, uid)
+        } else {
+            console.error('User UID is not available')
+        }
     }
 
     return (
@@ -34,10 +46,10 @@ export const AddFriendCard: FC<IAddFriendCard> = ({ name, surname, profilePictur
                 {title}
             </Text>
             <Text style={styles.profileInfo}>Profiliniz esas alınmıştır</Text>
-            <NotificationsButton onPress={() => sendFriendRequest(getCurrentUserUid, uid)} buttonTitle='Bağlantı kur' />
+            <NotificationsButton onPress={handleSendFriendRequest} buttonTitle='Bağlantı kur' />
             <View style={styles.iconWrapper}>
                 <Icon name='closecircle' type='AntDesign' style={styles.icon} />
             </View>
         </View>
     )
-}
+}  

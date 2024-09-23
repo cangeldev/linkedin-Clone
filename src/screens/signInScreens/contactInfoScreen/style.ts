@@ -31,7 +31,8 @@ export default StyleSheet.create({
     },
     rememberMeContainer: {
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginBottom: 50
     },
     rememberMeText: {
         fontSize: 15,
