@@ -3,11 +3,12 @@ import React, { FC } from 'react'
 import { defaultProfileImage } from 'assets'
 import { NotificationsButton, Icon } from 'components'
 import styles from './style'
-import { getCurrentUserUid, sendFriendRequest } from 'services/firebase/firebase'
+import { sendFriendRequest } from 'services/firebase/firebase'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { setNonFriendsList } from 'services/features/userSlice'
 import { RootState } from 'services/features/store'
+import { getCurrentUserUid } from 'services/firebase/firebaseAuth'
 
 interface IAddFriendCard {
     uid: string

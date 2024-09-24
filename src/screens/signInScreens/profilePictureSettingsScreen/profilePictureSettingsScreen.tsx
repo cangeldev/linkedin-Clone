@@ -7,8 +7,9 @@ import { camera } from 'assets'
 import { useSelector } from 'react-redux'
 import { RootState } from 'services/features/store'
 import { useNavigation } from '@react-navigation/native'
-import { getCurrentUser, saveUserProfile, uploadProfileImage } from 'services/firebase/firebase'
 import { useTranslation } from 'react-i18next'
+import { getCurrentUser, saveUserProfile, uploadProfileImage } from 'services/firebase/firebaseAuth'
+
 
 /**
  * ProfilePictureSettingsScreen - Bu sayfa  kayıt olma sırasında kullanıcının profil resminin alındı kısımdır ilk olarak redux toolkite kaydedilir daha sonrasında tüm bilgilerle beraber firebaseye aktarılır.

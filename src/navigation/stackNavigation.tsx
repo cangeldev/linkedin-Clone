@@ -4,7 +4,7 @@ import { ConnectionsPage, GroupsPage, ManageMyNetworkPage, SavedPostsPage } from
 import { ContactInfoScreen, JobInfoScreen, ProfilePictureSettingsScreen, UserInfoScreen, VerificationCodeScreen } from 'screens/signInScreens'
 import { LoginScreen, WelcomeScreen } from 'screens'
 import { DrawerNavigation } from 'navigation'
-import { getCurrentUser } from 'services/firebase/firebase'
+import { getCurrentUser } from 'services/firebase/firebaseAuth'
 
 const Stack = createStackNavigator()
 const user = getCurrentUser()

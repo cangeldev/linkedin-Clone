@@ -2,6 +2,8 @@ import React from 'react'
 import { Home, Jobs, MyNetwork, Notification, Post } from 'screens/bottomTabScreens'
 import { Icon } from 'components'
 import { useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux'
+import { RootState } from 'services/features/store'
 
 const getIcon = (name: any, IconComponent: any, size = 19) => ({ color }: any) => (
     <Icon type={IconComponent} name={name} style={{ fontSize: size, color: color }} />
@@ -12,8 +14,8 @@ const getIcon = (name: any, IconComponent: any, size = 19) => ({ color }: any) =
  */
 const TabScreens = () => {
 
+    const badge = useSelector((state: RootState) => state.userSlice.info.friendsRequestList.length)
     const { t } = useTranslation()
-
     const screens = [
         {
             name: "Home",
@@ -44,7 +46,8 @@ const TabScreens = () => {
             component: Notification,
             options: {
                 title: t("notifications"),
-                tabBarIcon: getIcon("bell-fill", "Octicons")
+                tabBarIcon: getIcon("bell-fill", "Octicons"),
+                tabBarBadge: badge
             }
         },
         {
@@ -55,9 +58,7 @@ const TabScreens = () => {
                 tabBarIcon: getIcon("briefcase", "FontAwesome6")
             }
         }
-    ];
-
+    ]
     return screens
 }
-
 export { getIcon, TabScreens }

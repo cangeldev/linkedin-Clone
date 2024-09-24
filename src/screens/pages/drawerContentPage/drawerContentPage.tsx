@@ -4,9 +4,10 @@ import { premium, settings } from 'assets'
 import style from './style'
 import { DrawerMenuButton, IconTextButton, Divider, ProfileImage, CustomButton } from 'components'
 import colors from 'assets/colors/colors'
-import { getUserData, handleSignOut } from 'services/firebase/firebase'
+import { getUserData } from 'services/firebase/firebase'
 import { useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
+import { handleSignOut } from 'services/firebase/firebaseAuth'
 
 // Helper function to ensure the value is a string
 const extractString = (value: any): string => {

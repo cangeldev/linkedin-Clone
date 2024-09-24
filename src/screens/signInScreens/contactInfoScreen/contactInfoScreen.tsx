@@ -4,11 +4,11 @@ import { linkedinLogo } from 'assets'
 import { CustomButton, LoginInput, Icon } from 'components'
 import style from './style'
 import { useNavigation } from '@react-navigation/native'
-import { signUpWithEmailPassword } from 'services/firebase/firebase'
 import { useForm } from 'hooks/useForm'
 import { useDispatch } from 'react-redux'
 import { setEmail } from 'services/features/userSlice'
 import { useTranslation } from 'react-i18next'
+import { signUpWithEmailPassword } from 'services/firebase/firebaseAuth'
 
 /**
  * ContactInfoScreen - Bu sayfa  kayıt olma sırasında kullanıcının email ve şifre bilgisinin alındı kısımdır ilk olarak redux toolkite kaydedilir daha sonrasında tüm bilgilerle beraber firebaseye aktarılır.

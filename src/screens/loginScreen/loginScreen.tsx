@@ -3,10 +3,10 @@ import { View, Text, Image, KeyboardAvoidingView, ScrollView, Platform, Alert } 
 import style from './style'
 import { apple, facebook, google, linkedinLogo } from 'assets'
 import { LoginInput, CustomButton, Icon } from 'components'
-import { loginWithEmailPassword } from 'services/firebase/firebase'
 import { useNavigation } from '@react-navigation/native'
 import { useForm } from 'hooks/useForm'
 import { useTranslation } from 'react-i18next'
+import { loginWithEmailPassword } from 'services/firebase/firebaseAuth'
 
 const platformIcons = {
     google,

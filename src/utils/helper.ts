@@ -6,7 +6,6 @@ export const myNetworkPageButtonList = [
         iconName: 'user-group',
         type: 'FontAwesome6',
         title: "Bağlantılar",
-        count: "222",
         navigatePage: "ConnectionsPage"
     },
     {

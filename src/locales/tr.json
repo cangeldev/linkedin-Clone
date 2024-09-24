@@ -67,6 +67,7 @@
         "discounted": "indirimli",
         "settings": "Ayarlar",
         "connections": "Bağlantılar",
+        "connection": "Bağlantı",
         "peopleIFollow": "Takip ettiğim kişiler",
         "pages": "Sayfalar",
         "addYourEmailOrPhone": "E-postanızı veya telefonunuzu ekleyin",
@@ -86,6 +87,6 @@
         "company": "Şirket",
         "title": "Ünvan",
         "startYear": "Başlangıç yılı",
-        "universityOrSchool":"Üniversite veya Okul"
+        "universityOrSchool": "Üniversite veya Okul"
     }
 }
