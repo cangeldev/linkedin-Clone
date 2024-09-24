@@ -5,12 +5,15 @@ import { MyNetworkButton } from 'components'
 import { AddFriendCard } from 'components/cards'
 import { fetchNonFriendsList } from 'services/firebase/firebase'
 import { generateRandomHex } from 'utils/randomColor'
+import { useTranslation } from 'react-i18next'
 
 /**
  * ExpandYourNetwork - Uygulamaya yeni katılan kullanıcıların göründüğü sayfadır.
  */
 export const ExpandYourNetwork = () => {
+
     const [users, setUsers] = useState<any[]>([])
+    const { t } = useTranslation()
 
     useEffect(() => {
         const getUsers = async () => {
@@ -37,11 +40,11 @@ export const ExpandYourNetwork = () => {
 
     return (
         <ScrollView style={styles.container}>
-            <MyNetworkButton title='Davetiyeler (0)' />
-            <MyNetworkButton goPage="ManageMyNetworkPage" title='Ağımı yönet' />
+            <MyNetworkButton title={t("invitations")} />
+            <MyNetworkButton goPage="ManageMyNetworkPage" title={t("manageMyNetwork")} />
             <View style={styles.infoSection}>
                 <Text style={styles.infoText}>
-                    Son faaliyetlerinize göre tanıyabileceğiniz kişiler
+                    {t("peopleYouMayKnow")}
                 </Text>
                 <FlatList
                     scrollEnabled={false}

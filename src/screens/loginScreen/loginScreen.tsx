@@ -6,6 +6,7 @@ import { LoginInput, CustomButton, Icon } from 'components'
 import { loginWithEmailPassword } from 'services/firebase/firebase'
 import { useNavigation } from '@react-navigation/native'
 import { useForm } from 'hooks/useForm'
+import { useTranslation } from 'react-i18next'
 
 const platformIcons = {
     google,
@@ -21,6 +22,7 @@ export const LoginScreen = () => {
     const navigation = useNavigation<any>()
     const [rememberMe, setRememberMe] = useState(true)
     const [formData, handleInputChange] = useForm({ email: '', password: '' })
+    const { t } = useTranslation()
 
     const toggleRememberMe = useCallback(() => setRememberMe(prev => !prev), [])
 
@@ -43,20 +45,20 @@ export const LoginScreen = () => {
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={style.container}>
             <ScrollView contentContainerStyle={style.scrollContainer} keyboardShouldPersistTaps="handled">
                 <Image source={linkedinLogo} style={style.logo} />
-                <Text style={style.title}>Oturum aç</Text>
+                <Text style={style.title}>{t("signIn")}</Text>
                 <Text onPress={() => navigation.navigate("UserInfoScreen")} style={style.subtitle}>
-                    veya <Text style={style.highlightedText}>LinkedIn'e Katılın</Text>
+                    {t("or")} <Text style={style.highlightedText}>{t("joinLinkedln")}</Text>
                 </Text>
                 {['Google', 'Apple', 'Facebook'].map(platform => (
-                    <CustomButton key={platform} title={`${platform} ile oturum açın`} icon={platformIcons[platform.toLowerCase()]} />
+                    <CustomButton key={platform} title={t("signWith") + `${platform}`} icon={platformIcons[platform.toLowerCase()]} />
                 ))}
                 <View style={style.separatorContainer}>
                     <View style={style.separatorLine} />
-                    <Text style={style.separatorText}>veya</Text>
+                    <Text style={style.separatorText}>{t("or")}</Text>
                     <View style={style.separatorLine} />
                 </View>
-                <LoginInput onInputChange={(text) => handleInputChange('email', text)} placeholder='E-posta veya Telefon' />
-                <LoginInput secureTextEntry onInputChange={(text) => handleInputChange('password', text)} placeholder='Şifre' />
+                <LoginInput onInputChange={(text) => handleInputChange('email', text)} placeholder={t("eMailOrPhone")} />
+                <LoginInput secureTextEntry onInputChange={(text) => handleInputChange('password', text)} placeholder={t("password")} />
                 <View style={style.rememberMeContainer}>
                     <Icon
                         type='MaterialCommunityIcons'
@@ -64,11 +66,11 @@ export const LoginScreen = () => {
                         name={rememberMe ? "checkbox-marked" : "checkbox-blank-outline"}
                         style={rememberMe ? style.iconChecked : style.iconUnchecked}
                     />
-                    <Text style={style.rememberMeText}>Beni hatırla.</Text>
-                    <Text style={style.moreInfoText}> Daha fazla bilgi edinin</Text>
+                    <Text style={style.rememberMeText}>{t("rememberMe")}</Text>
+                    <Text style={style.moreInfoText}>{t("learnMore")}</Text>
                 </View>
-                <Text style={style.forgotPasswordText}>Şifrenizi mi unuttunuz?</Text>
-                <CustomButton onPress={handleLogin} title='Devam Et' />
+                <Text style={style.forgotPasswordText}>{t("forgotPassword")}?</Text>
+                <CustomButton onPress={handleLogin} title={t("continue")} />
             </ScrollView>
         </KeyboardAvoidingView>
     )

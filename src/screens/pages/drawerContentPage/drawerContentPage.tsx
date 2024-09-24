@@ -6,6 +6,7 @@ import { DrawerMenuButton, IconTextButton, Divider, ProfileImage, CustomButton }
 import colors from 'assets/colors/colors'
 import { getUserData, handleSignOut } from 'services/firebase/firebase'
 import { useNavigation } from '@react-navigation/native'
+import { useTranslation } from 'react-i18next'
 
 // Helper function to ensure the value is a string
 const extractString = (value: any): string => {
@@ -18,6 +19,7 @@ const extractString = (value: any): string => {
 export const DrawerContentPage = () => {
     const navigation = useNavigation<any>()
     const [userInfo, setUserInfo] = useState<{ name: string; surname: string }>({ name: '', surname: '' })
+    const { t } = useTranslation()
 
     useEffect(() => {
         const getUsers = async () => {
@@ -41,19 +43,19 @@ export const DrawerContentPage = () => {
                 <Text style={style.name}>
                     {userInfo.name} {userInfo.surname}
                 </Text>
-                <Text style={style.goProfileText}>Profili görüntüle</Text>
+                <Text style={style.goProfileText}>{t("viewProfile")}</Text>
                 <Text style={style.whoViewedText}>
                     <Text style={style.whoViewedCountText}>3 </Text>
-                    profil görüntülesi
+                    {t("profileViewers")}
                 </Text>
             </View>
             <Divider />
             <View style={style.container}>
-                <DrawerMenuButton page='SavedPostsPage' pageName='Kaydedilen gönderiler' />
-                <DrawerMenuButton page='GroupsPage' pageName='Gruplar' />
+                <DrawerMenuButton page='SavedPostsPage' pageName={t("savedPosts")} />
+                <DrawerMenuButton page='GroupsPage' pageName={t("groups")} />
             </View>
             <View style={style.signOutButtonView}>
-                <CustomButton onPress={() => handleSignOut(navigation)} title='Çıkış Yap' />
+                <CustomButton onPress={() => handleSignOut(navigation)} title={t("signOut")} />
             </View>
             <Divider />
             <View>
@@ -61,11 +63,11 @@ export const DrawerContentPage = () => {
                     <View style={style.premiumContainer}>
                         <Image source={premium} style={style.premiumImage} />
                         <Text style={style.premiumText}>
-                            Premium'u aktif edin: %50{"\n"}indirimli
+                            {t("reactivePremium")}{"\n"}{t("discounted")}
                         </Text>
                     </View>
                 </TouchableHighlight>
-                <IconTextButton title='Ayarlar' icon={settings} />
+                <IconTextButton title={t("settings")} icon={settings} />
             </View>
         </View>
     )

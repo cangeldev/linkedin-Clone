@@ -4,6 +4,7 @@ import styles from './style'
 import { defaultProfileImage } from 'assets'
 import colors from 'assets/colors/colors'
 import { Icon } from 'components'
+import { useTranslation } from 'react-i18next'
 
 interface PostModalProps {
     isVisible: boolean
@@ -16,6 +17,7 @@ interface PostModalProps {
 export const PostModal: React.FC<PostModalProps> = React.memo(({ isVisible, onClose }) => {
     const [postContent, setPostContent] = useState<string>('')
     const isPostButtonDisabled = postContent.trim().length === 0
+    const { t } = useTranslation()
 
     return (
         <Modal visible={isVisible} animationType="slide" onRequestClose={onClose}>
@@ -24,14 +26,14 @@ export const PostModal: React.FC<PostModalProps> = React.memo(({ isVisible, onCl
                     <Icon type="AntDesign" name="close" style={styles.closeIcon} onPress={onClose} />
                     <Image source={defaultProfileImage} style={styles.profileImage} />
                     <Text style={styles.username}>
-                        Herhangi biri{" "}
+                        {t("anyone")}{" "}
                         <Icon type="AntDesign" name="caretdown" style={styles.dropdownIcon} />
                     </Text>
                     <View style={styles.innerHeader}>
                         <Icon type="Octicons" name="clock" style={styles.timeIcon} />
                         <TouchableOpacity disabled={isPostButtonDisabled}>
                             <Text style={isPostButtonDisabled ? styles.disabledPostButton : styles.enabledPostButton}>
-                                Postala
+                                {t("post")}
                             </Text>
                         </TouchableOpacity>
                     </View>
@@ -41,7 +43,7 @@ export const PostModal: React.FC<PostModalProps> = React.memo(({ isVisible, onCl
                         autoFocus
                         multiline
                         placeholderTextColor={colors.darkGrey}
-                        placeholder='Düşüncelerinizi paylaşın...'
+                        placeholder={t("shareYourThoughts")}
                         style={styles.textInput}
                         onChangeText={setPostContent}
                         value={postContent}
@@ -50,7 +52,7 @@ export const PostModal: React.FC<PostModalProps> = React.memo(({ isVisible, onCl
                 <View style={styles.footer}>
                     <TouchableOpacity style={styles.aiButton}>
                         <Icon type="Ionicons" name="sparkles" style={styles.sparklesIcon} />
-                        <Text style={styles.aiText}>Yapay zeka ile yeniden yazın</Text>
+                        <Text style={styles.aiText}>{t("rewriteWithAI")}</Text>
                     </TouchableOpacity>
                     <Icon type="FontAwesome6" name="image" style={styles.footerIcon} />
                     <Icon type="Fontisto" name="plus-a" style={styles.footerIcon} />

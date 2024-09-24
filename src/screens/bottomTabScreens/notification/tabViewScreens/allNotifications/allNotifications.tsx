@@ -4,9 +4,11 @@ import { EmptyNotificationsCard, FriendRequestCard } from 'components/cards'
 import style from './style'
 import { acceptFriendRequest, declineFriendRequest, fetchUsersWithSenderInfo } from 'services/firebase/firebase'
 import { Divider } from 'components'
+import { useTranslation } from 'react-i18next'
 
 export const AllNotifications = () => {
     const [requests, setRequests] = useState<any[]>([])
+    const { t } = useTranslation()
 
     useEffect(() => {
         const getRequests = async () => {
@@ -43,9 +45,9 @@ export const AllNotifications = () => {
         <View style={style.container}>
             {requests.length === 0 ? (
                 <EmptyNotificationsCard
-                    notification='Yeni bildirim yok'
-                    notificationInfo='Ana sayfanızdaki diğer güncellemeleri görüntüleyin'
-                    buttonTitle='Ana Sayfaya Git'
+                    notification={t("NoNewNotifications")}
+                    notificationInfo={t("updatesYourHomePAge")}
+                    buttonTitle={t("goToHomePage")}
                 />
             ) : (
                 <FlatList data={requests} renderItem={renderItem} keyExtractor={(item) => item.id} ItemSeparatorComponent={() => <Divider />} />

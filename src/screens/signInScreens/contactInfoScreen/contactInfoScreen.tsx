@@ -8,6 +8,7 @@ import { signUpWithEmailPassword } from 'services/firebase/firebase'
 import { useForm } from 'hooks/useForm'
 import { useDispatch } from 'react-redux'
 import { setEmail } from 'services/features/userSlice'
+import { useTranslation } from 'react-i18next'
 
 /**
  * ContactInfoScreen - Bu sayfa  kayıt olma sırasında kullanıcının email ve şifre bilgisinin alındı kısımdır ilk olarak redux toolkite kaydedilir daha sonrasında tüm bilgilerle beraber firebaseye aktarılır.
@@ -33,22 +34,22 @@ export const ContactInfoScreen = () => {
     }, [formData, navigation, dispatch])
 
     const toggleRememberMe = useCallback(() => setRememberMe(prev => !prev), [])
-
+    const { t } = useTranslation()
     return (
         <View style={style.container}>
             <Image source={linkedinLogo} style={style.logo} />
-            <Text style={style.info}>E-postanızı veya telefonunuzu ekleyin</Text>
+            <Text style={style.info}>{t("addYourEmailOrPhone")}</Text>
             <View style={style.inputView}>
                 <LoginInput
                     onInputChange={(text) => handleInputChange('email', text)}
-                    placeholder='E-posta veya Telefon*'
+                    placeholder={t("eMailOrPhone")}
                 />
                 <LoginInput
                     onInputChange={(text) => handleInputChange('password', text)}
-                    placeholder='Şifre'
+                    placeholder={t("password")}
                     secureTextEntry
                 />
-                <Text style={style.passwordInfo}>6 veya daha fazla karakter</Text>
+                <Text style={style.passwordInfo}>{t("6OrMoreCharacters")}</Text>
             </View>
             <View style={style.rememberMeContainer}>
                 <Icon
@@ -57,9 +58,9 @@ export const ContactInfoScreen = () => {
                     name={rememberMe ? "checkbox-marked" : "checkbox-blank-outline"}
                     style={rememberMe ? style.iconChecked : style.iconUnchecked}
                 />
-                <Text style={style.rememberMeText}>Beni hatırla.</Text>
+                <Text style={style.rememberMeText}>{t("rememberMe")}</Text>
             </View>
-            <CustomButton title='Devam Et' onPress={handleButton} />
+            <CustomButton title={t("continue")} onPress={handleButton} />
         </View>
     )
 }

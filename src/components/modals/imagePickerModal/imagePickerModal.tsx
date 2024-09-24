@@ -5,6 +5,7 @@ import style from './style'
 import { useDispatch } from 'react-redux'
 import { AppDispatch } from 'services/features/store'
 import { setProfileImage } from 'services/features/userSlice'
+import { useTranslation } from 'react-i18next'
 
 interface IImagePickerModal {
     visibleModal: boolean
@@ -17,7 +18,7 @@ interface IImagePickerModal {
  */
 export const ImagePickerModal: FC<IImagePickerModal> = ({ visibleModal, closeModal }) => {
     const dispatch = useDispatch<AppDispatch>()
-
+    const { t } = useTranslation()
     const handleImageSelection = (launchFunction: Function, options: ImageLibraryOptions | CameraOptions) => {
         launchFunction(options, (response: any) => {
             if (response.didCancel) {
@@ -64,10 +65,10 @@ export const ImagePickerModal: FC<IImagePickerModal> = ({ visibleModal, closeMod
             <View style={style.container}>
                 <View style={style.contentView}>
                     <Text onPress={handleCameraLaunch} style={style.text}>
-                        Fotoğraf çek
+                        {t("takePhoto")}
                     </Text>
                     <Text onPress={openImagePicker} style={style.text}>
-                        Galeriden bir fotoğraf seç
+                        {t("selectPhotoGallery")}
                     </Text>
                 </View>
             </View>

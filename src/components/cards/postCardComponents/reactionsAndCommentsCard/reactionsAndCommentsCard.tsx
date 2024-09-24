@@ -1,21 +1,14 @@
 import { View, Text, FlatList, Image } from 'react-native'
 import React from 'react'
-import { clapping, heart, idea, laughing, like, support } from 'assets'
 import styles from './style'
+import { useTranslation } from 'react-i18next'
+import { reactionList } from 'utils/helper'
 
 /**
  * `ReactionsAndCommentsCard` bileşeni, bir gönderiye verilen tepkilerin hangi türde olduklarını kaç adet olduklarını ve varsa yorum bilgisini gösterir.
  */
 export const ReactionsAndCommentsCard = React.memo(() => {
-    // Beğenme çeşitlerini ve ikonlarını içeren liste
-    const reactionList = [
-        { image: like },
-        { image: clapping },
-        { image: support },
-        { image: heart },
-        { image: idea },
-        { image: laughing }
-    ]
+    const { t } = useTranslation()
 
     const renderItem = ({ item }: any) =>
         <View style={styles.reactionIconContainer}>
@@ -31,7 +24,7 @@ export const ReactionsAndCommentsCard = React.memo(() => {
                 />
             </View>
             <Text style={styles.userCount}>5.043</Text>
-            <Text style={styles.comment}>28 yorum</Text>
+            <Text style={styles.comment}>28 {t('comment')}</Text>
         </View>
     )
 })

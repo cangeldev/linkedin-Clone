@@ -4,17 +4,19 @@ import { facebook, google, linkedinLogo } from 'assets'
 import style from './style'
 import { CustomButton } from 'components'
 import { useNavigation } from '@react-navigation/native'
-
-const socialLoginButtons = [
-    { title: 'Google ile Devam Et', icon: google },
-    { title: 'Facebook ile Devam Et', icon: facebook },
-]
+import { useTranslation } from 'react-i18next'
 
 /**
  * WelcomeScreen - Bu sayfa  uygulama ilk açıldığı zaman kullanıcıları karşılayan ve uygulama hakkında ön bilgi veren daha sonrasında üyelik durumuna göre yönlendirmeleri yapan sayfadır.
  */
 export const WelcomeScreen = () => {
     const navigation = useNavigation<any>()
+    const { t } = useTranslation()
+
+    const socialLoginButtons = [
+        { title: t('continueWithGoogle'), icon: google },
+        { title: t('continueWithFacebook'), icon: facebook },
+    ]
 
     const navigateToScreen = useCallback((screen: string) => {
         navigation.navigate(screen)
@@ -24,20 +26,20 @@ export const WelcomeScreen = () => {
         <View style={style.container}>
             <Image source={linkedinLogo} style={style.logo} />
             <Text style={style.title}>
-                1 milyar profesyonelden oluşan güvenli topluluğa katılın
+                {t("welcometitle")}
             </Text>
             <Text style={style.description}>
-                Kabul Et ve Katıl veya Devam Et seçeneklerinden birini tıklayarak, LinkedIn
-                <Text style={style.linkText}> Kullanıcı Anlaşmasını</Text>,{' '}
-                <Text style={style.linkText}>Gizlilik politikasını</Text> ve{' '}
-                <Text style={style.linkText}>Çerez politikasını</Text> kabul etmiş olursunuz.
+                {t("welcomeInfo")}{' '}
+                <Text style={style.linkText}>{t("userAgreement")}</Text>,{' '}
+                <Text style={style.linkText}>{t("privacyPolicy")}</Text>{' '}{t("and")}{' '}
+                <Text style={style.linkText}>{t("cookiePolicy")}{' '}</Text>{t("youAccept")}
             </Text>
-            <CustomButton title='Kabul Et ve Katıl' onPress={() => navigateToScreen("UserInfoScreen")} />
+            <CustomButton title={t("agreeAndJoin")} onPress={() => navigateToScreen("UserInfoScreen")} />
             {socialLoginButtons.map(button => (
                 <CustomButton key={button.title} title={button.title} icon={button.icon} />
             ))}
             <TouchableOpacity onPress={() => navigateToScreen("LoginScreen")}>
-                <Text style={style.loginPrompt}>Oturum aç</Text>
+                <Text style={style.loginPrompt}>{t("signIn")}</Text>
             </TouchableOpacity>
         </View>
     )

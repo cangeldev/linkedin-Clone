@@ -4,6 +4,7 @@ import { defaultProfileImage } from 'assets'
 import { NotificationsButton, Icon } from 'components'
 import styles from './style'
 import { getCurrentUserUid, sendFriendRequest } from 'services/firebase/firebase'
+import { useTranslation } from 'react-i18next'
 
 interface IAddFriendCard {
     uid: string
@@ -37,6 +38,8 @@ export const AddFriendCard: FC<IAddFriendCard> = ({ name, surname, profilePictur
         }
     }
 
+    const { t } = useTranslation()
+
     return (
         <View style={styles.card}>
             <View style={[styles.banner, { backgroundColor }]} />
@@ -45,8 +48,8 @@ export const AddFriendCard: FC<IAddFriendCard> = ({ name, surname, profilePictur
             <Text style={styles.description} numberOfLines={2}>
                 {title}
             </Text>
-            <Text style={styles.profileInfo}>Profiliniz esas alınmıştır</Text>
-            <NotificationsButton onPress={handleSendFriendRequest} buttonTitle='Bağlantı kur' />
+            <Text style={styles.profileInfo}>{t('basedOnYourProfile')}</Text>
+            <NotificationsButton onPress={handleSendFriendRequest} buttonTitle={t('connect')} />
             <View style={styles.iconWrapper}>
                 <Icon name='closecircle' type='AntDesign' style={styles.icon} />
             </View>

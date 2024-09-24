@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux'
 import { RootState } from 'services/features/store'
 import { useNavigation } from '@react-navigation/native'
 import { getCurrentUser, saveUserProfile, uploadProfileImage } from 'services/firebase/firebase'
-
+import { useTranslation } from 'react-i18next'
 
 /**
  * ProfilePictureSettingsScreen - Bu sayfa  kayıt olma sırasında kullanıcının profil resminin alındı kısımdır ilk olarak redux toolkite kaydedilir daha sonrasında tüm bilgilerle beraber firebaseye aktarılır.
@@ -18,6 +18,7 @@ export const ProfilePictureSettingsScreen = () => {
     const navigation = useNavigation<any>()
     const { job, name, surname, title, location, profileImage, email } = useSelector((state: RootState) => state.userSlice)
     const [imagePickerModal, setImagePickerModal] = useState(false)
+    const { t } = useTranslation()
 
     const hasProfileImage = profileImage != null
     const imageSource = profileImage ? { uri: profileImage } : camera
@@ -64,7 +65,7 @@ export const ProfilePictureSettingsScreen = () => {
                 closeModal={toggleImagePickerModal}
                 visibleModal={imagePickerModal}
             />
-            <SignInHeader title='Fotoğraf eklemeniz tanınmanıza yardımcı olur' />
+            <SignInHeader title={t("AddingPhotoWillHelpYouGetRecognized")} />
             <View style={styles.pictureContainer}>
                 <View style={styles.cameraButton}>
                     <Image style={styles.profileImage} source={imageSource} />
@@ -74,12 +75,12 @@ export const ProfilePictureSettingsScreen = () => {
             </View>
             <View style={styles.footer}>
                 <CustomButton
-                    title={hasProfileImage ? 'İleri' : 'Fotoğraf ekle'}
+                    title={hasProfileImage ? t("forward") : t("addPhoto")}
                     onPress={hasProfileImage ? saveUserProfileToFirebase : toggleImagePickerModal}
                 />
                 {!hasProfileImage && (
                     <Text onPress={saveUserProfileToFirebase} style={styles.skipText}>
-                        Şimdilik geç
+                        {t("lateForNow")}
                     </Text>
                 )}
             </View>

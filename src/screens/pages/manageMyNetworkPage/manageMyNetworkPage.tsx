@@ -4,13 +4,15 @@ import style from './style'
 import { Divider, Icon, MyNetworkPageButton } from 'components'
 import { useNavigation } from '@react-navigation/native'
 import { myNetworkPageButtonList } from 'utils/helper'
+import { useTranslation } from 'react-i18next'
 
 /**
  * ManageMyNetworkPage - Ağımı yönet sayfasında bulunana bileşenlerin listelendiği sayfadır. bağlantılar,Takip ettiğim kişiler veya sayfalar  bileşenlerinin bulunduğu sayfadır istenilen sayfaya yönlenilmesi için kullanılır. 
  */
 export const ManageMyNetworkPage = () => {
-    const navigation = useNavigation<any>()
 
+    const navigation = useNavigation<any>()
+    const { t } = useTranslation()
     const renderItem = ({ item }: any) =>
         <MyNetworkPageButton navigations={item.navigatePage} count={item.count} title={item.title} iconName={item.iconName} type={item.type} />
     return (
@@ -18,7 +20,7 @@ export const ManageMyNetworkPage = () => {
             <View style={style.header}>
                 <Icon onPress={() => navigation.goBack()} name='arrow-left' type='MaterialCommunityIcons' style={style.icon} />
                 <Text style={style.title}>
-                    Ağımı yönet
+                    {t("manageMyNetwork")}
                 </Text>
             </View>
             <Divider />

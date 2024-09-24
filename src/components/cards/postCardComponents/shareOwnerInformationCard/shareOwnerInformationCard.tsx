@@ -2,6 +2,7 @@ import React, { FC } from 'react'
 import { View, Text, Image, TouchableOpacity } from 'react-native'
 import styles from './style'
 import { Icon } from 'components'
+import { useTranslation } from 'react-i18next'
 
 interface IShareOwnerInformationCard {
     sharingName: string
@@ -13,6 +14,7 @@ interface IShareOwnerInformationCard {
  * Bu kart, kişinin profil resmini, adını, kısa açıklamasını, paylaşım zamanını ve bir takip butonunu içerir.
  */
 export const ShareOwnerInformationCard: FC<IShareOwnerInformationCard> = React.memo(({ sharingImage, sharingName }) => {
+    const { t } = useTranslation()
     return (
         <View style={styles.cardContainer}>
             <Image source={sharingImage} style={styles.profileImage} />
@@ -31,7 +33,7 @@ export const ShareOwnerInformationCard: FC<IShareOwnerInformationCard> = React.m
             </View>
             <TouchableOpacity style={styles.followButton}>
                 <Text style={styles.plusIcon}>+ </Text>
-                <Text style={styles.followButtonText}>Takip Et</Text>
+                <Text style={styles.followButtonText}>{t("follow")}</Text>
             </TouchableOpacity>
         </View>
     )

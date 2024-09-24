@@ -14,6 +14,7 @@ const App = () => {
 
   useEffect(() => {
     // Hides the splash screen and sets the status bar when the app loads
+    i18n.changeLanguage("en")
     BootSplash.hide({ fade: true })
     setStatusBar()
   }, [])

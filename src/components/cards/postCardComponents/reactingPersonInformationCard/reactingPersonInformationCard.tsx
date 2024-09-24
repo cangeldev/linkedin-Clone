@@ -2,6 +2,7 @@ import React, { FC } from 'react'
 import { View, Text, Image } from 'react-native'
 import styles from './style'
 import { Divider, Icon } from 'components'
+import { useTranslation } from 'react-i18next'
 
 interface IReactingPersonInformationCard {
     reactionName?: string
@@ -13,6 +14,9 @@ interface IReactingPersonInformationCard {
  * Bu kart, tepki veren kişinin adını ve görüntüsünü, tepkinin açıklamasını ve ek seçenekleri içerir.
  */
 export const ReactingPersonInformationCard: FC<IReactingPersonInformationCard> = React.memo(({ reactionImage, reactionName }) => {
+
+    const { t } = useTranslation()
+
     return (
         <View style={styles.cardContainer}>
             <View style={styles.contentContainer}>
@@ -21,7 +25,7 @@ export const ReactingPersonInformationCard: FC<IReactingPersonInformationCard> =
                     <Text numberOfLines={1} style={styles.reactionName}>
                         {reactionName}
                         <Text style={styles.reactionDescription}>
-                            {" "}bunu beğendi
+                            {" "}{t('likesThis')}
                         </Text>
                     </Text>
                 </View>

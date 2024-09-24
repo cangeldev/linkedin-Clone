@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react'
 import { Text, View } from 'react-native'
 import styles from './style'
+import { useTranslation } from 'react-i18next'
 
 /**
  * `ContentCard` bileşeni, kullanıcıların paylaşımlarının içeriğini gösteren bir karttır.
@@ -9,6 +10,7 @@ export const ContentCard = React.memo(() => {
 
     const [isTextExpanded, setIsTextExpanded] = useState(false)
     const [hasMoreText, setHasMoreText] = useState(false)
+    const { t } = useTranslation()
 
     //  Metni genişletme veya daraltma işlemi için kullanılan fonksiyon
     const toggleTextExpansion = () => {
@@ -33,7 +35,7 @@ export const ContentCard = React.memo(() => {
                     onPress={toggleTextExpansion}
                     style={styles.toggleText}
                 >
-                    {isTextExpanded ? 'hide more' : 'see more'}
+                    {isTextExpanded ? t('hideSee') : t('hideMore')}
                 </Text>
             )}
         </View>

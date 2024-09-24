@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import colors from 'assets/colors/colors'
 import { Header, TabBarButton } from 'components'
-import { screens } from 'components/getIcon/getIcon'
+import { TabScreens } from 'components/getIcon/getIcon'
 import { PostModal } from 'screens/bottomTabScreens'
 
 const headerStyle = { height: 40 }
@@ -27,7 +27,7 @@ export const TabNavigation = React.memo(() => {
     const [isModalVisible, setIsModalVisible] = useState(false)
     const handleModalClose = () => setIsModalVisible(false)
     const handlePostButtonPress = () => setIsModalVisible(true)
-
+    const screens = TabScreens()
     return (
         <>
             <PostModal isVisible={isModalVisible} onClose={handleModalClose} />

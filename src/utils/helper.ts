@@ -1,3 +1,5 @@
+import { clapping, heart, idea, laughing, like, support } from "assets"
+
 export const myNetworkPageButtonList = [
     {
         id: 1,
@@ -24,3 +26,13 @@ export const myNetworkPageButtonList = [
         navigatePage: "null"
     }
 ]
+
+// Beğenme çeşitlerini ve ikonlarını içeren liste
+export const reactionList = [
+    { image: like },
+    { image: clapping },
+    { image: support },
+    { image: heart },
+    { image: idea },
+    { image: laughing }
+] 

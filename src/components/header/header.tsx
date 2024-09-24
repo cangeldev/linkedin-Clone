@@ -3,6 +3,7 @@ import { View, Pressable, TextInput } from 'react-native'
 import { useRoute } from '@react-navigation/native'
 import styles from './style'
 import { Icon, ProfileImage } from 'components'
+import { useTranslation } from 'react-i18next'
 
 interface IHeader {
     navigation: any
@@ -16,6 +17,7 @@ export const Header: FC<IHeader> = ({ navigation }) => {
     const [inputValue, setInputValue] = useState('')
     const route = useRoute()
     const tabIndex = route.name
+    const { t } = useTranslation()
 
     return (
         <View style={styles.container}>
@@ -27,8 +29,8 @@ export const Header: FC<IHeader> = ({ navigation }) => {
                     style={styles.input}
                     value={inputValue}
                     onChangeText={setInputValue}
-                    placeholder="Arama Yap"
-                    placeholderTextColor="#5b5d5f"
+                    placeholder={t("search")}
+                placeholderTextColor="#5b5d5f"
                 />
                 <Icon type="FontAwesome5" name="search" style={styles.searchIcon} />
             </View>
