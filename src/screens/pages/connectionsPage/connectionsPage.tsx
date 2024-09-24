@@ -1,28 +1,20 @@
 import { View, Text, FlatList } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useNavigation } from '@react-navigation/native'
 import style from './style'
 import { Divider, Icon } from 'components'
 import { ConnectionsUserCard } from 'components/cards'
-import { fetchFriendsList } from 'services/firebase/firebase'
+import { useSelector } from 'react-redux'
+import { RootState } from 'services/features/store'
 
 /**
  * ConnectionsPage - iletişimde olduğum kullanıcıların listelendiği sayfadır. Bu sayfadan kullanıcılar ile iletişim kurulabilir veya iletişim sonlandırma gibi işlemlere yönelinebilinir.
  */
 export const ConnectionsPage = () => {
 
+    const friendsListRedux = useSelector((state: RootState) => state.userSlice.info.friendsList)
     const navigation = useNavigation<any>()
-    const [friendsList, setFriendsList] = useState<any[]>([])
     const renderItem = ({ item }: any) => <ConnectionsUserCard name={item.name} job={item.job} title={item.title} profileImage={item.profileImageUrl} />
-
-    useEffect(() => {
-        const getUsers = async () => {
-            const fetchedUsersInfo = await fetchFriendsList()
-            setFriendsList(fetchedUsersInfo)
-        }
-        getUsers()
-
-    }, [])
 
     return (
         <View style={style.container}>
@@ -41,7 +33,7 @@ export const ConnectionsPage = () => {
                 <Icon name='sliders-h' type='FontAwesome5' style={style.toolbarIcons} />
             </View>
             <Divider />
-            <FlatList data={friendsList} renderItem={renderItem} ItemSeparatorComponent={() => <Divider />} />
+            <FlatList data={friendsListRedux} renderItem={renderItem} ItemSeparatorComponent={() => <Divider />} />
         </View>
     )
 }

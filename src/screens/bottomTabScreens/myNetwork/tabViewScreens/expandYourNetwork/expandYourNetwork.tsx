@@ -1,32 +1,24 @@
 import { Text, View, FlatList, ScrollView } from 'react-native'
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useCallback } from 'react'
 import styles from './style'
 import { MyNetworkButton } from 'components'
 import { AddFriendCard } from 'components/cards'
-import { fetchNonFriendsList } from 'services/firebase/firebase'
 import { generateRandomHex } from 'utils/randomColor'
 import { useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux'
+import { RootState } from 'services/features/store'
 
 /**
  * ExpandYourNetwork - Uygulamaya yeni katılan kullanıcıların göründüğü sayfadır.
  */
 export const ExpandYourNetwork = () => {
 
-    const [users, setUsers] = useState<any[]>([])
     const { t } = useTranslation()
-
-    useEffect(() => {
-        const getUsers = async () => {
-            const fetchedUsersInfo = await fetchNonFriendsList()
-            setUsers(fetchedUsersInfo)
-        }
-        getUsers()
-    }, [])
-
+    const deneme = useSelector((state: RootState) => state.userSlice.info.NonFriendsList)
     const renderItem = useCallback(({ item }: any) => (
         <View style={styles.cardWrapper}>
             <AddFriendCard
-                uid={item.uid}
+                uid={item.id}
                 title={item.title}
                 name={item.name}
                 surname={item.surname}
@@ -48,7 +40,7 @@ export const ExpandYourNetwork = () => {
                 </Text>
                 <FlatList
                     scrollEnabled={false}
-                    data={users}
+                    data={deneme}
                     renderItem={renderItem}
                     keyExtractor={keyExtractor}
                     numColumns={2}

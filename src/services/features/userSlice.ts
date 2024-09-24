@@ -2,24 +2,42 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 // Defines the shape of the user state in the Redux store
 interface UserState {
-  profileImage: string | null
-  name: string
-  surname: string
-  location: string
-  job: string
-  title: string
-  email: string
+  loggedUserInfo: {
+    profileImage: string | null
+    name: string
+    surname: string
+    location: string
+    job: string
+    title: string
+    email: string
+  },
+  info: {
+    // myUserInfo: string
+    friendsList: string[],
+    NonFriendsList: string[],
+    friendsRequestList: string[]
+    notificationsList: string
+  }
 }
 
 // Initial state of the user slice with default values
 const initialState: UserState = {
-  profileImage: null,
-  name: '',
-  surname: '',
-  location: '',
-  job: '',
-  title: '',
-  email: ''
+  loggedUserInfo: {
+    profileImage: null,
+    name: '',
+    surname: '',
+    location: '',
+    job: '',
+    title: '',
+    email: ''
+  },
+  info: {
+    //myUserInfo: "",
+    friendsList: [],
+    NonFriendsList: [],
+    friendsRequestList: [],
+    notificationsList: ""
+  }
 }
 
 // Creates a slice of the Redux store for user-related state management
@@ -28,27 +46,36 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setName: (state, action: PayloadAction<string>) => {
-      state.name = action.payload
+      state.loggedUserInfo.name = action.payload
     },
     setSurname: (state, action: PayloadAction<string>) => {
-      state.surname = action.payload
+      state.loggedUserInfo.surname = action.payload
     },
     setProfileImage: (state, action: PayloadAction<string | null>) => {
-      state.profileImage = action.payload
+      state.loggedUserInfo.profileImage = action.payload
     },
     setLocation: (state, action: PayloadAction<string>) => {
-      state.location = action.payload
+      state.loggedUserInfo.location = action.payload
     },
     setJob: (state, action: PayloadAction<string>) => {
-      state.job = action.payload
+      state.loggedUserInfo.job = action.payload
     },
     setTitle: (state, action: PayloadAction<string>) => {
-      state.title = action.payload
+      state.loggedUserInfo.title = action.payload
     },
     setEmail: (state, action: PayloadAction<string>) => {
-      state.email = action.payload
+      state.loggedUserInfo.email = action.payload
+    },
+    setFriendsList: (state, action: PayloadAction<string[]>) => {
+      state.info.friendsList = action.payload
+    },
+    setNonFriendsList: (state, action: PayloadAction<string[]>) => {
+      state.info.NonFriendsList = action.payload
+    },
+    setFriendsRequestList: (state, action: PayloadAction<string[]>) => {
+      state.info.friendsRequestList = action.payload
     }
   }
 })
-export const { setProfileImage, setName, setSurname, setJob, setLocation, setTitle, setEmail } = userSlice.actions
+export const { setProfileImage, setName, setSurname, setJob, setLocation, setTitle, setEmail, setFriendsList, setNonFriendsList, setFriendsRequestList } = userSlice.actions
 export default userSlice.reducer

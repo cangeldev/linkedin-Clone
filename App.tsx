@@ -1,44 +1,63 @@
 import Container from 'container/container'
 import React, { useEffect } from 'react'
-import { Platform, StatusBar } from 'react-native'
-import BootSplash from "react-native-bootsplash"
-import { Provider } from 'react-redux'
+import { StatusBar } from 'react-native'
+import BootSplash from 'react-native-bootsplash'
+import { Provider, useDispatch } from 'react-redux'
 import store from 'services/features/store'
-import { I18nextProvider } from 'react-i18next' // i18next kütüphanesinden I18nextProvider'ı içe aktarmak için.
+import { I18nextProvider } from 'react-i18next'
 import i18n from 'utils/i18next'
+import { fetchFriendsList, fetchNonFriendUsers, fetchUsersWithSenderInfo } from 'services/firebase/firebase'
+import { setFriendsList, setNonFriendsList, setFriendsRequestList } from 'services/features/userSlice'
 
 /**
  * App - Bu sayfa uygulamamızın başlangıç yapılandırmasını, durum yönetimini ve navigasyonunu kurar.
+ * Bu sayfada firebasedeki verilerin daha hızlı bir şekilde yüklenmesini sağlamak için veriler redux toolkite kaydedilir.
  */
-const App = () => {
+
+const MainComponent = React.memo(() => {
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    // Hides the splash screen and sets the status bar when the app loads
-    i18n.changeLanguage("en")
-    BootSplash.hide({ fade: true })
-    setStatusBar()
-  }, [])
+    const getUsers = async () => {
+      try {
+        const [fetchedFriendsInfo, fetchedNonFriendsInfo, fetchedFriendsRequests] = await Promise.all([
+          fetchFriendsList(),
+          fetchNonFriendUsers(),
+          fetchUsersWithSenderInfo(),
+        ])
+
+        dispatch(setFriendsList(fetchedFriendsInfo))
+        dispatch(setNonFriendsList(fetchedNonFriendsInfo))
+        dispatch(setFriendsRequestList(fetchedFriendsRequests))
+      } catch (error) {
+        console.error('Error fetching user data:', error)
+      }
+    }
+
+    const initializeApp = () => {
+      i18n.changeLanguage('tr')
+      BootSplash.hide({ fade: true })
+      setStatusBar()
+    }
+
+    getUsers()
+    initializeApp()
+  }, [dispatch])
 
   const setStatusBar = () => {
-    // Sets the status bar style based on the platform
-    if (Platform.OS === 'android') {
-      StatusBar.setBackgroundColor('white')
-      StatusBar.setBarStyle("dark-content")
-    }
-    if (Platform.OS === 'ios') {
-      StatusBar.setBackgroundColor('white')
-      StatusBar.setBarStyle("dark-content")
-    }
+    StatusBar.setBackgroundColor('white')
+    StatusBar.setBarStyle('dark-content')
   }
 
-  return (
-    <Provider store={store}>
-      <I18nextProvider i18n={i18n}>
-        <Container />
-      </I18nextProvider>
-    </Provider>
+  return <Container />
+})
 
-  )
-}
+const App = () => (
+  <Provider store={store}>
+    <I18nextProvider i18n={i18n}>
+      <MainComponent />
+    </I18nextProvider>
+  </Provider>
+)
 
 export default React.memo(App)

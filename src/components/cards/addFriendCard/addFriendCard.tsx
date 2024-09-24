@@ -5,6 +5,9 @@ import { NotificationsButton, Icon } from 'components'
 import styles from './style'
 import { getCurrentUserUid, sendFriendRequest } from 'services/firebase/firebase'
 import { useTranslation } from 'react-i18next'
+import { useDispatch, useSelector } from 'react-redux'
+import { setNonFriendsList } from 'services/features/userSlice'
+import { RootState } from 'services/features/store'
 
 interface IAddFriendCard {
     uid: string
@@ -16,6 +19,8 @@ interface IAddFriendCard {
 }
 
 export const AddFriendCard: FC<IAddFriendCard> = ({ name, surname, profilePicture, title, backgroundColor, uid }) => {
+    const dispatch = useDispatch()
+    const NonFriendsList = useSelector((state: RootState) => state.userSlice.info.NonFriendsList)
     // Determine the source of the profile picture
     let profileImageSource
     if (typeof profilePicture === 'string') {
@@ -33,6 +38,7 @@ export const AddFriendCard: FC<IAddFriendCard> = ({ name, surname, profilePictur
     const handleSendFriendRequest = () => {
         if (currentUserUid) {
             sendFriendRequest(currentUserUid, uid)
+            dispatch(setNonFriendsList(NonFriendsList.filter(request => request.id !== uid)))
         } else {
             console.error('User UID is not available')
         }

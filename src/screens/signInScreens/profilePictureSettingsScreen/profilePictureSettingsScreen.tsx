@@ -16,7 +16,7 @@ import { useTranslation } from 'react-i18next'
  */
 export const ProfilePictureSettingsScreen = () => {
     const navigation = useNavigation<any>()
-    const { job, name, surname, title, location, profileImage, email } = useSelector((state: RootState) => state.userSlice)
+    const { job, name, surname, title, location, profileImage, email } = useSelector((state: RootState) => state.userSlice.loggedUserInfo)
     const [imagePickerModal, setImagePickerModal] = useState(false)
     const { t } = useTranslation()
 
