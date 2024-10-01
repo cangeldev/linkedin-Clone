@@ -28,10 +28,10 @@ export const myNetworkPageButtonList = [
 
 // Beğenme çeşitlerini ve ikonlarını içeren liste
 export const reactionList = [
-    { image: like },
-    { image: clapping },
-    { image: support },
-    { image: heart },
-    { image: idea },
-    { image: laughing }
+    { image: like, name: "like" },
+    { image: clapping, name: "clapping" },
+    { image: support, name: "support" },
+    { image: heart, name: "heart" },
+    { image: idea, name: "idea" },
+    { image: laughing, name: "laughing" }
 ] 

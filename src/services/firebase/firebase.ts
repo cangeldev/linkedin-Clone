@@ -1,5 +1,6 @@
 import firestore from '@react-native-firebase/firestore'
 import { getCurrentUserUid } from './firebaseAuth'
+import storage from '@react-native-firebase/storage'
 
 // Fetches user data from Firestore
 export const getUserData = async (field: string) => {
@@ -150,4 +151,51 @@ const getFriendUids = async (currentUserUid: string) => {
         .get()
 
     return [...new Set([...friendsCollection1.docs.map(doc => doc.data().user2), ...friendsCollection2.docs.map(doc => doc.data().user1)])]
-}  
+}
+
+
+export const savePostToFirebase = (name: string, surname: string, time: any, contentText: string, comment: string, reaction: string, title: string, postImageUrl: string | null) => {
+    firestore()
+        .collection('posts')
+        .add({
+            name: name,
+            surname: surname,
+            title: title,
+            time: time,
+            contentText: contentText,
+            comment: comment,
+            reaction: reaction,
+            postImageUrl: postImageUrl
+
+        })
+        .then(() => {
+            console.log('Post added!')
+        });
+}
+export const getMyUserData = async () => {
+    try {
+        const uid = getCurrentUserUid();
+        if (!uid) return null;
+        const userSnapshot = await firestore().collection('users').doc(uid).get();
+        return userSnapshot.exists ? userSnapshot.data() : null;
+    } catch (error) {
+        console.error('Error fetching user data:', error);
+        return null;
+    }
+}
+
+export const uploadPostImage = async (profileImage: any): Promise<string | null> => {
+    if (profileImage) {
+        try {
+            const { uri } = profileImage
+            const filename = uri.substring(uri.lastIndexOf('/') + 1)
+            const storageRef = storage().ref(`postPictures/${filename}`)
+            await storageRef.putFile(uri)
+            return await storageRef.getDownloadURL()
+        } catch (error) {
+            console.error('Error uploading profile image:', error)
+            return null
+        }
+    }
+    return null
+}

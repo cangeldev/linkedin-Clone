@@ -1,4 +1,4 @@
-import { View, FlatList, Image, Modal, TouchableWithoutFeedback } from 'react-native'
+import { View, FlatList, Image, Modal, TouchableWithoutFeedback, TouchableOpacity } from 'react-native'
 import React, { FC } from 'react'
 import style from './style'
 import { reactionList } from 'utils/helper'
@@ -16,11 +16,12 @@ interface ISelectReactionModal {
 export const SelectReactionModal: FC<ISelectReactionModal> = ({ closeModal, visibleModal, position }) => {
 
     const renderItem = ({ item }: any) => (
-        <Image source={item.image} style={style.reactionImage} />
+        <TouchableOpacity onPress={() => { console.log(item.name), closeModal() }}>
+            <Image source={item.image} style={style.reactionImage} />
+        </TouchableOpacity>
     )
 
     return (
-
         <Modal
             transparent
             animationType="fade"
@@ -44,6 +45,5 @@ export const SelectReactionModal: FC<ISelectReactionModal> = ({ closeModal, visi
                 </View>
             </TouchableWithoutFeedback>
         </Modal>
-
     )
 }

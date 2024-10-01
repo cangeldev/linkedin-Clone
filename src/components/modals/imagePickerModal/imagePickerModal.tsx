@@ -4,19 +4,20 @@ import { launchImageLibrary, launchCamera, ImageLibraryOptions, CameraOptions } 
 import style from './style'
 import { useDispatch } from 'react-redux'
 import { AppDispatch } from 'services/features/store'
-import { setProfileImage } from 'services/features/userSlice'
+import { setPostImage, setProfileImage } from 'services/features/userSlice'
 import { useTranslation } from 'react-i18next'
 
 interface IImagePickerModal {
     visibleModal: boolean
-    closeModal: () => void
+    closeModal: () => void,
+    postImage?: string
 }
 
 /**
  * `ImagePickerModal` bileşeni, kullanıcıların profil fotoğraflarını seçmelerini veya çekmelerini sağlayan bir modal sağlar.
  *  Seçilen resim daha sonra farklı işlemlerde kullanılmak üzere redux toolkite kaydedilir.
  */
-export const ImagePickerModal: FC<IImagePickerModal> = ({ visibleModal, closeModal }) => {
+export const ImagePickerModal: FC<IImagePickerModal> = ({ visibleModal, closeModal, postImage }) => {
     const dispatch = useDispatch<AppDispatch>()
     const { t } = useTranslation()
     const handleImageSelection = (launchFunction: Function, options: ImageLibraryOptions | CameraOptions) => {
@@ -28,7 +29,11 @@ export const ImagePickerModal: FC<IImagePickerModal> = ({ visibleModal, closeMod
             } else {
                 const imageUri = response.assets?.[0]?.uri
                 if (imageUri) {
-                    dispatch(setProfileImage(imageUri))
+                    if (postImage) {
+                        dispatch(setPostImage(imageUri))
+                    }
+                    else
+                        dispatch(setProfileImage(imageUri))
                     closeModal()
                 }
             }

@@ -93,5 +93,12 @@ export default StyleSheet.create({
     },
     footerIcon: {
         fontSize: 20
+    },
+    postImage: {
+        width: "100%",
+        height: "50%",
+        resizeMode: "stretch",
+        marginBottom: 10,
+        borderRadius: 15
     }
 })
