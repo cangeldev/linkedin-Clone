@@ -47,7 +47,8 @@ const TabScreens = () => {
             options: {
                 title: t("notifications"),
                 tabBarIcon: getIcon("bell-fill", "Octicons"),
-                tabBarBadge: badge
+                tabBarBadge: badge > 0 ? badge : undefined,
+
             }
         },
         {
