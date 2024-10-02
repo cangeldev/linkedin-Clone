@@ -7,7 +7,7 @@ import store from 'services/features/store'
 import { I18nextProvider } from 'react-i18next'
 import i18n from 'utils/i18next'
 import { fetchFriendsList, fetchNonFriendUsers, fetchUsersWithSenderInfo, getMyUserData } from 'services/firebase/firebase'
-import { setFriendsList, setNonFriendsList, setFriendsRequestList, setName, setSurname, setTitle, setProfileImage } from 'services/features/userSlice'
+import { setFriendsList, setNonFriendsList, setFriendsRequestList, setName, setSurname, setTitle, setProfileImage, setMyUid } from 'services/features/userSlice'
 import { getCurrentUserUid } from 'services/firebase/firebaseAuth'
 
 /**
@@ -23,7 +23,6 @@ interface UserData {
 const MainComponent = React.memo(() => {
   const dispatch = useDispatch()
   const [userData, setUserData] = useState<UserData | null>(null)
-
 
   useEffect(() => {
     const getUsers = async () => {
@@ -46,6 +45,8 @@ const MainComponent = React.memo(() => {
           dispatch(setSurname(MyInfo.surname))
           dispatch(setTitle(MyInfo.title))
           dispatch(setProfileImage(MyInfo.profileImageUrl))
+          dispatch(setMyUid(MyInfo.myUid))
+
         }
 
       } catch (error) {

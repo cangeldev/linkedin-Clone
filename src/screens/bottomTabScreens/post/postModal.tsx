@@ -28,7 +28,7 @@ export const PostModal: React.FC<PostModalProps> = React.memo(({ isVisible, onCl
     const postImage = useSelector((state: RootState) => state.userSlice.post.postImage)
     const dispatch = useDispatch()
     const postButtonStyle = useMemo(() => isPostButtonDisabled ? styles.disabledPostButton : styles.enabledPostButton, [isPostButtonDisabled])
-    const { name, surname, title } = useSelector((state: RootState) => state.userSlice.loggedUserInfo)
+    const { name, surname, title ,myUid} = useSelector((state: RootState) => state.userSlice.loggedUserInfo)
     const handleTextChange = useCallback((text: string) => setPostContent(text.trim()), [])
     const savePost = useCallback(async () => {
         try {
@@ -37,7 +37,7 @@ export const PostModal: React.FC<PostModalProps> = React.memo(({ isVisible, onCl
                 postImageUrl = await uploadPostImage({ uri: postImage })
             }
             if (uid) {
-                await savePostToFirebase(name, surname, currentDate, postContent, "comment", "reaction", title, postImageUrl)
+                await savePostToFirebase(name, surname, currentDate, postContent, "comment", "reaction", title, postImageUrl,myUid)
                 dispatch(clearPostImage())
                 setPostContent('')
             }
@@ -78,7 +78,12 @@ export const PostModal: React.FC<PostModalProps> = React.memo(({ isVisible, onCl
                         value={postContent}
                     />
                 </View>
-                {postImage && <Image source={{ uri: postImage }} style={styles.postImage} />}
+                {postImage &&
+                    <View style={styles.postImageView}>
+                        <Image source={{ uri: postImage }} style={styles.postImage} />
+                        <Icon onPress={() => dispatch(clearPostImage())} name='closecircleo' type='AntDesign' style={styles.icon} />
+                    </View>
+                }
                 <View style={styles.footer}>
                     <TouchableOpacity style={styles.aiButton}>
                         <Icon type="Ionicons" name="sparkles" style={styles.sparklesIcon} />

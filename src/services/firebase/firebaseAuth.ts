@@ -49,6 +49,7 @@ export const saveUserProfile = async (userProfile: {
     job: string
     title: string
     profileImageUrl: string | null
+    myUid: string
 }) => {
     const { uid, ...profileData } = userProfile
     await firestore().collection('users').doc(uid).set(profileData)

@@ -10,6 +10,7 @@ interface UserState {
     job: string
     title: string
     email: string
+    myUid: string
   },
   info: {
     // myUserInfo: string
@@ -32,7 +33,8 @@ const initialState: UserState = {
     location: '',
     job: '',
     title: '',
-    email: ''
+    email: '',
+    myUid: ""
   },
   info: {
     //myUserInfo: "",
@@ -84,10 +86,13 @@ const userSlice = createSlice({
     setPostImage: (state, action: PayloadAction<string | null>) => {
       state.post.postImage = action.payload
     },
+    setMyUid: (state, action: PayloadAction<string>) => {
+      state.loggedUserInfo.myUid = action.payload
+    },
     clearPostImage: (state) => {
       state.post.postImage = null;
     },
   }
 })
-export const { setProfileImage, setName, setSurname, setJob, setLocation, setTitle, setEmail, setFriendsList, setNonFriendsList, setFriendsRequestList, setPostImage, clearPostImage } = userSlice.actions
+export const { setProfileImage, setName, setSurname, setJob, setLocation, setTitle, setEmail, setFriendsList, setNonFriendsList, setFriendsRequestList, setPostImage, clearPostImage, setMyUid } = userSlice.actions
 export default userSlice.reducer

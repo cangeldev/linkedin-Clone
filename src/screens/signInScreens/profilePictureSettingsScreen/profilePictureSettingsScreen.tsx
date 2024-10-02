@@ -4,12 +4,12 @@ import styles from './style'
 import { CustomButton, SignInHeader } from 'components'
 import { ImagePickerModal } from 'components/modals'
 import { camera } from 'assets'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'services/features/store'
 import { useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
 import { getCurrentUser, saveUserProfile, uploadProfileImage } from 'services/firebase/firebaseAuth'
-
+import { setMyUid } from 'services/features/userSlice'
 
 /**
  * ProfilePictureSettingsScreen - Bu sayfa  kayıt olma sırasında kullanıcının profil resminin alındı kısımdır ilk olarak redux toolkite kaydedilir daha sonrasında tüm bilgilerle beraber firebaseye aktarılır.
@@ -20,7 +20,7 @@ export const ProfilePictureSettingsScreen = () => {
     const { job, name, surname, title, location, profileImage, email } = useSelector((state: RootState) => state.userSlice.loggedUserInfo)
     const [imagePickerModal, setImagePickerModal] = useState(false)
     const { t } = useTranslation()
-
+    const dispatch = useDispatch()
     const hasProfileImage = profileImage != null
     const imageSource = profileImage ? { uri: profileImage } : camera
 
@@ -30,6 +30,7 @@ export const ProfilePictureSettingsScreen = () => {
         const user = getCurrentUser()
         if (!user) return null
 
+        dispatch(setMyUid(user.uid))
         let profileImageUrl = null
         if (profileImage) {
             profileImageUrl = await uploadProfileImage(user.uid, { uri: profileImage })
@@ -43,7 +44,8 @@ export const ProfilePictureSettingsScreen = () => {
             location,
             job,
             title,
-            profileImageUrl
+            profileImageUrl,
+            myUid: user.uid
         }
     }
 

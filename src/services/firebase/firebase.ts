@@ -154,7 +154,7 @@ const getFriendUids = async (currentUserUid: string) => {
 }
 
 
-export const savePostToFirebase = (name: string, surname: string, time: any, contentText: string, comment: string, reaction: string, title: string, postImageUrl: string | null) => {
+export const savePostToFirebase = (name: string, surname: string, time: any, contentText: string, comment: string, reaction: string, title: string, postImageUrl: string | null, myUid: string) => {
     firestore()
         .collection('posts')
         .add({
@@ -165,8 +165,8 @@ export const savePostToFirebase = (name: string, surname: string, time: any, con
             contentText: contentText,
             comment: comment,
             reaction: reaction,
-            postImageUrl: postImageUrl
-
+            postImageUrl: postImageUrl,
+            postsUid: myUid
         })
         .then(() => {
             console.log('Post added!')

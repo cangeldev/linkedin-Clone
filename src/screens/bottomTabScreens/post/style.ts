@@ -94,11 +94,22 @@ export default StyleSheet.create({
     footerIcon: {
         fontSize: 20
     },
-    postImage: {
+    postImageView: {
         width: "100%",
         height: "50%",
-        resizeMode: "stretch",
         marginBottom: 10,
+    },
+    postImage: {
+        width: "100%",
+        height: "100%",
+        resizeMode: "stretch",
         borderRadius: 15
+    },
+    icon: {
+        position: "absolute",
+        top: 8,
+        right: 10,
+        fontSize: 30,
+        color: colors.white
     }
 })
