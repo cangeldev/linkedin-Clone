@@ -13,7 +13,7 @@ export const AllNotifications = () => {
     const { t } = useTranslation()
     const dispatch = useDispatch()
     const friendsRequestList = useSelector((state: RootState) => state.userSlice.info.friendsRequestList)
-
+    const keyExtractor = (item: any, index: number) => item.id ? item.id.toString() : index.toString()
     const handleAcceptRequest = async (id: string) => {
         await acceptFriendRequest(id)
         console.log("Request accepted")
@@ -49,7 +49,7 @@ export const AllNotifications = () => {
                 <FlatList
                     data={friendsRequestList}
                     renderItem={renderItem}
-                    keyExtractor={(item) => item.id}
+                    keyExtractor={keyExtractor}
                     ItemSeparatorComponent={() => <Divider />}
                 />
             )}
