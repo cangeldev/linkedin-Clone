@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { View, Text, Image, Alert } from 'react-native'
 import { linkedinLogo } from 'assets'
 import { CustomButton, LoginInput, Icon } from 'components'
@@ -6,18 +6,21 @@ import style from './style'
 import { useNavigation } from '@react-navigation/native'
 import { useForm } from 'hooks/useForm'
 import { useDispatch } from 'react-redux'
-import { setEmail } from 'services/features/userSlice'
+import { setEmail, setNonFriendsList } from 'services/features/userSlice'
 import { useTranslation } from 'react-i18next'
-import { signUpWithEmailPassword } from 'services/firebase/firebaseAuth'
+import { signUpWithEmailPassword, } from 'services/firebase/firebaseAuth'
+import { fetchNonFriendUsers } from 'services/firebase/firebase'
 
-/**
- * ContactInfoScreen - Bu sayfa  kayıt olma sırasında kullanıcının email ve şifre bilgisinin alındı kısımdır ilk olarak redux toolkite kaydedilir daha sonrasında tüm bilgilerle beraber firebaseye aktarılır.
- */
 export const ContactInfoScreen = () => {
     const dispatch = useDispatch()
-    const navigation = useNavigation<any>()
+    const navigation = useNavigation()
     const [formData, handleInputChange] = useForm({ email: '', password: '' })
     const [rememberMe, setRememberMe] = useState(true)
+
+    // Non-friends list'i çekmek için useEffect
+    useEffect(() => {
+
+    }, [dispatch])
 
     const handleButton = useCallback(async () => {
         const { email, password } = formData
@@ -27,6 +30,16 @@ export const ContactInfoScreen = () => {
         }
         try {
             await signUpWithEmailPassword(email, password, navigation)
+            const getNonFriends = async () => {
+                try {
+                    const fetchedNonFriendsInfo = await fetchNonFriendUsers()
+                    dispatch(setNonFriendsList(fetchedNonFriendsInfo))
+                } catch (error) {
+                    console.error('Error fetching non-friends data:', error)
+                }
+            }
+
+            getNonFriends()
             dispatch(setEmail(email))
         } catch (error) {
             console.error('Error during sign up:', error)
@@ -35,6 +48,7 @@ export const ContactInfoScreen = () => {
 
     const toggleRememberMe = useCallback(() => setRememberMe(prev => !prev), [])
     const { t } = useTranslation()
+
     return (
         <View style={style.container}>
             <Image source={linkedinLogo} style={style.logo} />
