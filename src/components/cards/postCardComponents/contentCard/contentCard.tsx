@@ -1,16 +1,28 @@
-import React, { useCallback, useState } from 'react'
-import { Text, View } from 'react-native'
+import React, { FC, useCallback, useState } from 'react'
+import { Text, Image } from 'react-native'
 import styles from './style'
 import { useTranslation } from 'react-i18next'
+
+interface IContentCard {
+    contentText: string
+    contentImage: any
+}
 
 /**
  * `ContentCard` bileşeni, kullanıcıların paylaşımlarının içeriğini gösteren bir karttır.
  */
-export const ContentCard = React.memo(() => {
+export const ContentCard: FC<IContentCard> = React.memo(({ contentText, contentImage }) => {
 
     const [isTextExpanded, setIsTextExpanded] = useState(false)
     const [hasMoreText, setHasMoreText] = useState(false)
     const { t } = useTranslation()
+
+    let postImageSource
+    if (typeof contentImage === 'string') {
+        postImageSource = { uri: contentImage }
+    } else if (contentImage && contentImage.uri) {
+        postImageSource = contentImage
+    }
 
     //  Metni genişletme veya daraltma işlemi için kullanılan fonksiyon
     const toggleTextExpansion = () => {
@@ -22,13 +34,13 @@ export const ContentCard = React.memo(() => {
     }, [])
 
     return (
-        <View style={styles.cardContainer}>
+        <>
             <Text
                 onTextLayout={handleTextLayout}
                 numberOfLines={isTextExpanded ? undefined : 3}
                 style={styles.textContent}
             >
-                Deneme İçeriği {"\n"}Deneme 2 {"\n"}Deneme 3{"\n"}Deneme 4
+                {contentText}
             </Text>
             {hasMoreText && (
                 <Text
@@ -38,6 +50,9 @@ export const ContentCard = React.memo(() => {
                     {isTextExpanded ? t('hideSee') : t('hideMore')}
                 </Text>
             )}
-        </View>
+            {
+                contentImage && <Image source={postImageSource} style={styles.contentImage} />
+            }
+        </>
     )
 })

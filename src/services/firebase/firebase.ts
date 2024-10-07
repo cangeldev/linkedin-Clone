@@ -200,3 +200,20 @@ export const uploadPostImage = async (profileImage: any): Promise<string | null>
     }
     return null
 }
+
+
+export const getPosts = async () => {
+    try {
+        const currentUserUid = getCurrentUserUid()
+        if (!currentUserUid) return []
+        const allFriendsPosts = await firestore().collection('posts').get()
+        const allPosts = allFriendsPosts.docs.map(doc => ({ uid: doc.id, ...doc.data() }))
+
+        //return allUsers.filter(user => user.uid !== currentUserUid && !friendUids.includes(user.uid))
+        // return allPosts.filter(user => user.postsUid !== currentUserUid)
+        return allPosts
+    } catch (error) {
+        console.error('Error fetching:', error)
+        return []
+    }
+}

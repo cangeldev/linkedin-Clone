@@ -6,8 +6,8 @@ import { Provider, useDispatch } from 'react-redux'
 import store from 'services/features/store'
 import { I18nextProvider } from 'react-i18next'
 import i18n from 'utils/i18next'
-import { fetchFriendsList, fetchNonFriendUsers, fetchUsersWithSenderInfo, getMyUserData } from 'services/firebase/firebase'
-import { setFriendsList, setNonFriendsList, setFriendsRequestList, setName, setSurname, setTitle, setProfileImage, setMyUid } from 'services/features/userSlice'
+import { fetchFriendsList, fetchNonFriendUsers, fetchUsersWithSenderInfo, getMyUserData, getPosts } from 'services/firebase/firebase'
+import { setFriendsList, setNonFriendsList, setFriendsRequestList, setName, setSurname, setTitle, setProfileImage, setMyUid, setPosts } from 'services/features/userSlice'
 import { getCurrentUserUid } from 'services/firebase/firebaseAuth'
 
 /**
@@ -27,17 +27,19 @@ const MainComponent = React.memo(() => {
   useEffect(() => {
     const getUsers = async () => {
       try {
-        const [fetchedFriendsInfo, fetchedNonFriendsInfo, fetchedFriendsRequests, MyInfo] = await Promise.all([
+        const [fetchedFriendsInfo, fetchedNonFriendsInfo, fetchedFriendsRequests, MyInfo, Posts] = await Promise.all([
           fetchFriendsList(),
           fetchNonFriendUsers(),
           fetchUsersWithSenderInfo(),
-          getMyUserData()
+          getMyUserData(),
+          getPosts()
         ])
 
         dispatch(setFriendsList(fetchedFriendsInfo))
         dispatch(setNonFriendsList(fetchedNonFriendsInfo))
         dispatch(setFriendsRequestList(fetchedFriendsRequests))
-        const uid = getCurrentUserUid();
+        dispatch(setPosts(Posts))
+        const uid = getCurrentUserUid()
         if (!uid) return null;
         else {
           setUserData(MyInfo)
@@ -46,7 +48,6 @@ const MainComponent = React.memo(() => {
           dispatch(setTitle(MyInfo.title))
           dispatch(setProfileImage(MyInfo.profileImageUrl))
           dispatch(setMyUid(MyInfo.myUid))
-
         }
 
       } catch (error) {

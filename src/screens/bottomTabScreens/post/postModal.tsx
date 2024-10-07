@@ -23,7 +23,7 @@ export const PostModal: React.FC<PostModalProps> = React.memo(({ isVisible, onCl
     const [postContent, setPostContent] = useState<string>('')
     const isPostButtonDisabled = postContent.trim().length === 0
     const { t } = useTranslation()
-    const currentDate = useMemo(() => new Date().toLocaleString(), [])
+    const currentDate = useMemo(() => new Date().toISOString(), [])
     const uid = getCurrentUserUid()
     const postImage = useSelector((state: RootState) => state.userSlice.post.postImage)
     const dispatch = useDispatch()
