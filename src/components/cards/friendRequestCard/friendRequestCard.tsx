@@ -3,6 +3,7 @@ import React, { FC } from 'react'
 import { defaultProfileImage } from 'assets'
 import style from './style'
 import { Icon } from 'components/icon/icon'
+import Toast from 'react-native-toast-message'
 
 interface IFriendRequestCard {
     name: string
@@ -14,6 +15,30 @@ interface IFriendRequestCard {
 }
 export const FriendRequestCard: FC<IFriendRequestCard> = ({ job, name, profileImage, title, declineRequests, acceptRequests }) => {
 
+    const handleDeclineRequest = () => {
+        declineRequests()
+        Toast.show({
+            text1: 'Gelen arkadaşlık isteği:',
+            text2: name + " adlı kullanıcıdan gelen arkadaşlık isteğini red ettiniz.",
+            position: 'bottom',
+            visibilityTime: 3000,
+            autoHide: true,
+            type: 'success', //'error' veya 'info' alabilir.
+            text1Style: { fontSize: 20 }
+        })
+    }
+    const handleAcceptRequest = () => {
+        acceptRequests()
+        Toast.show({
+            text1: 'Gelen arkadaşlık isteği:',
+            text2: name + " adlı kullanıcıdan gelen arkadaşlık isteğini kabul ettiniz.",
+            position: 'bottom',
+            visibilityTime: 3000,
+            autoHide: true,
+            type: 'success', //'error' veya 'info' alabilir.
+            text1Style: { fontSize: 20 }
+        })
+    }
     let profileImageSource
     if (typeof profileImage === 'string') {
         profileImageSource = { uri: profileImage }
@@ -31,8 +56,8 @@ export const FriendRequestCard: FC<IFriendRequestCard> = ({ job, name, profileIm
                 <Text style={style.date}>Bugün</Text>
             </View>
             <View style={style.iconView}>
-                <Icon onPress={declineRequests} name='closecircleo' type='AntDesign' style={style.icon} />
-                <Icon onPress={acceptRequests} name='checkcircleo' type='AntDesign' style={style.icon} />
+                <Icon onPress={handleDeclineRequest} name='closecircleo' type='AntDesign' style={style.icon} />
+                <Icon onPress={handleAcceptRequest} name='checkcircleo' type='AntDesign' style={style.icon} />
             </View>
         </View>
     )

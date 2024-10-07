@@ -8,6 +8,7 @@ import { handleSendFriendRequest } from 'utils/helper'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'services/features/store'
 import { getCurrentUserUid } from 'services/firebase/firebaseAuth'
+import Toast from 'react-native-toast-message'
 
 interface IShareOwnerInformationCard {
     sharingName: string
@@ -19,6 +20,19 @@ interface IShareOwnerInformationCard {
 
 export const ShareOwnerInformationCard: FC<IShareOwnerInformationCard> = React.memo(({ sharingImage, sharingName, sharingTitle, sharingTime, sharingUid }) => {
 
+    const handleButton = () => {
+        handleSendFriendRequest(currentUserUid, sharingUid, dispatch, NonFriendsList)
+        Toast.show({
+            text1: 'Arkadaşlık isteği:',
+            text2: sharingName + ' adlı kullanıcıya arkadaşlık isteğiniz gönderildi.',
+            position: 'bottom',
+            visibilityTime: 3000,
+            autoHide: true,
+            type: 'success', //'error' veya 'info' alabilir.
+            text1Style: { fontSize: 20 }
+        })
+
+    }
     const dispatch = useDispatch()
     const { t } = useTranslation()
     const { NonFriendsList, friendsList } = useSelector((state: RootState) => state.userSlice.info)
@@ -72,7 +86,7 @@ export const ShareOwnerInformationCard: FC<IShareOwnerInformationCard> = React.m
                 </View>
             </View>
             {
-                isFriend == false ? null : <TouchableOpacity onPress={() => handleSendFriendRequest(currentUserUid, sharingUid, dispatch, NonFriendsList)} style={styles.followButton}>
+                isFriend == false ? null : <TouchableOpacity onPress={handleButton} style={styles.followButton}>
                     <Icon type="FontAwesome5" name="user-plus" style={styles.plusIcon} />
                     <Text style={styles.followButtonText}>{t("connect")}</Text>
                 </TouchableOpacity>

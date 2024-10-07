@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'services/features/store'
 import { getCurrentUserUid } from 'services/firebase/firebaseAuth'
 import { handleSendFriendRequest } from 'utils/helper'
+import Toast from 'react-native-toast-message'
 
 interface IAddFriendCard {
     uid: string
@@ -35,6 +36,19 @@ export const AddFriendCard: FC<IAddFriendCard> = ({ name, surname, profilePictur
     // Get the current user's UID
     const currentUserUid = getCurrentUserUid() || null
 
+    const handleButton = () => {
+        handleSendFriendRequest(currentUserUid, uid, dispatch, NonFriendsList)
+        Toast.show({
+            text1: 'Arkadaşlık isteği:',
+            text2: name + surname + ' adlı kullanıcıya arkadaşlık isteğiniz gönderildi.',
+            position: 'bottom',
+            visibilityTime: 3000,
+            autoHide: true,
+            type: 'success', //'error' veya 'info' alabilir.
+            text1Style: { fontSize: 20 }
+        })
+    }
+
     return (
         <View style={styles.card}>
             <View style={[styles.banner, { backgroundColor }]} />
@@ -44,7 +58,7 @@ export const AddFriendCard: FC<IAddFriendCard> = ({ name, surname, profilePictur
                 {title}
             </Text>
             <Text style={styles.profileInfo}>{t('basedOnYourProfile')}</Text>
-            <NotificationsButton onPress={() => handleSendFriendRequest(currentUserUid, uid, dispatch, NonFriendsList)} buttonTitle={t('connect')} />
+            <NotificationsButton onPress={handleButton} buttonTitle={t('connect')} />
             <View style={styles.iconWrapper}>
                 <Icon name='closecircle' type='AntDesign' style={styles.icon} />
             </View>
