@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react'
-import { View, Text, Image, Alert } from 'react-native'
+import { View, Text, Image } from 'react-native'
 import { linkedinLogo } from 'assets'
 import { CustomButton, LoginInput, Icon } from 'components'
 import style from './style'
@@ -10,6 +10,7 @@ import { setEmail, setNonFriendsList } from 'services/features/userSlice'
 import { useTranslation } from 'react-i18next'
 import { signUpWithEmailPassword, } from 'services/firebase/firebaseAuth'
 import { fetchNonFriendUsers } from 'services/firebase/firebase'
+import { showToast } from 'utils/helper'
 
 export const ContactInfoScreen = () => {
     const dispatch = useDispatch()
@@ -20,7 +21,7 @@ export const ContactInfoScreen = () => {
     const handleButton = useCallback(async () => {
         const { email, password } = formData
         if (!email.trim() || !password.trim()) {
-            Alert.alert('Hata', 'E-posta ve şifre alanlarını doldurmalısınız.')
+            showToast('Hata:', " E-posta ve şifre alanlarını doldurmalısınız.", "top")
             return
         }
         try {

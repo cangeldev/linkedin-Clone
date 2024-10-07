@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react'
-import { View, Text, Image, Switch, Alert } from 'react-native'
+import { View, Text, Image, Switch } from 'react-native'
 import { linkedinLogo } from 'assets'
 import styles from './style'
 import colors from 'assets/colors/colors'
@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux'
 import { setJob, setLocation, setTitle } from 'services/features/userSlice'
 import { useForm } from 'hooks/useForm'
 import { useTranslation } from 'react-i18next'
+import { showToast } from 'utils/helper'
 
 /**
  * JobInfoScreen - Bu sayfa  kayıt olma sırasında kullanıcının iş bilgilerinin ve konum bilgisinin alındı kısımdır ilk olarak redux toolkite kaydedilir daha sonrasında tüm bilgilerle beraber firebaseye aktarılır.
@@ -24,7 +25,7 @@ export const JobInfoScreen = () => {
     const handleButton = useCallback(() => {
         const { location, job, title } = formData
         if (!location.trim() || !job.trim() || !title.trim()) {
-            Alert.alert('Hata', 'Lütfen boş alanları doldurun.')
+            showToast('Hata:', " Lütfen boş alanları doldurun.", "top")
             return
         }
         dispatch(setJob(job))

@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react'
-import { View, Text, Image, Alert } from 'react-native'
+import { View, Text, Image } from 'react-native'
 import style from './style'
 import { linkedinLogo } from 'assets'
 import { CustomButton, LoginInput } from 'components'
@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux'
 import { setName, setSurname } from 'services/features/userSlice'
 import { useForm } from 'hooks/useForm'
 import { useTranslation } from 'react-i18next'
+import { showToast } from 'utils/helper'
 
 /**
  * UserInfoScreen - Bu sayfa  kayıt olma sırasında kullanıcının isim ve soyisim bilgisinin alındığı kısımdır ilk olarak redux toolkite kaydedilir daha sonrasında tüm bilgilerle beraber firebaseye aktarılır.
@@ -22,7 +23,7 @@ export const UserInfoScreen = () => {
     const handleButton = useCallback(() => {
         const { name, surname } = formData
         if (!name.trim() || !surname.trim()) {
-            Alert.alert('Hata', 'Kullanıcı adı veya Soyadı alanlarını doldurmalısınız.')
+            showToast('Hata:', " Kullanıcı adı ve Soyadı alanlarını doldurmalısınız.", "top")
             return
         }
         dispatch(setName(name))
@@ -38,7 +39,7 @@ export const UserInfoScreen = () => {
                 <LoginInput placeholder={t("name")} onInputChange={(text) => handleInputChange('name', text)} />
                 <LoginInput placeholder={t("surname")} onInputChange={(text) => handleInputChange('surname', text)} />
             </View>
-            <CustomButton  title={t("continue")}  onPress={handleButton} />
+            <CustomButton title={t("continue")} onPress={handleButton} />
         </View>
     )
 }

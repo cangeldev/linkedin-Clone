@@ -1,6 +1,18 @@
 import { clapping, heart, idea, laughing, like, support } from "assets"
 import { setNonFriendsList } from "services/features/userSlice"
 import { sendFriendRequest } from "services/firebase/firebase"
+import Toast from 'react-native-toast-message'
+
+export const showToast = (text1: string, text2: string, position: "top" | "bottom") => {
+    Toast.show({
+        text1: text1,
+        text2: text2,
+        position: position,
+        visibilityTime: 4000,
+        type: 'success', // 'success', 'error' veya 'info'
+        text1Style: { fontSize: 20 }
+    })
+}
 
 // Arkadaşlık isteği göndermek için kullanılan fonksiyon
 export const handleSendFriendRequest = (currentUserUid: string | null, uid: string, dispatch: any, NonFriendsList: any[]) => {

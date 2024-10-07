@@ -3,7 +3,7 @@ import React, { FC } from 'react'
 import { defaultProfileImage } from 'assets'
 import style from './style'
 import { Icon } from 'components/icon/icon'
-import Toast from 'react-native-toast-message'
+import { showToast } from 'utils/helper'
 
 interface IFriendRequestCard {
     name: string
@@ -17,27 +17,11 @@ export const FriendRequestCard: FC<IFriendRequestCard> = ({ job, name, profileIm
 
     const handleDeclineRequest = () => {
         declineRequests()
-        Toast.show({
-            text1: 'Gelen arkadaşlık isteği:',
-            text2: name + " adlı kullanıcıdan gelen arkadaşlık isteğini red ettiniz.",
-            position: 'bottom',
-            visibilityTime: 3000,
-            autoHide: true,
-            type: 'success', //'error' veya 'info' alabilir.
-            text1Style: { fontSize: 20 }
-        })
+        showToast('Gelen arkadaşlık isteği:', name + " adlı kullanıcıdan gelen arkadaşlık isteğini red ettiniz.", "bottom")
     }
     const handleAcceptRequest = () => {
         acceptRequests()
-        Toast.show({
-            text1: 'Gelen arkadaşlık isteği:',
-            text2: name + " adlı kullanıcıdan gelen arkadaşlık isteğini kabul ettiniz.",
-            position: 'bottom',
-            visibilityTime: 3000,
-            autoHide: true,
-            type: 'success', //'error' veya 'info' alabilir.
-            text1Style: { fontSize: 20 }
-        })
+        showToast('Gelen arkadaşlık isteği:', name + " adlı kullanıcıdan gelen arkadaşlık isteğini kabul ettiniz.", "bottom")
     }
     let profileImageSource
     if (typeof profileImage === 'string') {

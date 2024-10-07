@@ -4,11 +4,10 @@ import styles from './style'
 import { Icon } from 'components'
 import { useTranslation } from 'react-i18next'
 import { defaultProfileImage } from 'assets'
-import { handleSendFriendRequest } from 'utils/helper'
+import { handleSendFriendRequest, showToast } from 'utils/helper'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'services/features/store'
 import { getCurrentUserUid } from 'services/firebase/firebaseAuth'
-import Toast from 'react-native-toast-message'
 
 interface IShareOwnerInformationCard {
     sharingName: string
@@ -22,16 +21,7 @@ export const ShareOwnerInformationCard: FC<IShareOwnerInformationCard> = React.m
 
     const handleButton = () => {
         handleSendFriendRequest(currentUserUid, sharingUid, dispatch, NonFriendsList)
-        Toast.show({
-            text1: 'Arkadaşlık isteği:',
-            text2: sharingName + ' adlı kullanıcıya arkadaşlık isteğiniz gönderildi.',
-            position: 'bottom',
-            visibilityTime: 3000,
-            autoHide: true,
-            type: 'success', //'error' veya 'info' alabilir.
-            text1Style: { fontSize: 20 }
-        })
-
+        showToast('Arkadaşlık isteği:', sharingName + ' adlı kullanıcıya arkadaşlık isteğiniz gönderildi.', "bottom")
     }
     const dispatch = useDispatch()
     const { t } = useTranslation()

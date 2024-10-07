@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Text, Image, Alert } from 'react-native'
+import { View, Text, Image } from 'react-native'
 import styles from './style'
 import { CustomButton, SignInHeader } from 'components'
 import { ImagePickerModal } from 'components/modals'
@@ -58,7 +58,6 @@ export const ProfilePictureSettingsScreen = () => {
             }
         } catch (error) {
             console.error('Error saving user profile:', error)
-            Alert.alert('Profile Update Failed', 'An error occurred while saving your profile.')
         }
     }
 

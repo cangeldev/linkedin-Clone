@@ -169,9 +169,6 @@ export const savePostToFirebase = (name: string, surname: string, time: any, con
             postsUid: myUid,
             sharingProfileImageUrl: profileImageUrl
         })
-        .then(() => {
-            console.log('Post added!')
-        });
 }
 export const getMyUserData = async () => {
     try {

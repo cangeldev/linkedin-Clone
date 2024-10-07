@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react'
-import { View, Text, Image, KeyboardAvoidingView, ScrollView, Platform, Alert } from 'react-native'
+import { View, Text, Image, KeyboardAvoidingView, ScrollView, Platform } from 'react-native'
 import style from './style'
 import { apple, facebook, google, linkedinLogo } from 'assets'
 import { LoginInput, CustomButton, Icon } from 'components'
@@ -7,6 +7,7 @@ import { useNavigation } from '@react-navigation/native'
 import { useForm } from 'hooks/useForm'
 import { useTranslation } from 'react-i18next'
 import { loginWithEmailPassword } from 'services/firebase/firebaseAuth'
+import { showToast } from 'utils/helper'
 
 const platformIcons = {
     google,
@@ -29,7 +30,7 @@ export const LoginScreen = () => {
     const validateInputs = () => {
         const { email, password } = formData
         if (!email.trim() || !password.trim()) {
-            Alert.alert('Hata', 'E-posta ve şifre alanlarını doldurmalısınız.')
+            showToast('Hata:', " E-posta ve şifre alanlarını doldurmalısınız.", "bottom")
             return false
         }
         return true

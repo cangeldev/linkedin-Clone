@@ -16,14 +16,12 @@ export const AllNotifications = () => {
     const keyExtractor = (item: any, index: number) => item.id ? item.id.toString() : index.toString()
     const handleAcceptRequest = async (id: string) => {
         await acceptFriendRequest(id)
-        console.log("Request accepted")
         dispatch(setFriendsRequestList(friendsRequestList.filter(request => request.id !== id)))
     }
 
     const handleDeclineRequest = async (id: string) => {
         await declineFriendRequest(id)
         dispatch(setFriendsRequestList(friendsRequestList.filter(request => request.id !== id)))
-        console.log("Request declined")
     }
 
     const renderItem = useCallback(({ item }: any) => (

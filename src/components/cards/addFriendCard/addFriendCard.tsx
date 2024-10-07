@@ -7,8 +7,7 @@ import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'services/features/store'
 import { getCurrentUserUid } from 'services/firebase/firebaseAuth'
-import { handleSendFriendRequest } from 'utils/helper'
-import Toast from 'react-native-toast-message'
+import { handleSendFriendRequest, showToast } from 'utils/helper'
 
 interface IAddFriendCard {
     uid: string
@@ -38,15 +37,7 @@ export const AddFriendCard: FC<IAddFriendCard> = ({ name, surname, profilePictur
 
     const handleButton = () => {
         handleSendFriendRequest(currentUserUid, uid, dispatch, NonFriendsList)
-        Toast.show({
-            text1: 'Arkadaşlık isteği:',
-            text2: name + surname + ' adlı kullanıcıya arkadaşlık isteğiniz gönderildi.',
-            position: 'bottom',
-            visibilityTime: 3000,
-            autoHide: true,
-            type: 'success', //'error' veya 'info' alabilir.
-            text1Style: { fontSize: 20 }
-        })
+        showToast('Arkadaşlık isteği:', name + surname + ' adlı kullanıcıya arkadaşlık isteğiniz gönderildi.', "bottom")
     }
 
     return (

@@ -22,20 +22,14 @@ export const ImagePickerModal: FC<IImagePickerModal> = ({ visibleModal, closeMod
     const { t } = useTranslation()
     const handleImageSelection = (launchFunction: Function, options: ImageLibraryOptions | CameraOptions) => {
         launchFunction(options, (response: any) => {
-            if (response.didCancel) {
-                console.log('User cancelled operation')
-            } else if (response.errorCode) {
-                console.log('Error: ', response.errorMessage)
-            } else {
-                const imageUri = response.assets?.[0]?.uri
-                if (imageUri) {
-                    if (postImage) {
-                        dispatch(setPostImage(imageUri))
-                    }
-                    else
-                        dispatch(setProfileImage(imageUri))
-                    closeModal()
+            const imageUri = response.assets?.[0]?.uri
+            if (imageUri) {
+                if (postImage) {
+                    dispatch(setPostImage(imageUri))
                 }
+                else
+                    dispatch(setProfileImage(imageUri))
+                closeModal()
             }
         })
     }
