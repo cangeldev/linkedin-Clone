@@ -28,7 +28,7 @@ export const PostModal: React.FC<PostModalProps> = React.memo(({ isVisible, onCl
     const postImage = useSelector((state: RootState) => state.userSlice.post.postImage)
     const dispatch = useDispatch()
     const postButtonStyle = useMemo(() => isPostButtonDisabled ? styles.disabledPostButton : styles.enabledPostButton, [isPostButtonDisabled])
-    const { name, surname, title ,myUid} = useSelector((state: RootState) => state.userSlice.loggedUserInfo)
+    const { name, surname, title, myUid, profileImage } = useSelector((state: RootState) => state.userSlice.loggedUserInfo)
     const handleTextChange = useCallback((text: string) => setPostContent(text.trim()), [])
     const savePost = useCallback(async () => {
         try {
@@ -37,7 +37,7 @@ export const PostModal: React.FC<PostModalProps> = React.memo(({ isVisible, onCl
                 postImageUrl = await uploadPostImage({ uri: postImage })
             }
             if (uid) {
-                await savePostToFirebase(name, surname, currentDate, postContent, "comment", "reaction", title, postImageUrl,myUid)
+                await savePostToFirebase(name, surname, currentDate, postContent, "comment", "reaction", title, postImageUrl, myUid, profileImage)
                 dispatch(clearPostImage())
                 setPostContent('')
             }

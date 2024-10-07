@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { View, Text, Image, Alert } from 'react-native'
 import { linkedinLogo } from 'assets'
 import { CustomButton, LoginInput, Icon } from 'components'
@@ -16,11 +16,6 @@ export const ContactInfoScreen = () => {
     const navigation = useNavigation()
     const [formData, handleInputChange] = useForm({ email: '', password: '' })
     const [rememberMe, setRememberMe] = useState(true)
-
-    // Non-friends list'i çekmek için useEffect
-    useEffect(() => {
-
-    }, [dispatch])
 
     const handleButton = useCallback(async () => {
         const { email, password } = formData
