@@ -1,4 +1,16 @@
 import { clapping, heart, idea, laughing, like, support } from "assets"
+import { setNonFriendsList } from "services/features/userSlice"
+import { sendFriendRequest } from "services/firebase/firebase"
+
+// Arkadaşlık isteği göndermek için kullanılan fonksiyon
+export const handleSendFriendRequest = (currentUserUid: string | null, uid: string, dispatch: any, NonFriendsList: any[]) => {
+    if (currentUserUid) {
+        sendFriendRequest(currentUserUid, uid)
+        dispatch(setNonFriendsList(NonFriendsList.filter(request => request.id !== uid)))
+    } else {
+        console.error('User UID is not available')
+    }
+}
 
 export const myNetworkPageButtonList = [
     {

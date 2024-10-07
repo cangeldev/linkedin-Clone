@@ -4,17 +4,25 @@ import styles from './style'
 import { Icon } from 'components'
 import { useTranslation } from 'react-i18next'
 import { defaultProfileImage } from 'assets'
+import { handleSendFriendRequest } from 'utils/helper'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from 'services/features/store'
+import { getCurrentUserUid } from 'services/firebase/firebaseAuth'
 
 interface IShareOwnerInformationCard {
     sharingName: string
     sharingImage: any
     sharingTitle: string
     sharingTime: any
+    sharingUid: string
 }
 
-export const ShareOwnerInformationCard: FC<IShareOwnerInformationCard> = React.memo(({ sharingImage, sharingName, sharingTitle, sharingTime }) => {
+export const ShareOwnerInformationCard: FC<IShareOwnerInformationCard> = React.memo(({ sharingImage, sharingName, sharingTitle, sharingTime, sharingUid }) => {
 
+    const dispatch = useDispatch()
     const { t } = useTranslation()
+    const { NonFriendsList, friendsList } = useSelector((state: RootState) => state.userSlice.info)
+    const isFriend = friendsList.some(friend => friend.uid !== sharingUid)
     let profileImageSource
 
     if (typeof sharingImage === 'string') {
@@ -46,7 +54,7 @@ export const ShareOwnerInformationCard: FC<IShareOwnerInformationCard> = React.m
             return `${secondsDifference} saniye önce`
         }
     }
-
+    const currentUserUid = getCurrentUserUid() || null
     return (
         <View style={styles.cardContainer}>
             <Image source={profileImageSource} style={styles.profileImage} />
@@ -63,10 +71,12 @@ export const ShareOwnerInformationCard: FC<IShareOwnerInformationCard> = React.m
                     <Icon type="MaterialCommunityIcons" name="earth" style={styles.earthIcon} />
                 </View>
             </View>
-            <TouchableOpacity style={styles.followButton}>
-                <Icon type="FontAwesome5" name="user-plus" style={styles.plusIcon} />
-                <Text style={styles.followButtonText}>{t("connect")}</Text>
-            </TouchableOpacity>
+            {
+                isFriend == false ? null : <TouchableOpacity onPress={() => handleSendFriendRequest(currentUserUid, sharingUid, dispatch, NonFriendsList)} style={styles.followButton}>
+                    <Icon type="FontAwesome5" name="user-plus" style={styles.plusIcon} />
+                    <Text style={styles.followButtonText}>{t("connect")}</Text>
+                </TouchableOpacity>
+            }
         </View>
     )
 })

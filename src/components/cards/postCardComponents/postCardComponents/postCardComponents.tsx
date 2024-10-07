@@ -12,6 +12,7 @@ interface IPostCardComponents {
     postContent: string
     contentImage: any
     sharingTime: any
+    sharingUid: string
 }
 
 /**
@@ -19,7 +20,7 @@ interface IPostCardComponents {
  * Bu bileşen, paylaşımı oluşturan kişinin bilgilerini, paylaşımı yapan kişinin bilgilerini,
  * paylaşım içeriğini, tepkileri ve yorumları, ve aksiyon menüsünü içerir.
  */
-export const PostCardComponents: FC<IPostCardComponents> = React.memo(({ reactionName, reactionImage, sharingName, sharingImage, sharingTitle, postContent, contentImage, sharingTime }) => {
+export const PostCardComponents: FC<IPostCardComponents> = React.memo(({ reactionName, reactionImage, sharingName, sharingImage, sharingTitle, postContent, contentImage, sharingTime, sharingUid }) => {
 
     return (
         <View style={styles.cardContainer}>
@@ -32,6 +33,7 @@ export const PostCardComponents: FC<IPostCardComponents> = React.memo(({ reactio
                 sharingName={sharingName}
                 sharingTitle={sharingTitle}
                 sharingTime={sharingTime}
+                sharingUid={sharingUid}
             />
             <ContentCard
                 contentText={postContent}
