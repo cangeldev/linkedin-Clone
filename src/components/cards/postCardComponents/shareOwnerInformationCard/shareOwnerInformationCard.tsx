@@ -64,8 +64,8 @@ export const ShareOwnerInformationCard: FC<IShareOwnerInformationCard> = React.m
                 </View>
             </View>
             <TouchableOpacity style={styles.followButton}>
-                <Text style={styles.plusIcon}>+ </Text>
-                <Text style={styles.followButtonText}>{t("follow")}</Text>
+                <Icon type="FontAwesome5" name="user-plus" style={styles.plusIcon} />
+                <Text style={styles.followButtonText}>{t("connect")}</Text>
             </TouchableOpacity>
         </View>
     )

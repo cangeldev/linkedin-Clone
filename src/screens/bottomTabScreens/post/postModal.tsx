@@ -29,7 +29,8 @@ export const PostModal: React.FC<PostModalProps> = React.memo(({ isVisible, onCl
     const dispatch = useDispatch()
     const postButtonStyle = useMemo(() => isPostButtonDisabled ? styles.disabledPostButton : styles.enabledPostButton, [isPostButtonDisabled])
     const { name, surname, title, myUid, profileImage } = useSelector((state: RootState) => state.userSlice.loggedUserInfo)
-    const handleTextChange = useCallback((text: string) => setPostContent(text.trim()), [])
+    // const handleTextChange = useCallback((text: string) => setPostContent(text.trim()), [])
+    const handleTextChange = useCallback((text: string) => setPostContent(text), []);
     const savePost = useCallback(async () => {
         try {
             let postImageUrl = null

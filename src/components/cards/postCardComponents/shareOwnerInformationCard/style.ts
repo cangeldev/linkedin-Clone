@@ -39,8 +39,9 @@ const styles = StyleSheet.create({
         marginLeft: 10
     },
     plusIcon: {
-        fontSize: 23,
-        color: "#0e67c1"
+        fontSize: 14,
+        color: "#0e67c1",
+        marginRight: 10
     },
     dotIcon: {
         color: colors.darkGrey,

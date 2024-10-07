@@ -1,15 +1,26 @@
 import { FlatList, View } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import style from './style'
 import { defaultProfileImage } from 'assets'
 import { PostCardComponents } from 'components/cards/postCardComponents'
 import { useSelector } from 'react-redux'
 import { RootState } from 'services/features/store'
+import { useNavigation } from '@react-navigation/native'
 
 /**
  * HomeScreen - Uygulamanın anasayfasıdır yapılan paylaşımların felan listelendiği sayfadır.
  */
 export const Home = () => {
+
+    const navigation = useNavigation()
+    useEffect(() => {
+        const unsubscribe = navigation.addListener('beforeRemove', (e) => {
+            // Geri gitme işlemini durdurmak için
+            e.preventDefault()
+        })
+        return unsubscribe
+    }, [navigation])
+
     const postList = useSelector((state: RootState) => state.userSlice.post.posts)
     const ItemSeparatorComponent = () => <View style={style.seperator} />
 
