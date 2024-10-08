@@ -23,7 +23,7 @@ export const UserInfoScreen = () => {
     const handleButton = useCallback(() => {
         const { name, surname } = formData
         if (!name.trim() || !surname.trim()) {
-            showToast('Hata:', " Kullanıcı adı ve Soyadı alanlarını doldurmalısınız.", "top")
+            showToast(t('error'), t('youMustFillInTheUsernameAndSurnameFields'), "top")
             return
         }
         dispatch(setName(name))

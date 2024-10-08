@@ -1,7 +1,41 @@
-import { clapping, heart, idea, laughing, like, support } from "assets"
+import { clapping, defaultProfileImage, heart, idea, laughing, like, support } from "assets"
 import { setNonFriendsList } from "services/features/userSlice"
 import { sendFriendRequest } from "services/firebase/firebase"
 import Toast from 'react-native-toast-message'
+import { useTranslation } from "react-i18next"
+
+
+export const resolveProfileImage = (image: any) => {
+    if (typeof image === 'string') {
+        return { uri: image }
+    } else if (image && image.uri) {
+        return image;
+    } else {
+        return defaultProfileImage
+    }
+}
+
+export const formatTimeDifference = (sharingTime: string) => {
+
+    const savedTime = new Date(sharingTime)
+    const currentTime = new Date()
+    const { t } = useTranslation()
+
+    const timeDifference = currentTime.getTime() - savedTime.getTime()
+    const secondsDifference = Math.floor(timeDifference / 1000)
+    const minutesDifference = Math.floor(secondsDifference / 60)
+    const hoursDifference = Math.floor(minutesDifference / 60)
+    const daysDifference = Math.floor(hoursDifference / 24)
+    if (daysDifference > 0) {
+        return `${daysDifference} ` + " " + t("dayAgo")
+    } else if (hoursDifference > 0) {
+        return `${hoursDifference}` + " " + t("hoursAgo")
+    } else if (minutesDifference > 0) {
+        return `${minutesDifference}` + " " + t("minuteAgo")
+    } else {
+        return `${secondsDifference}` + " " + t("secondAgo")
+    }
+}
 
 export const showToast = (text1: string, text2: string, position: "top" | "bottom") => {
     Toast.show({

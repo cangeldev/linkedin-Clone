@@ -1,7 +1,10 @@
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth'
 import firestore from '@react-native-firebase/firestore'
 import storage from '@react-native-firebase/storage'
+import { useTranslation } from 'react-i18next'
 import { showToast } from 'utils/helper'
+
+const { t } = useTranslation()
 
 // Returns the current authenticated user
 export const getCurrentUser = (): FirebaseAuthTypes.User | null => auth().currentUser
@@ -15,10 +18,10 @@ export const loginWithEmailPassword = async (email: string, password: string, na
         navigation.navigate('DrawerNavigation')
     } catch (error) {
         if (error == "Error: [auth/invalid-email] The email address is badly formatted.")
-            showToast('Geçersiz-e-posta:', " E-posta adresi kötü biçimlendirilmiş geçerli bir e-posta giriniz.", "bottom")
+            showToast(t('invalidEmail'), t('loginError2'), "bottom")
 
         if (error == "Error: [auth/invalid-credential] The supplied auth credential is incorrect, malformed or has expired.")
-            showToast('Hatalı giriş:', " E-posta adresi bulunamadı veya şifreniz hatalı.", "bottom")
+            showToast(t('wrongEntry'), t('loginError1'), "bottom")
     }
 }
 
@@ -30,9 +33,9 @@ export const signUpWithEmailPassword = async (email: string, password: string, n
         navigation.navigate('JobInfoScreen')
     } catch (error) {
         if (error == "Error: [auth/invalid-email] The email address is badly formatted.")
-            showToast('Geçersiz-e-posta:', " E-posta adresi kötü biçimlendirilmiş geçerli bir e-posta giriniz.", "bottom")
+            showToast(t('invalidEmail'), t('loginError2'), "bottom")
         if (error == "Error: [auth/weak-password] The given password is invalid. [ Password should be at least 6 characters ]")
-            showToast('Geçersiz şifre:', " Verilen şifre geçersiz. [ Şifre en az 6 karakter olmalıdır. ]", "top")
+            showToast(t('invalidPassword'), t('loginError3'), "top")
     }
 }
 

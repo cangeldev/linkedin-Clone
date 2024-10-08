@@ -1,13 +1,12 @@
 import { View, Text, Image } from 'react-native'
 import React, { FC } from 'react'
-import { defaultProfileImage } from 'assets'
 import { NotificationsButton, Icon } from 'components'
 import styles from './style'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'services/features/store'
 import { getCurrentUserUid } from 'services/firebase/firebaseAuth'
-import { handleSendFriendRequest, showToast } from 'utils/helper'
+import { handleSendFriendRequest, resolveProfileImage, showToast } from 'utils/helper'
 
 interface IAddFriendCard {
     uid: string
@@ -22,22 +21,14 @@ export const AddFriendCard: FC<IAddFriendCard> = ({ name, surname, profilePictur
     const dispatch = useDispatch()
     const { t } = useTranslation()
     const NonFriendsList = useSelector((state: RootState) => state.userSlice.info.NonFriendsList)
-    // Determine the source of the profile picture
-    let profileImageSource
-    if (typeof profilePicture === 'string') {
-        profileImageSource = { uri: profilePicture }
-    } else if (profilePicture && profilePicture.uri) {
-        profileImageSource = profilePicture
-    } else {
-        profileImageSource = defaultProfileImage
-    }
+    const profileImageSource = resolveProfileImage(profilePicture)
 
     // Get the current user's UID
     const currentUserUid = getCurrentUserUid() || null
 
     const handleButton = () => {
         handleSendFriendRequest(currentUserUid, uid, dispatch, NonFriendsList)
-        showToast('Arkadaşlık isteği:', name + surname + ' adlı kullanıcıya arkadaşlık isteğiniz gönderildi.', "bottom")
+        showToast(t('friendsRequest'), name + surname + t('toastMessage1'), "bottom")
     }
 
     return (

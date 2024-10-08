@@ -87,6 +87,25 @@
         "company": "Şirket",
         "title": "Ünvan",
         "startYear": "Başlangıç yılı",
-        "universityOrSchool": "Üniversite veya Okul"
+        "universityOrSchool": "Üniversite veya Okul",
+        "dayAgo": "gün önce",
+        "hoursAgo": "saat önce",
+        "minuteAgo": "dakika önce",
+        "secondAgo": "saniye önce",
+        "friendsRequest": "Arkadaşlık isteği",
+        "toastMessage1": " adlı kullanıcıya arkadaşlık isteğiniz gönderildi.",
+        "error": "Hata",
+        "toastMessage2": "E-posta ve şifre alanlarını doldurmalısınız..",
+        "incomingFriendRequest": "Gelen arkadaşlık isteği",
+        "toastMessage3": " adlı kullanıcıdan gelen arkadaşlık isteğini red ettiniz.",
+        "toastMessage4": " adlı kullanıcıdan gelen arkadaşlık isteğini kabul ettiniz.",
+        "pleaseFillInTheBlankFields": "Lütfen boş alanları doldurun.",
+        "youMustFillInTheUsernameAndSurnameFields": "Kullanıcı adı ve Soyadı alanlarını doldurmalısınız.",
+        "wrongEntry": "Hatalı Giriş",
+        "loginError1": "E-posta adresi bulunamadı veya şifreniz hatalı.",
+        "invalidEmail": "Geçersiz e-posta",
+        "loginError2": "E-posta adresi kötü biçimlendirilmiş geçerli bir e-posta giriniz.",
+        "invalidPassword": "Geçersiz şifre",
+        "loginError3": "Verilen şifre geçersiz. [ Şifre en az 6 karakter olmalıdır. ]"
     }
 }

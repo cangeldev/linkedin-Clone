@@ -25,7 +25,7 @@ export const JobInfoScreen = () => {
     const handleButton = useCallback(() => {
         const { location, job, title } = formData
         if (!location.trim() || !job.trim() || !title.trim()) {
-            showToast('Hata:', " Lütfen boş alanları doldurun.", "top")
+            showToast(t('error'), t('pleaseFillInTheBlankFields'), "top")
             return
         }
         dispatch(setJob(job))

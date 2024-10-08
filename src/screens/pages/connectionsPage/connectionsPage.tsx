@@ -15,7 +15,7 @@ export const ConnectionsPage = () => {
 
     const friendsListRedux = useSelector((state: RootState) => state.userSlice.info.friendsList)
     const navigation = useNavigation<any>()
-    const renderItem = ({ item }: any) => <ConnectionsUserCard name={item.name} job={item.job} title={item.title} profileImage={item.profileImageUrl} />
+    const renderItem = ({ item }: any) => <ConnectionsUserCard name={item.name} job={item.job} title={item.title} profileImage={item.profileImageUrl} surname={item.surname} />
     const { t } = useTranslation()
     return (
         <View style={style.container}>

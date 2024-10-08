@@ -1,9 +1,9 @@
 import { View, Text, Image } from 'react-native'
 import React, { FC } from 'react'
-import { defaultProfileImage } from 'assets'
 import style from './style'
 import { Icon } from 'components/icon/icon'
-import { showToast } from 'utils/helper'
+import { resolveProfileImage, showToast } from 'utils/helper'
+import { useTranslation } from 'react-i18next'
 
 interface IFriendRequestCard {
     name: string
@@ -15,22 +15,17 @@ interface IFriendRequestCard {
 }
 export const FriendRequestCard: FC<IFriendRequestCard> = ({ job, name, profileImage, title, declineRequests, acceptRequests }) => {
 
+    const { t } = useTranslation()
     const handleDeclineRequest = () => {
         declineRequests()
-        showToast('Gelen arkadaşlık isteği:', name + " adlı kullanıcıdan gelen arkadaşlık isteğini red ettiniz.", "bottom")
+        showToast(t('incomingFriendRequest'), name + t('toastMessage3'), "bottom")
     }
     const handleAcceptRequest = () => {
         acceptRequests()
-        showToast('Gelen arkadaşlık isteği:', name + " adlı kullanıcıdan gelen arkadaşlık isteğini kabul ettiniz.", "bottom")
+        showToast(t('incomingFriendRequest'), name + t('toastMessage4'), "bottom")
     }
-    let profileImageSource
-    if (typeof profileImage === 'string') {
-        profileImageSource = { uri: profileImage }
-    } else if (profileImage && profileImage.uri) {
-        profileImageSource = profileImage
-    } else {
-        profileImageSource = defaultProfileImage
-    }
+
+    const profileImageSource = resolveProfileImage(profileImage)
     return (
         <View style={style.container}>
             <Image source={profileImageSource} style={style.profileImage} />

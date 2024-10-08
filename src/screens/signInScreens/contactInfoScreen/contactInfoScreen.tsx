@@ -21,7 +21,7 @@ export const ContactInfoScreen = () => {
     const handleButton = useCallback(async () => {
         const { email, password } = formData
         if (!email.trim() || !password.trim()) {
-            showToast('Hata:', " E-posta ve şifre alanlarını doldurmalısınız.", "top")
+            showToast(t('error'), t('toastMessage2'), "top")
             return
         }
         try {

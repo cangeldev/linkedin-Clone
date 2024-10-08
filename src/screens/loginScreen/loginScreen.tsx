@@ -30,7 +30,8 @@ export const LoginScreen = () => {
     const validateInputs = () => {
         const { email, password } = formData
         if (!email.trim() || !password.trim()) {
-            showToast('Hata:', " E-posta ve şifre alanlarını doldurmalısınız.", "bottom")
+            showToast(t('error'), t('toastMessage2'), "bottom")
+
             return false
         }
         return true

@@ -87,6 +87,25 @@
         "company": "Company",
         "title": "Title",
         "startYear": "Start year",
-        "universityOrSchool": "University or School"
+        "universityOrSchool": "University or School",
+        "dayAgo": "day ago",
+        "hoursAgo": "hours ago",
+        "minuteAgo": "minute ago",
+        "secondAgo": "second ago",
+        "friendsRequest": "Friends request",
+        "toastMessage1": " your friend request has been sent to the user named.",
+        "error": "Error",
+        "toastMessage2": "You must fill in the email and password fields.",
+        "incomingFriendRequest": "Incoming friend request",
+        "toastMessage3": " you have rejected the friend request from user named.",
+        "toastMessage4": " you have accepted the friend request from user.",
+        "pleaseFillInTheBlankFields": "Please fill in the blank fields.",
+        "youMustFillInTheUsernameAndSurnameFields": "You must fill in the Username and Surname fields.",
+        "wrongEntry": "Wrong Entry",
+        "loginError1": "The supplied auth credential is incorrect, malformed or has expired.",
+        "invalidEmail": "Invalid email",
+        "loginError2": "The email address is badly formatted.",
+        "invalidPassword": "Invalid password",
+        "loginError3": "The given password is invalid. [ Password should be at least 6 characters. ]"
     }
 }

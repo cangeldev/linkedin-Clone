@@ -2,29 +2,24 @@ import { View, Text, Image } from 'react-native'
 import React, { FC } from 'react'
 import style from './style'
 import { Icon } from 'components/icon/icon'
-import { defaultProfileImage } from 'assets'
+import { resolveProfileImage } from 'utils/helper'
 
 interface IConnectionsUserCard {
     profileImage: any
     name: string,
+    surname: string,
     title: string,
     job: string
 }
-export const ConnectionsUserCard: FC<IConnectionsUserCard> = ({ profileImage, name, title, job }) => {
+export const ConnectionsUserCard: FC<IConnectionsUserCard> = ({ profileImage, name, title, job, surname }) => {
 
-    let profileImageSource
-    if (typeof profileImage === 'string') {
-        profileImageSource = { uri: profileImage }
-    } else if (profileImage && profileImage.uri) {
-        profileImageSource = profileImage
-    } else {
-        profileImageSource = defaultProfileImage
-    }
+    const profileImageSource = resolveProfileImage(profileImage)
+
     return (
         <View style={style.container}>
             <Image source={profileImageSource} style={style.profileImage} />
             <View style={style.textContainer}>
-                <Text style={style.userName} >{name}</Text>
+                <Text style={style.userName} >{name}{" "}{surname}</Text>
                 <Text numberOfLines={1} style={style.userDetails}>{title}</Text>
                 <Text style={style.userDetails}>{job}</Text>
                 <Text>1 ay önce bağlantı kuruldu</Text>

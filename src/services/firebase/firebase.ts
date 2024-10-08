@@ -2,19 +2,6 @@ import firestore from '@react-native-firebase/firestore'
 import { getCurrentUserUid } from './firebaseAuth'
 import storage from '@react-native-firebase/storage'
 
-// Fetches user data from Firestore
-export const getUserData = async (field: string) => {
-    try {
-        const uid = getCurrentUserUid()
-        if (!uid) return null
-        const userSnapshot = await firestore().collection('users').doc(uid).get()
-        return userSnapshot.exists ? userSnapshot.get(field) : null
-    } catch (error) {
-        console.error('Error fetching user data:', error)
-        return null
-    }
-}
-
 // Fetches all users except the current one
 export const fetchUsers = async () => {
     try {
@@ -172,13 +159,13 @@ export const savePostToFirebase = (name: string, surname: string, time: any, con
 }
 export const getMyUserData = async () => {
     try {
-        const uid = getCurrentUserUid();
-        if (!uid) return null;
-        const userSnapshot = await firestore().collection('users').doc(uid).get();
-        return userSnapshot.exists ? userSnapshot.data() : null;
+        const uid = getCurrentUserUid()
+        if (!uid) return null
+        const userSnapshot = await firestore().collection('users').doc(uid).get()
+        return userSnapshot.exists ? userSnapshot.data() : null
     } catch (error) {
-        console.error('Error fetching user data:', error);
-        return null;
+        console.error('Error fetching user data:', error)
+        return null
     }
 }
 

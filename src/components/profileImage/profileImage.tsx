@@ -1,28 +1,21 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Image } from 'react-native'
 import style from './style'
-import { getUserData } from 'services/firebase/firebase'
-import { defaultProfileImage } from 'assets'
+import { useSelector } from 'react-redux'
+import { RootState } from 'services/features/store'
+import { resolveProfileImage } from 'utils/helper'
 
 /**
  * `ProfileImage` bileşeni, , kullanıcının profil fotoğrafını yükleyen ve gösteren bir bileşendir. Kullanıcı fotoğrafını Firebase'den alır ve varsayılan bir profil resmi ile birlikte gösterir.
  */
 export const ProfileImage = () => {
 
-    const [profileImage, setProfileImage] = useState<any>()
-    const imageSource = profileImage ? { uri: profileImage as any } : defaultProfileImage
-
-    useEffect(() => {
-        const getUsers = async () => {
-            const fetchedUsersInfo = await getUserData("profileImageUrl")
-            setProfileImage(fetchedUsersInfo)
-        }
-        getUsers()
-    }, [])
+    const profileImage = useSelector((state: RootState) => state.userSlice.loggedUserInfo.profileImage)
+    const profileImageSource = resolveProfileImage(profileImage)
 
     return (
         <Image
-            source={imageSource}
+            source={profileImageSource}
             style={style.profileImage}
         />
     )

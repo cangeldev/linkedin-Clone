@@ -21,7 +21,8 @@ export const PostModal: React.FC<PostModalProps> = React.memo(({ isVisible, onCl
     const [imagePickerModal, setImagePickerModal] = useState(false)
     const toggleImagePickerModal = useCallback(() => setImagePickerModal(prev => !prev), [])
     const [postContent, setPostContent] = useState<string>('')
-    const isPostButtonDisabled = postContent.trim().length === 0
+
+    const isPostButtonDisabled = useMemo(() => postContent.trim().length === 0, [postContent])
     const { t } = useTranslation()
     const currentDate = useMemo(() => new Date().toISOString(), [])
     const uid = getCurrentUserUid()
@@ -29,7 +30,6 @@ export const PostModal: React.FC<PostModalProps> = React.memo(({ isVisible, onCl
     const dispatch = useDispatch()
     const postButtonStyle = useMemo(() => isPostButtonDisabled ? styles.disabledPostButton : styles.enabledPostButton, [isPostButtonDisabled])
     const { name, surname, title, myUid, profileImage } = useSelector((state: RootState) => state.userSlice.loggedUserInfo)
-    // const handleTextChange = useCallback((text: string) => setPostContent(text.trim()), [])
     const handleTextChange = useCallback((text: string) => setPostContent(text), []);
     const savePost = useCallback(async () => {
         try {
