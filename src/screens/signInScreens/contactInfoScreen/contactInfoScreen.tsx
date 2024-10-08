@@ -6,17 +6,21 @@ import style from './style'
 import { useNavigation } from '@react-navigation/native'
 import { useForm } from 'hooks/useForm'
 import { useDispatch } from 'react-redux'
-import { setEmail, setNonFriendsList } from 'services/features/userSlice'
+import { setInfo, setLoggedUserInfo } from 'services/features/userSlice'
 import { useTranslation } from 'react-i18next'
 import { signUpWithEmailPassword, } from 'services/firebase/firebaseAuth'
 import { fetchNonFriendUsers } from 'services/firebase/firebase'
 import { showToast } from 'utils/helper'
 
 export const ContactInfoScreen = () => {
+
+    const { t } = useTranslation()
     const dispatch = useDispatch()
     const navigation = useNavigation()
+
     const [formData, handleInputChange] = useForm({ email: '', password: '' })
     const [rememberMe, setRememberMe] = useState(true)
+    const toggleRememberMe = useCallback(() => setRememberMe(prev => !prev), [])
 
     const handleButton = useCallback(async () => {
         const { email, password } = formData
@@ -29,21 +33,21 @@ export const ContactInfoScreen = () => {
             const getNonFriends = async () => {
                 try {
                     const fetchedNonFriendsInfo = await fetchNonFriendUsers()
-                    dispatch(setNonFriendsList(fetchedNonFriendsInfo))
+                    dispatch(setInfo({
+                        NonFriendsList: fetchedNonFriendsInfo
+                    }));
                 } catch (error) {
                     console.error('Error fetching non-friends data:', error)
                 }
             }
-
             getNonFriends()
-            dispatch(setEmail(email))
+            dispatch(setLoggedUserInfo({
+                email: email
+            }));
         } catch (error) {
             console.error('Error during sign up:', error)
         }
     }, [formData, navigation, dispatch])
-
-    const toggleRememberMe = useCallback(() => setRememberMe(prev => !prev), [])
-    const { t } = useTranslation()
 
     return (
         <View style={style.container}>

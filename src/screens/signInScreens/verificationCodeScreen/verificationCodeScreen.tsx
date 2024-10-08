@@ -5,6 +5,7 @@ import { CustomButton, LoginInput, SignInHeader } from 'components'
 import { useNavigation } from '@react-navigation/native'
 
 export const VerificationCodeScreen = () => {
+
     const navigation = useNavigation<any>()
     const handleButton = () => navigation.navigate("ProfilePictureSettingsScreen")
 

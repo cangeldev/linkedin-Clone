@@ -6,11 +6,16 @@ import { resolveProfileImage } from 'utils/helper'
 
 interface IConnectionsUserCard {
     profileImage: any
-    name: string,
-    surname: string,
-    title: string,
+    name: string
+    surname: string
+    title: string
     job: string
 }
+
+/**
+ * `ConnectionsUserCard` bileşeni, arkadaş olarak eklediğim kişileri göstermek için kullanılan bir karttır.
+ * Bu kart, kişinin profil bilgilerini ve ne zaman arkadaş oluğumuz bilgisini verir istersek  arkadaşlıktan çıkarmak için bir buton içerir.
+ */
 export const ConnectionsUserCard: FC<IConnectionsUserCard> = ({ profileImage, name, title, job, surname }) => {
 
     const profileImageSource = resolveProfileImage(profileImage)
@@ -19,7 +24,7 @@ export const ConnectionsUserCard: FC<IConnectionsUserCard> = ({ profileImage, na
         <View style={style.container}>
             <Image source={profileImageSource} style={style.profileImage} />
             <View style={style.textContainer}>
-                <Text style={style.userName} >{name}{" "}{surname}</Text>
+                <Text style={style.userName}>{`${name} ${surname}`}</Text>
                 <Text numberOfLines={1} style={style.userDetails}>{title}</Text>
                 <Text style={style.userDetails}>{job}</Text>
                 <Text>1 ay önce bağlantı kuruldu</Text>

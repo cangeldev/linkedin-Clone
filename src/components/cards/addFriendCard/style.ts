@@ -1,5 +1,7 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Dimensions } from 'react-native'
 import colors from 'assets/colors/colors'
+
+const { width } = Dimensions.get('window')
 
 export default StyleSheet.create({
     card: {
@@ -9,7 +11,7 @@ export default StyleSheet.create({
         paddingVertical: 10,
         marginBottom: 5,
         alignItems: "center",
-        width: 175,
+        width: width * 0.45,
         alignSelf: "center"
     },
     description: {
@@ -19,7 +21,6 @@ export default StyleSheet.create({
     banner: {
         width: "100%",
         height: 60,
-        backgroundColor: "yellow",
         position: "absolute",
         borderTopRightRadius: 10,
         borderTopLeftRadius: 10
@@ -36,7 +37,7 @@ export default StyleSheet.create({
         marginVertical: 7
     },
     profileInfo: {
-        color: '#888',
+        color: colors.grey,
         marginVertical: 7
     },
     iconWrapper: {

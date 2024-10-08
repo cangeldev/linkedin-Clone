@@ -5,7 +5,7 @@ import { linkedinLogo } from 'assets'
 import { CustomButton, LoginInput } from 'components'
 import { useNavigation } from '@react-navigation/native'
 import { useDispatch } from 'react-redux'
-import { setName, setSurname } from 'services/features/userSlice'
+import { setLoggedUserInfo } from 'services/features/userSlice'
 import { useForm } from 'hooks/useForm'
 import { useTranslation } from 'react-i18next'
 import { showToast } from 'utils/helper'
@@ -17,8 +17,9 @@ export const UserInfoScreen = () => {
 
     const dispatch = useDispatch()
     const navigation = useNavigation<any>()
-    const [formData, handleInputChange] = useForm({ name: '', surname: '' })
     const { t } = useTranslation()
+
+    const [formData, handleInputChange] = useForm({ name: '', surname: '' })
 
     const handleButton = useCallback(() => {
         const { name, surname } = formData
@@ -26,8 +27,11 @@ export const UserInfoScreen = () => {
             showToast(t('error'), t('youMustFillInTheUsernameAndSurnameFields'), "top")
             return
         }
-        dispatch(setName(name))
-        dispatch(setSurname(surname))
+        dispatch(setLoggedUserInfo({
+            name: name,
+            surname: surname,
+
+        }));
         navigation.navigate("ContactInfoScreen")
     }, [formData])
 

@@ -9,18 +9,20 @@ import { RootState } from 'services/features/store'
 import { useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
 import { getCurrentUser, saveUserProfile, uploadProfileImage } from 'services/firebase/firebaseAuth'
-import { setMyUid } from 'services/features/userSlice'
+import { setLoggedUserInfo } from 'services/features/userSlice'
 
 /**
  * ProfilePictureSettingsScreen - Bu sayfa  kayıt olma sırasında kullanıcının profil resminin alındı kısımdır ilk olarak redux toolkite kaydedilir daha sonrasında tüm bilgilerle beraber firebaseye aktarılır.
  * Kayıt için alınan tüm bilgiler bu sayfada "saveUserProfile" fonksiyonu ile firebaseye aktarılır.
  */
 export const ProfilePictureSettingsScreen = () => {
-    const navigation = useNavigation<any>()
-    const { job, name, surname, title, location, profileImage, email } = useSelector((state: RootState) => state.userSlice.loggedUserInfo)
-    const [imagePickerModal, setImagePickerModal] = useState(false)
+
     const { t } = useTranslation()
     const dispatch = useDispatch()
+    const navigation = useNavigation<any>()
+
+    const { job, name, surname, title, location, profileImage, email } = useSelector((state: RootState) => state.userSlice.loggedUserInfo)
+    const [imagePickerModal, setImagePickerModal] = useState(false)
     const hasProfileImage = profileImage != null
     const imageSource = profileImage ? { uri: profileImage } : camera
 
@@ -29,8 +31,9 @@ export const ProfilePictureSettingsScreen = () => {
     const handleSaveProfile = async () => {
         const user = getCurrentUser()
         if (!user) return null
-
-        dispatch(setMyUid(user.uid))
+        dispatch(setLoggedUserInfo({
+            myUid: user.uid
+        }))
         let profileImageUrl = null
         if (profileImage) {
             profileImageUrl = await uploadProfileImage(user.uid, { uri: profileImage })

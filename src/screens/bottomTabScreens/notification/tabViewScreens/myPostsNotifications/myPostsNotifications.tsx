@@ -5,7 +5,9 @@ import { EmptyNotificationsCard } from 'components/cards'
 import { useTranslation } from 'react-i18next'
 
 export const MyPostsNotifications = () => {
+
     const { t } = useTranslation()
+
     return (
         <View style={style.container}>
             <EmptyNotificationsCard

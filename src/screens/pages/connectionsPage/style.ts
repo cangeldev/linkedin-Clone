@@ -13,7 +13,7 @@ export default StyleSheet.create({
     toolbar: {
         flexDirection: "row",
         alignItems: "center",
-        padding: 15,
+        padding: 15
     },
     toolbarIcons: {
         fontSize: 18,

@@ -5,7 +5,7 @@ export default StyleSheet.create({
     container: {
         flexDirection: "row",
         alignItems: "center",
-        padding: 15,
+        padding: 15
     },
     title: {
         fontSize: 17,

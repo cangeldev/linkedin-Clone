@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     },
     toggleText: {
         color: colors.grey,
-        paddingHorizontal: 10,
+        paddingHorizontal: 10
     },
     contentImage: {
         width: "100%",

@@ -16,21 +16,32 @@ interface PostModalProps {
     onClose: () => void
 }
 
+/**
+ * Post - uygulamada paylaşım yapmak için tasarlanan sayfadır hazırladığım metin veya resim gibi bilgileri girdiğim sayfadır.
+ * Tab navigationda PostScreen'e tıklayınca otomatik postModal yani bu sayfa gösterilir, açılır.
+ */
 export const PostModal: React.FC<PostModalProps> = React.memo(({ isVisible, onClose }) => {
+
+    const { t } = useTranslation()
+    const dispatch = useDispatch()
+    const uid = getCurrentUserUid()
 
     const [imagePickerModal, setImagePickerModal] = useState(false)
     const toggleImagePickerModal = useCallback(() => setImagePickerModal(prev => !prev), [])
+
     const [postContent, setPostContent] = useState<string>('')
 
     const isPostButtonDisabled = useMemo(() => postContent.trim().length === 0, [postContent])
-    const { t } = useTranslation()
+
     const currentDate = useMemo(() => new Date().toISOString(), [])
-    const uid = getCurrentUserUid()
+
     const postImage = useSelector((state: RootState) => state.userSlice.post.postImage)
-    const dispatch = useDispatch()
-    const postButtonStyle = useMemo(() => isPostButtonDisabled ? styles.disabledPostButton : styles.enabledPostButton, [isPostButtonDisabled])
     const { name, surname, title, myUid, profileImage } = useSelector((state: RootState) => state.userSlice.loggedUserInfo)
-    const handleTextChange = useCallback((text: string) => setPostContent(text), []);
+
+    const postButtonStyle = useMemo(() => isPostButtonDisabled ? styles.disabledPostButton : styles.enabledPostButton, [isPostButtonDisabled])
+
+    const handleTextChange = useCallback((text: string) => setPostContent(text), [])
+
     const savePost = useCallback(async () => {
         try {
             let postImageUrl = null

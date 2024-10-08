@@ -19,5 +19,4 @@ const style = StyleSheet.create({
         fontSize: 18
     }
 })
-
 export default style

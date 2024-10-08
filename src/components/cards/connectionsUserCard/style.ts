@@ -22,15 +22,15 @@ export default StyleSheet.create({
         fontWeight: "500"
     },
     userDetails: {
-        color: colors.black,
+        color: colors.black
     },
     optionsIcon: {
         fontSize: 18,
         marginRight: 16,
-        color: colors.black,
+        color: colors.black
     },
     iconContainer: {
-        flexDirection: "row",
+        flexDirection: "row"
     },
     sendIcon: {
         fontSize: 26,

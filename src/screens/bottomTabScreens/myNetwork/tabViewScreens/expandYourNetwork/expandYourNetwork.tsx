@@ -15,6 +15,8 @@ export const ExpandYourNetwork = () => {
 
     const { t } = useTranslation()
     const deneme = useSelector((state: RootState) => state.userSlice.info.NonFriendsList)
+    const keyExtractor = (item: any, index: number) => item.id ? item.id.toString() : index.toString()
+
     const renderItem = useCallback(({ item }: any) => (
         <View style={styles.cardWrapper}>
             <AddFriendCard
@@ -27,8 +29,6 @@ export const ExpandYourNetwork = () => {
             />
         </View>
     ), [])
-
-    const keyExtractor = (item: any, index: number) => item.id ? item.id.toString() : index.toString()
 
     return (
         <ScrollView style={styles.container}>

@@ -10,13 +10,13 @@ import { useTranslation } from 'react-i18next'
 const Stack = createStackNavigator()
 const user = getCurrentUser()
 const { t } = useTranslation()
+
 /**
  * StackNavigation - Uygulamanın yığın navigasyonunu yönetir sayfa yönlendirmeleri için.
  */
 export const StackNavigation = () => (
     <Stack.Navigator initialRouteName={!user ? 'WelcomeScreen' : "DrawerNavigation"}
         screenOptions={{ headerShown: false }}>
-
         <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
         <Stack.Screen name="LoginScreen" component={LoginScreen} />
         <Stack.Screen name="UserInfoScreen" component={UserInfoScreen} />

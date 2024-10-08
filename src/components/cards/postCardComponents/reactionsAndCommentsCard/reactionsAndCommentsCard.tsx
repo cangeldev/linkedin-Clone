@@ -8,6 +8,7 @@ import { reactionList } from 'utils/helper'
  * `ReactionsAndCommentsCard` bileşeni, bir gönderiye verilen tepkilerin hangi türde olduklarını kaç adet olduklarını ve varsa yorum bilgisini gösterir.
  */
 export const ReactionsAndCommentsCard = React.memo(() => {
+
     const { t } = useTranslation()
 
     const renderItem = ({ item }: any) =>

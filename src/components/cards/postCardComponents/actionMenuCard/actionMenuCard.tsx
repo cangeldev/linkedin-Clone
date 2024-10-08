@@ -19,7 +19,7 @@ export const ActionMenuCard = React.memo(() => {
         { id: 1, label: t('like'), iconType: "MaterialIcons", iconName: "thumb-up" },
         { id: 2, label: t('makeComment'), iconType: "MaterialIcons", iconName: "message" },
         { id: 3, label: t('repost'), iconType: "FontAwesome6", iconName: "retweet" },
-        { id: 4, label: t('send'), iconType: "Ionicons", iconName: "paper-plane" },
+        { id: 4, label: t('send'), iconType: "Ionicons", iconName: "paper-plane" }
     ]
 
     const screenWidth = Dimensions.get('window').width

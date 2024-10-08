@@ -4,12 +4,12 @@ import { launchImageLibrary, launchCamera, ImageLibraryOptions, CameraOptions } 
 import style from './style'
 import { useDispatch } from 'react-redux'
 import { AppDispatch } from 'services/features/store'
-import { setPostImage, setProfileImage } from 'services/features/userSlice'
+import { setLoggedUserInfo, setPost } from 'services/features/userSlice'
 import { useTranslation } from 'react-i18next'
 
 interface IImagePickerModal {
     visibleModal: boolean
-    closeModal: () => void,
+    closeModal: () => void
     postImage?: string
 }
 
@@ -18,17 +18,23 @@ interface IImagePickerModal {
  *  Seçilen resim daha sonra farklı işlemlerde kullanılmak üzere redux toolkite kaydedilir.
  */
 export const ImagePickerModal: FC<IImagePickerModal> = ({ visibleModal, closeModal, postImage }) => {
+
     const dispatch = useDispatch<AppDispatch>()
     const { t } = useTranslation()
+
     const handleImageSelection = (launchFunction: Function, options: ImageLibraryOptions | CameraOptions) => {
         launchFunction(options, (response: any) => {
             const imageUri = response.assets?.[0]?.uri
             if (imageUri) {
                 if (postImage) {
-                    dispatch(setPostImage(imageUri))
+                    dispatch(setPost({
+                        postImage: imageUri
+                    }))
                 }
                 else
-                    dispatch(setProfileImage(imageUri))
+                    dispatch(setLoggedUserInfo({
+                        profileImage: imageUri
+                    }))
                 closeModal()
             }
         })
@@ -39,7 +45,7 @@ export const ImagePickerModal: FC<IImagePickerModal> = ({ visibleModal, closeMod
             mediaType: 'photo',
             includeBase64: false,
             maxHeight: 2000,
-            maxWidth: 2000,
+            maxWidth: 2000
         }
         handleImageSelection(launchImageLibrary, options)
     }
@@ -49,7 +55,7 @@ export const ImagePickerModal: FC<IImagePickerModal> = ({ visibleModal, closeMod
             mediaType: 'photo',
             includeBase64: false,
             maxHeight: 2000,
-            maxWidth: 2000,
+            maxWidth: 2000
         }
         handleImageSelection(launchCamera, options)
     }

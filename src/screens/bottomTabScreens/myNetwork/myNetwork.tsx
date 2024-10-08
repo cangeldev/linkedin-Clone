@@ -20,13 +20,16 @@ const renderTabBar = (props: any) => (
         inactiveColor='gray'
     />
 )
+
 /**
  * MyNetwork - Ağım ile ilgili tüm bilgilerin, ayarlamaların olduğu sayfadır.
  */
 export const MyNetwork = () => {
+
     const { t } = useTranslation()
     const layout = useWindowDimensions()
     const [index, setIndex] = React.useState(0)
+
     const [routes] = React.useState([
         { key: 'first', title: t("grow") },
         { key: 'second', title: t("catchUp") }

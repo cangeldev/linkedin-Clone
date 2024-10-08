@@ -32,7 +32,7 @@ export default StyleSheet.create({
     },
     dropdownIcon: {
         fontSize: 12,
-        color: colors.black,
+        color: colors.black
     },
     innerHeader: {
         flexDirection: "row",
@@ -62,7 +62,7 @@ export default StyleSheet.create({
         fontWeight: "500"
     },
     inputContainer: {
-        flex: 1,
+        flex: 1
     },
     textInput: {
         fontSize: 17,

@@ -13,9 +13,16 @@ interface IFriendRequestCard {
     declineRequests: () => void
     acceptRequests: () => void
 }
+
+/**
+ * `FriendRequestCard` bileşeni, arkadaşlık isteklerinin görüntülenmesini sağlayan bir karttır.
+ * Bu kart, arkadaşlık isteği gönderen kişinin profil bilgilerini ve ne zaman arkadaşlık isteği gönderdiği bilgisini verir istersek arkadaş eklemek, istemezsek reddetmek  için butonlar içerir.
+ */
 export const FriendRequestCard: FC<IFriendRequestCard> = ({ job, name, profileImage, title, declineRequests, acceptRequests }) => {
 
     const { t } = useTranslation()
+    const profileImageSource = resolveProfileImage(profileImage)
+
     const handleDeclineRequest = () => {
         declineRequests()
         showToast(t('incomingFriendRequest'), name + t('toastMessage3'), "bottom")
@@ -25,7 +32,6 @@ export const FriendRequestCard: FC<IFriendRequestCard> = ({ job, name, profileIm
         showToast(t('incomingFriendRequest'), name + t('toastMessage4'), "bottom")
     }
 
-    const profileImageSource = resolveProfileImage(profileImage)
     return (
         <View style={style.container}>
             <Image source={profileImageSource} style={style.profileImage} />

@@ -25,7 +25,7 @@ export const Notification: React.FC = () => {
     const renderScene = SceneMap({
         first: AllNotifications,
         second: MyPostsNotifications,
-        third: MentionsNotifications,
+        third: MentionsNotifications
     })
 
     return (

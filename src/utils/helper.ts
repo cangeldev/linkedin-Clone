@@ -1,5 +1,5 @@
 import { clapping, defaultProfileImage, heart, idea, laughing, like, support } from "assets"
-import { setNonFriendsList } from "services/features/userSlice"
+import { setInfo } from "services/features/userSlice"
 import { sendFriendRequest } from "services/firebase/firebase"
 import Toast from 'react-native-toast-message'
 import { useTranslation } from "react-i18next"
@@ -26,6 +26,7 @@ export const formatTimeDifference = (sharingTime: string) => {
     const minutesDifference = Math.floor(secondsDifference / 60)
     const hoursDifference = Math.floor(minutesDifference / 60)
     const daysDifference = Math.floor(hoursDifference / 24)
+    
     if (daysDifference > 0) {
         return `${daysDifference} ` + " " + t("dayAgo")
     } else if (hoursDifference > 0) {
@@ -52,7 +53,9 @@ export const showToast = (text1: string, text2: string, position: "top" | "botto
 export const handleSendFriendRequest = (currentUserUid: string | null, uid: string, dispatch: any, NonFriendsList: any[]) => {
     if (currentUserUid) {
         sendFriendRequest(currentUserUid, uid)
-        dispatch(setNonFriendsList(NonFriendsList.filter(request => request.id !== uid)))
+        dispatch(setInfo({
+            NonFriendsList: NonFriendsList.filter(request => request.id !== uid)
+        }));
     } else {
         console.error('User UID is not available')
     }

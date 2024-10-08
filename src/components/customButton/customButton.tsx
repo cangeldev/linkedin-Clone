@@ -4,7 +4,7 @@ import style from './style'
 
 interface ICustomButton {
     title: string
-    icon?: any,
+    icon?: any
     onPress?: () => void
 }
 

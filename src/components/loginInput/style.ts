@@ -10,13 +10,12 @@ export default StyleSheet.create({
         borderBottomWidth: 1,
         padding: 0,
         margin: 0,
-        fontSize: 16,
+        fontSize: 16
     },
     eyeIcon: {
         fontSize: 24,
         color: colors.darkGrey,
         position: "absolute",
-        right:10
+        right: 10
     }
-
 })

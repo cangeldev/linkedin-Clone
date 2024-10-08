@@ -1,78 +1,92 @@
-import Container from 'container/container'
-import React, { useEffect, useState } from 'react'
-import { StatusBar } from 'react-native'
-import BootSplash from 'react-native-bootsplash'
-import { Provider, useDispatch } from 'react-redux'
-import store from 'services/features/store'
-import { I18nextProvider } from 'react-i18next'
-import i18n from 'utils/i18next'
-import { fetchFriendsList, fetchNonFriendUsers, fetchUsersWithSenderInfo, getMyUserData, getPosts } from 'services/firebase/firebase'
-import { setFriendsList, setNonFriendsList, setFriendsRequestList, setName, setSurname, setTitle, setProfileImage, setMyUid, setPosts } from 'services/features/userSlice'
-import { getCurrentUserUid } from 'services/firebase/firebaseAuth'
+import Container from 'container/container';
+import React, { useEffect } from 'react';
+import { StatusBar } from 'react-native';
+import BootSplash from 'react-native-bootsplash';
+import { Provider, useDispatch } from 'react-redux';
+import store from 'services/features/store';
+import { I18nextProvider } from 'react-i18next';
+import i18n from 'utils/i18next';
+import { fetchFriendsList, fetchNonFriendUsers, fetchUsersWithSenderInfo, getMyUserData, getPosts } from 'services/firebase/firebase';
+import { setInfo, setPost, setLoggedUserInfo } from 'services/features/userSlice';
+import { getCurrentUserUid } from 'services/firebase/firebaseAuth';
 
 /**
- * App - Bu sayfa uygulamamızın başlangıç yapılandırmasını, durum yönetimini ve navigasyonunu kurar.
- * Bu sayfada firebasedeki verilerin daha hızlı bir şekilde yüklenmesini sağlamak için veriler redux toolkite kaydedilir.
+ * App - Uygulamanın başlangıç yapılandırması, durum yönetimi ve navigasyonu kurar.
+ * Bu sayfada Firebase'deki verilerin daha hızlı yüklenmesi için veriler Redux Toolkit'e kaydedilir.
  */
 
-interface UserData {
-  name: string
-  surname: string
-  title: string
-}
 const MainComponent = React.memo(() => {
-  const dispatch = useDispatch()
-  const [userData, setUserData] = useState<UserData | null>(null)
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const getUsers = async () => {
       try {
-        const [fetchedFriendsInfo, fetchedNonFriendsInfo, fetchedFriendsRequests, MyInfo, Posts] = await Promise.all([
+        const [
+          fetchedFriendsInfo,
+          fetchedNonFriendsInfo,
+          fetchedFriendsRequests,
+          MyInfo,
+          Posts
+        ] = await Promise.all([
           fetchFriendsList(),
           fetchNonFriendUsers(),
           fetchUsersWithSenderInfo(),
           getMyUserData(),
           getPosts()
-        ])
+        ]);
 
-        dispatch(setFriendsList(fetchedFriendsInfo))
-        dispatch(setNonFriendsList(fetchedNonFriendsInfo))
-        dispatch(setFriendsRequestList(fetchedFriendsRequests))
-        dispatch(setPosts(Posts))
-        const uid = getCurrentUserUid()
+        // Dispatch all info-related data at once using setInfo
+        dispatch(setInfo({
+          friendsList: fetchedFriendsInfo,
+          NonFriendsList: fetchedNonFriendsInfo,
+          friendsRequestList: fetchedFriendsRequests,
+        }));
+
+        // Dispatch all post-related data
+        dispatch(setPost({
+          posts: Posts,
+        }));
+
+        const uid = getCurrentUserUid();
         if (!uid) return null;
-        else {
-          setUserData(MyInfo)
-          dispatch(setName(MyInfo.name))
-          dispatch(setSurname(MyInfo.surname))
-          dispatch(setTitle(MyInfo.title))
-          dispatch(setProfileImage(MyInfo.profileImageUrl))
-          dispatch(setMyUid(MyInfo.myUid))
+
+
+
+        // Dispatch logged user info at once
+        if (MyInfo) {
+          dispatch(setLoggedUserInfo({
+            name: MyInfo.name,
+            surname: MyInfo.surname,
+            title: MyInfo.title,
+            profileImage: MyInfo.profileImageUrl,
+            myUid: MyInfo.myUid,
+          }));
+        } else {
+          console.warn('MyInfo is null or undefined');
         }
 
       } catch (error) {
-        console.error('Error fetching user data:', error)
+        console.error('Error fetching user data:', error);
       }
-    }
-
+    };
 
     const initializeApp = () => {
-      i18n.changeLanguage('tr')
-      BootSplash.hide({ fade: true })
-      setStatusBar()
-    }
+      i18n.changeLanguage('tr');
+      BootSplash.hide({ fade: true });
+      setStatusBar();
+    };
 
-    getUsers()
-    initializeApp()
-  }, [dispatch])
+    getUsers();
+    initializeApp();
+  }, [dispatch]);
 
   const setStatusBar = () => {
-    StatusBar.setBackgroundColor('white')
-    StatusBar.setBarStyle('dark-content')
-  }
+    StatusBar.setBackgroundColor('white');
+    StatusBar.setBarStyle('dark-content');
+  };
 
-  return <Container />
-})
+  return <Container />;
+});
 
 const App = () => (
   <Provider store={store}>
@@ -80,6 +94,6 @@ const App = () => (
       <MainComponent />
     </I18nextProvider>
   </Provider>
-)
+);
 
-export default React.memo(App)
+export default React.memo(App);

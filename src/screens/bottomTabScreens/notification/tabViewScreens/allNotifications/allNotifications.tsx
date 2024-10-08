@@ -7,21 +7,28 @@ import { Divider } from 'components'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'services/features/store'
-import { setFriendsRequestList } from 'services/features/userSlice'
+import { setInfo } from 'services/features/userSlice'
 
 export const AllNotifications = () => {
+
     const { t } = useTranslation()
     const dispatch = useDispatch()
     const friendsRequestList = useSelector((state: RootState) => state.userSlice.info.friendsRequestList)
     const keyExtractor = (item: any, index: number) => item.id ? item.id.toString() : index.toString()
+
     const handleAcceptRequest = async (id: string) => {
         await acceptFriendRequest(id)
-        dispatch(setFriendsRequestList(friendsRequestList.filter(request => request.id !== id)))
+        dispatch(setInfo({
+            friendsRequestList: friendsRequestList.filter(request => request.id !== id)
+        }))
     }
 
     const handleDeclineRequest = async (id: string) => {
         await declineFriendRequest(id)
-        dispatch(setFriendsRequestList(friendsRequestList.filter(request => request.id !== id)))
+        dispatch(setInfo({
+            friendsRequestList: friendsRequestList.filter(request => request.id !== id)
+        }))
+
     }
 
     const renderItem = useCallback(({ item }: any) => (

@@ -22,6 +22,5 @@ export const DrawerMenuButton: FC<IDrawerMenuButton> = React.memo(({ page, pageN
                 {pageName}
             </Text>
         </TouchableHighlight>
-
     )
 })

@@ -16,6 +16,9 @@ export const Home = () => {
 
     const { t } = useTranslation()
     const navigation = useNavigation()
+    const postList = useSelector((state: RootState) => state.userSlice.post.posts)
+    const ItemSeparatorComponent = () => <View style={style.seperator} />
+
     useEffect(() => {
         const unsubscribe = navigation.addListener('beforeRemove', (e) => {
             // Geri gitme işlemini durdurmak için
@@ -23,9 +26,6 @@ export const Home = () => {
         })
         return unsubscribe
     }, [navigation])
-
-    const postList = useSelector((state: RootState) => state.userSlice.post.posts)
-    const ItemSeparatorComponent = () => <View style={style.seperator} />
 
     const renderItem = ({ item }: any) => <PostCardComponents reactionName='Salih Rzayev'
         reactionImage={defaultProfileImage}
@@ -37,9 +37,9 @@ export const Home = () => {
         sharingTime={item.time}
         sharingUid={item.postsUid}
     />
+
     return (
         <View style={style.container}>
-
             {postList.length === 0 ? (
                 <EmptyNotificationsCard
                     notification={t("noNewPost")}

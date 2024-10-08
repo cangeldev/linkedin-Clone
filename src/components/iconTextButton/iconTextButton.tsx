@@ -4,7 +4,7 @@ import style from './style'
 import colors from 'assets/colors/colors'
 
 interface IiconTextButton {
-    icon: any,
+    icon: any
     title: string
 }
 

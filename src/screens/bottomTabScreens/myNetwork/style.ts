@@ -11,10 +11,10 @@ export default StyleSheet.create({
     },
     label: {
         textTransform: 'none',
-        fontWeight:"600",
-        fontSize:16
+        fontWeight: "600",
+        fontSize: 16
     },
     indicator: {
         backgroundColor: 'green'
-    },
+    }
 })

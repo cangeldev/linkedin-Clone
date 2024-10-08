@@ -6,7 +6,7 @@ import colors from 'assets/colors/colors'
 import { CustomButton, LoginInput } from 'components'
 import { useNavigation } from '@react-navigation/native'
 import { useDispatch } from 'react-redux'
-import { setJob, setLocation, setTitle } from 'services/features/userSlice'
+import { setLoggedUserInfo } from 'services/features/userSlice'
 import { useForm } from 'hooks/useForm'
 import { useTranslation } from 'react-i18next'
 import { showToast } from 'utils/helper'
@@ -15,12 +15,14 @@ import { showToast } from 'utils/helper'
  * JobInfoScreen - Bu sayfa  kayıt olma sırasında kullanıcının iş bilgilerinin ve konum bilgisinin alındı kısımdır ilk olarak redux toolkite kaydedilir daha sonrasında tüm bilgilerle beraber firebaseye aktarılır.
  */
 export const JobInfoScreen = () => {
+
     const dispatch = useDispatch()
     const navigation = useNavigation<any>()
+    const { t } = useTranslation()
+
     const [isEnabled, setIsEnabled] = useState(false)
     const toggleSwitch = useCallback(() => setIsEnabled(prevState => !prevState), [])
     const [formData, handleInputChange] = useForm({ location: '', job: '', title: '' })
-    const { t } = useTranslation()
 
     const handleButton = useCallback(() => {
         const { location, job, title } = formData
@@ -28,9 +30,11 @@ export const JobInfoScreen = () => {
             showToast(t('error'), t('pleaseFillInTheBlankFields'), "top")
             return
         }
-        dispatch(setJob(job))
-        dispatch(setLocation(location))
-        dispatch(setTitle(title))
+        dispatch(setLoggedUserInfo({
+            job: job,
+            location: location,
+            title: title
+        }));
         navigation.navigate("ProfilePictureSettingsScreen")
     }, [formData])
 

@@ -17,6 +17,10 @@ interface IAddFriendCard {
     backgroundColor: string
 }
 
+/**
+ * `AddFriendCard` bileşeni, uygulamaya yeni eklenmiş kişileri göstermek için kullanılan bir karttır.
+ * Bu kart, kişinin profil bilgilerini ve istersek onunla bağlantı kurmak için bir buton içerir.
+ */
 export const AddFriendCard: FC<IAddFriendCard> = ({ name, surname, profilePicture, title, backgroundColor, uid }) => {
     const dispatch = useDispatch()
     const { t } = useTranslation()
@@ -26,16 +30,19 @@ export const AddFriendCard: FC<IAddFriendCard> = ({ name, surname, profilePictur
     // Get the current user's UID
     const currentUserUid = getCurrentUserUid() || null
 
+    // Handle sending a friend request
     const handleButton = () => {
-        handleSendFriendRequest(currentUserUid, uid, dispatch, NonFriendsList)
-        showToast(t('friendsRequest'), name + surname + t('toastMessage1'), "bottom")
+        if (currentUserUid) {
+            handleSendFriendRequest(currentUserUid, uid, dispatch, NonFriendsList)
+            showToast(t('friendsRequest'), `${name} ${surname} ${t('toastMessage1')}`, "bottom")
+        }
     }
 
     return (
         <View style={styles.card}>
             <View style={[styles.banner, { backgroundColor }]} />
             <Image style={styles.profileImage} source={profileImageSource} />
-            <Text style={styles.name}>{name + " " + surname}</Text>
+            <Text style={styles.name}>{`${name} ${surname}`}</Text>
             <Text style={styles.description} numberOfLines={2}>
                 {title}
             </Text>
@@ -46,4 +53,4 @@ export const AddFriendCard: FC<IAddFriendCard> = ({ name, surname, profilePictur
             </View>
         </View>
     )
-}  
+}

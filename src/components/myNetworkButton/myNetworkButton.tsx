@@ -5,16 +5,15 @@ import style from './style'
 import { useNavigation } from '@react-navigation/native'
 
 interface IMyNetworkButton {
-    title: string,
+    title: string
     goPage?: string
 }
 
 export const MyNetworkButton: FC<IMyNetworkButton> = ({ title, goPage }) => {
+
     const navigation = useNavigation<any>()
 
-    const handleButton = () => {
-        navigation.navigate(goPage)
-    }
+    const handleButton = () => { navigation.navigate(goPage) }
 
     return (
         <TouchableOpacity onPress={handleButton} style={style.container}>

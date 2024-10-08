@@ -12,7 +12,7 @@ import { showToast } from 'utils/helper'
 const platformIcons = {
     google,
     apple,
-    facebook,
+    facebook
 } as any
 
 /**
@@ -20,10 +20,13 @@ const platformIcons = {
  * girilen bilgileri firebasede kayıtlı olup olmadığına bakar ve gerekli yönlendirmeleri yapar.
  */
 export const LoginScreen = () => {
-    const navigation = useNavigation<any>()
-    const [rememberMe, setRememberMe] = useState(true)
-    const [formData, handleInputChange] = useForm({ email: '', password: '' })
+
     const { t } = useTranslation()
+    const navigation = useNavigation<any>()
+
+    const [rememberMe, setRememberMe] = useState(true)
+
+    const [formData, handleInputChange] = useForm({ email: '', password: '' })
 
     const toggleRememberMe = useCallback(() => setRememberMe(prev => !prev), [])
 

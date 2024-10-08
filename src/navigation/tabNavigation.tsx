@@ -16,18 +16,20 @@ const tabBarOptions = {
     tabBarActiveTintColor: colors.black,
     tabBarInactiveTintColor: colors.grey,
     tabBarLabelStyle: tabBarLabelStyle,
-    tabBarHideOnKeyboard: true,
+    tabBarHideOnKeyboard: true
 }
 
 /**
  * TabNavigation - Uygulamanın alt sekme (bottom tab) navigasyonunu yönetir ve özel olarak yapılandırılmış tab bar ile modallar içerir.
  */
 export const TabNavigation = React.memo(() => {
+
     const Tab = createBottomTabNavigator()
     const [isModalVisible, setIsModalVisible] = useState(false)
     const handleModalClose = () => setIsModalVisible(false)
     const handlePostButtonPress = () => setIsModalVisible(true)
     const screens = TabScreens()
+
     return (
         <>
             <PostModal isVisible={isModalVisible} onClose={handleModalClose} />

@@ -5,10 +5,10 @@ import style from './style'
 import { useNavigation } from '@react-navigation/native'
 
 interface IMyNetworkPageButton {
-    title: string,
-    count: string,
-    iconName: string,
-    type: string,
+    title: string
+    count: string
+    iconName: string
+    type: string
     navigations: string
 }
 
@@ -16,10 +16,9 @@ interface IMyNetworkPageButton {
  * MyNetworkButton - Ağımı yönet sayfasındaki bileşenlerin listelenmesinde kullanılan buton bileşenidir. 
  */
 export const MyNetworkPageButton: FC<IMyNetworkPageButton> = ({ title, count, iconName, type, navigations }) => {
+
     const navigation = useNavigation<any>()
-    const handleButton = () => {
-        navigation.navigate(navigations)
-    }
+    const handleButton = () => { navigation.navigate(navigations) }
 
     return (
         <TouchableOpacity onPress={handleButton} style={style.container}>
