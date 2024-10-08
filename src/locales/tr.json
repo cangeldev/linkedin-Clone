@@ -106,6 +106,8 @@
         "invalidEmail": "Geçersiz e-posta",
         "loginError2": "E-posta adresi kötü biçimlendirilmiş geçerli bir e-posta giriniz.",
         "invalidPassword": "Geçersiz şifre",
-        "loginError3": "Verilen şifre geçersiz. [ Şifre en az 6 karakter olmalıdır. ]"
+        "loginError3": "Verilen şifre geçersiz. [ Şifre en az 6 karakter olmalıdır. ]",
+        "noNewPost": "Yeni paylaşım yok",
+        "pleaseAddNewPeopleToYourNetworkToSeePosts": "Paylaşımları görmek için ağınıza yeni kişiler ekleyin"
     }
 }

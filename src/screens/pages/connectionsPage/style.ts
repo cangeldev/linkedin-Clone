@@ -6,20 +6,6 @@ export default StyleSheet.create({
         flex: 1,
         backgroundColor: colors.white
     },
-    header: {
-        flexDirection: "row",
-        alignItems: "center",
-        padding: 15
-    },
-    backIcon: {
-        fontSize: 25,
-    },
-    title: {
-        color: colors.black,
-        fontWeight: "600",
-        fontSize: 20,
-        marginLeft: 25
-    },
     connectionCountText: {
         fontSize: 16,
         flex: 1

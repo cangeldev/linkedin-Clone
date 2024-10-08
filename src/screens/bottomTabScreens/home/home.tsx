@@ -6,12 +6,15 @@ import { PostCardComponents } from 'components/cards/postCardComponents'
 import { useSelector } from 'react-redux'
 import { RootState } from 'services/features/store'
 import { useNavigation } from '@react-navigation/native'
+import { useTranslation } from 'react-i18next'
+import { EmptyNotificationsCard } from 'components/cards'
 
 /**
  * HomeScreen - Uygulamanın anasayfasıdır yapılan paylaşımların felan listelendiği sayfadır.
  */
 export const Home = () => {
 
+    const { t } = useTranslation()
     const navigation = useNavigation()
     useEffect(() => {
         const unsubscribe = navigation.addListener('beforeRemove', (e) => {
@@ -34,13 +37,20 @@ export const Home = () => {
         sharingTime={item.time}
         sharingUid={item.postsUid}
     />
-
     return (
         <View style={style.container}>
-            <FlatList data={postList}
-                renderItem={renderItem}
-                ItemSeparatorComponent={ItemSeparatorComponent}
-            />
+
+            {postList.length === 0 ? (
+                <EmptyNotificationsCard
+                    notification={t("noNewPost")}
+                    notificationInfo={t("pleaseAddNewPeopleToYourNetworkToSeePosts")}
+                />
+            ) : (
+                <FlatList data={postList}
+                    renderItem={renderItem}
+                    ItemSeparatorComponent={ItemSeparatorComponent}
+                />
+            )}
         </View>
     )
 }

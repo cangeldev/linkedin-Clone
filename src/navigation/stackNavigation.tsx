@@ -5,10 +5,11 @@ import { ContactInfoScreen, JobInfoScreen, ProfilePictureSettingsScreen, UserInf
 import { LoginScreen, WelcomeScreen } from 'screens'
 import { DrawerNavigation } from 'navigation'
 import { getCurrentUser } from 'services/firebase/firebaseAuth'
+import { useTranslation } from 'react-i18next'
 
 const Stack = createStackNavigator()
 const user = getCurrentUser()
-
+const { t } = useTranslation()
 /**
  * StackNavigation - Uygulamanın yığın navigasyonunu yönetir sayfa yönlendirmeleri için.
  */
@@ -26,7 +27,7 @@ export const StackNavigation = () => (
         <Stack.Screen name="SavedPostsPage" component={SavedPostsPage} />
         <Stack.Screen name="JobInfoScreen" component={JobInfoScreen} />
         <Stack.Screen name="DrawerNavigation" component={DrawerNavigation} />
-        <Stack.Screen name="ManageMyNetworkPage" component={ManageMyNetworkPage} />
-        <Stack.Screen name="ConnectionsPage" component={ConnectionsPage} />
+        <Stack.Screen name="ManageMyNetworkPage" component={ManageMyNetworkPage} options={{ headerShown: true, title: t("manageMyNetwork") }} />
+        <Stack.Screen name="ConnectionsPage" component={ConnectionsPage} options={{ headerShown: true, title: t("connections") }} />
     </Stack.Navigator>
 )
