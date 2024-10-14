@@ -2,12 +2,18 @@ import firestore from '@react-native-firebase/firestore'
 import { getCurrentUserUid } from './firebaseAuth'
 import storage from '@react-native-firebase/storage'
 
+// Firestore collection references
+const usersCollection = firestore().collection('users')
+const friendRequestsCollection = firestore().collection('friendRequests')
+const friendsCollection = firestore().collection('friends')
+const postsCollection = firestore().collection('posts')
+
 // Fetches all users except the current one
 export const fetchUsers = async () => {
     try {
         const currentUserUid = getCurrentUserUid()
-        const usersCollection = await firestore().collection('users').get()
-        return usersCollection.docs
+        const usersSnapshot = await usersCollection.get()
+        return usersSnapshot.docs
             .map(doc => ({ ...doc.data(), uid: doc.id }))
             .filter(user => user.uid !== currentUserUid)
     } catch (error) {
@@ -22,12 +28,11 @@ export const fetchNonFriendUsers = async () => {
         if (!currentUserUid) return []
 
         const friendsList = await getFriendUids(currentUserUid)
-        const nonFriendUsersCollection = await firestore()
-            .collection('users')
+        const nonFriendUsersSnapshot = await usersCollection
             .where(firestore.FieldPath.documentId(), 'not-in', [currentUserUid, ...friendsList])
             .get()
 
-        return nonFriendUsersCollection.docs.map(doc => ({ ...doc.data(), id: doc.id }))
+        return nonFriendUsersSnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }))
     } catch (error) {
         console.error('Error fetching non-friend users:', error)
         return []
@@ -36,26 +41,26 @@ export const fetchNonFriendUsers = async () => {
 
 // Sends a friend request from the current user to another user
 export const sendFriendRequest = async (currentUserId: string, friendUserId: string) => {
-    await firestore().collection('friendRequests').add({
+    const currentDate = new Date().toISOString()
+    await friendRequestsCollection.add({
         from: currentUserId,
         to: friendUserId,
-        status: 'pending',
+        time: currentDate
     })
 }
 
-// Accepts a friend request
-export const acceptFriendRequest = async (requestId: string) => {
-    const request = await firestore().collection('friendRequests').doc(requestId).get()
+// Accepts a friend request or Declines a friend request
+export const handleFriendRequest = async (requestId: string, accept: boolean) => {
+    const request = await friendRequestsCollection.doc(requestId).get()
     if (request.exists) {
         const { from, to } = request.data()!
-        await firestore().collection('friends').add({ user1: from, user2: to })
-        await firestore().collection('friendRequests').doc(requestId).delete()
-    }
-}
+        const currentDate = new Date().toISOString()
 
-// Declines a friend request
-export const declineFriendRequest = async (requestId: string) => {
-    await firestore().collection('friendRequests').doc(requestId).delete()
+        if (accept) {
+            await friendsCollection.add({ user1: from, user2: to, time: currentDate })
+        }
+        await friendRequestsCollection.doc(requestId).delete()
+    }
 }
 
 // Fetches users along with sender info for friend requests
@@ -64,26 +69,30 @@ export const fetchUsersWithSenderInfo = async () => {
         const currentUserUid = getCurrentUserUid()
         if (!currentUserUid) return []
 
-        const requestsCollection = await firestore()
-            .collection('friendRequests')
+        const requestsSnapshot = await friendRequestsCollection
             .where('to', '==', currentUserUid)
             .get()
 
-        const requestsList = requestsCollection.docs.map(doc => ({
+        const requestsList = requestsSnapshot.docs.map(doc => ({
             ...doc.data(),
-            id: doc.id,
+            id: doc.id
         }))
 
         const requestsWithSenderInfo = await Promise.all(
             requestsList.map(async request => {
-                const senderDoc = await firestore().collection('users').doc(request.from).get()
-                return { ...request, senderInfo: senderDoc.exists ? senderDoc.data() : null }
+                const senderDoc = await usersCollection.doc(request.from).get()
+                const requestDoc = await friendRequestsCollection.doc(request.id).get()
+                const time = requestDoc.exists ? requestDoc.data()?.time : null
+                return {
+                    ...request,
+                    senderInfo: senderDoc.exists ? senderDoc.data() : null,
+                    time
+                }
             })
         )
-
         return requestsWithSenderInfo
     } catch (error) {
-        console.error('Error fetching users:', error)
+        console.error('Error fetching users with sender info:', error)
         return []
     }
 }
@@ -93,16 +102,32 @@ export const fetchFriendsList = async () => {
     try {
         const currentUserUid = getCurrentUserUid()
         if (!currentUserUid) return []
-
         const friendUids = await getFriendUids(currentUserUid)
-        const friends = await Promise.all(
+        const friendsWithDetails = await Promise.all(
             friendUids.map(async uid => {
-                const userDoc = await firestore().collection('users').doc(uid).get()
-                return userDoc.exists ? { uid: userDoc.id, ...userDoc.data() } : null
+                const userDoc = await usersCollection.doc(uid).get()
+                const friendDoc = await friendsCollection
+                    .where('user1', '==', currentUserUid)
+                    .where('user2', '==', uid)
+                    .get()
+
+                const friendDocReverse = await friendsCollection
+                    .where('user2', '==', currentUserUid)
+                    .where('user1', '==', uid)
+                    .get()
+
+                const time = friendDoc.docs.length > 0
+                    ? friendDoc.docs[0].data().time
+                    : friendDocReverse.docs.length > 0
+                        ? friendDocReverse.docs[0].data().time
+                        : null
+
+                return userDoc.exists
+                    ? { uid, ...userDoc.data(), time }
+                    : null
             })
         )
-
-        return friends.filter(friend => friend !== null)
+        return friendsWithDetails.filter(friend => friend !== null)
     } catch (error) {
         console.error('Error fetching friends:', error)
         return []
@@ -116,7 +141,7 @@ export const fetchNonFriendsList = async () => {
         if (!currentUserUid) return []
 
         const friendUids = await getFriendUids(currentUserUid)
-        const allUsersSnapshot = await firestore().collection('users').get()
+        const allUsersSnapshot = await usersCollection.get()
         const allUsers = allUsersSnapshot.docs.map(doc => ({ uid: doc.id, ...doc.data() }))
 
         return allUsers.filter(user => user.uid !== currentUserUid && !friendUids.includes(user.uid))
@@ -128,40 +153,39 @@ export const fetchNonFriendsList = async () => {
 
 // Helper function to get friend UIDs
 const getFriendUids = async (currentUserUid: string) => {
-    const friendsCollection1 = await firestore()
-        .collection('friends')
+    const friendsSnapshot1 = await friendsCollection
         .where('user1', '==', currentUserUid)
         .get()
-    const friendsCollection2 = await firestore()
-        .collection('friends')
+    const friendsSnapshot2 = await friendsCollection
         .where('user2', '==', currentUserUid)
         .get()
 
-    return [...new Set([...friendsCollection1.docs.map(doc => doc.data().user2), ...friendsCollection2.docs.map(doc => doc.data().user1)])]
+    return [...new Set([
+        ...friendsSnapshot1.docs.map(doc => doc.data().user2),
+        ...friendsSnapshot2.docs.map(doc => doc.data().user1)
+    ])]
 }
-
 
 export const savePostToFirebase = (name: string, surname: string, time: any, contentText: string, comment: string, reaction: string, title: string, postImageUrl: string | null, myUid: string, profileImageUrl: any) => {
-    firestore()
-        .collection('posts')
-        .add({
-            name: name,
-            surname: surname,
-            title: title,
-            time: time,
-            contentText: contentText,
-            comment: comment,
-            reaction: reaction,
-            postImageUrl: postImageUrl,
-            postsUid: myUid,
-            sharingProfileImageUrl: profileImageUrl
-        })
+    postsCollection.add({
+        name: name,
+        surname: surname,
+        title: title,
+        time: time,
+        contentText: contentText,
+        comment: comment,
+        reaction: reaction,
+        postImageUrl: postImageUrl,
+        postsUid: myUid,
+        sharingProfileImageUrl: profileImageUrl
+    })
 }
+
 export const getMyUserData = async () => {
     try {
         const uid = getCurrentUserUid()
         if (!uid) return null
-        const userSnapshot = await firestore().collection('users').doc(uid).get()
+        const userSnapshot = await usersCollection.doc(uid).get()
         return userSnapshot.exists ? userSnapshot.data() : null
     } catch (error) {
         console.error('Error fetching user data:', error)
@@ -185,16 +209,15 @@ export const uploadPostImage = async (profileImage: any): Promise<string | null>
     return null
 }
 
-
 export const getPosts = async () => {
     try {
         const currentUserUid = getCurrentUserUid()
         if (!currentUserUid) return []
-        const allFriendsPosts = await firestore().collection('posts').get()
-        const allPosts = allFriendsPosts.docs.map(doc => ({ uid: doc.id, ...doc.data() }))
+        const allPostsSnapshot = await postsCollection.get()
+        const allPosts = allPostsSnapshot.docs.map(doc => ({ uid: doc.id, ...doc.data() }))
         return allPosts.filter(user => user.postsUid !== currentUserUid)
     } catch (error) {
-        console.error('Error fetching:', error)
+        console.error('Error fetching posts:', error)
         return []
     }
 }

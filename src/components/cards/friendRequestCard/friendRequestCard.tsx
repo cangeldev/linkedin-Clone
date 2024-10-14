@@ -2,7 +2,7 @@ import { View, Text, Image } from 'react-native'
 import React, { FC } from 'react'
 import style from './style'
 import { Icon } from 'components/icon/icon'
-import { resolveProfileImage, showToast } from 'utils/helper'
+import { formatTimeDifference, resolveProfileImage, showToast } from 'utils/helper'
 import { useTranslation } from 'react-i18next'
 
 interface IFriendRequestCard {
@@ -12,13 +12,14 @@ interface IFriendRequestCard {
     profileImage: any
     declineRequests: () => void
     acceptRequests: () => void
+    time: any
 }
 
 /**
  * `FriendRequestCard` bileşeni, arkadaşlık isteklerinin görüntülenmesini sağlayan bir karttır.
  * Bu kart, arkadaşlık isteği gönderen kişinin profil bilgilerini ve ne zaman arkadaşlık isteği gönderdiği bilgisini verir istersek arkadaş eklemek, istemezsek reddetmek  için butonlar içerir.
  */
-export const FriendRequestCard: FC<IFriendRequestCard> = ({ job, name, profileImage, title, declineRequests, acceptRequests }) => {
+export const FriendRequestCard: FC<IFriendRequestCard> = ({ job, name, profileImage, title, declineRequests, acceptRequests, time }) => {
 
     const { t } = useTranslation()
     const profileImageSource = resolveProfileImage(profileImage)
@@ -38,7 +39,7 @@ export const FriendRequestCard: FC<IFriendRequestCard> = ({ job, name, profileIm
             <View style={style.textContainer}>
                 <Text style={style.userName} >{name}</Text>
                 <Text style={style.userDetails}>{job} - {title}</Text>
-                <Text style={style.date}>Bugün</Text>
+                <Text style={style.date}>{formatTimeDifference(time)}</Text>
             </View>
             <View style={style.iconView}>
                 <Icon onPress={handleDeclineRequest} name='closecircleo' type='AntDesign' style={style.icon} />

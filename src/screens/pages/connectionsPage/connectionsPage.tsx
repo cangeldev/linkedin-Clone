@@ -13,9 +13,9 @@ import { useTranslation } from 'react-i18next'
 export const ConnectionsPage = () => {
 
     const friendsListRedux = useSelector((state: RootState) => state.userSlice.info.friendsList)
-    const renderItem = ({ item }: any) => <ConnectionsUserCard name={item.name} job={item.job} title={item.title} profileImage={item.profileImageUrl} surname={item.surname} />
+    const renderItem = ({ item }: any) => <ConnectionsUserCard name={item.name} job={item.job} title={item.title} profileImage={item.profileImageUrl} surname={item.surname} time={item.time} />
     const { t } = useTranslation()
-    
+
     return (
         <View style={style.container}>
             <Divider />
