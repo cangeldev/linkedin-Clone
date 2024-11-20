@@ -14,8 +14,17 @@ const style = StyleSheet.create({
         fontSize: 12,
         fontWeight: '500'
     },
+    trueIconLabel: {
+        color: colors.darkBlue,
+        fontSize: 12,
+        fontWeight: '500'
+    },
     icon: {
         color: colors.darkGrey,
+        fontSize: 18
+    },
+    trueIcon: {
+        color: colors.darkBlue,
         fontSize: 18
     }
 })

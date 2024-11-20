@@ -221,3 +221,59 @@ export const getPosts = async () => {
         return []
     }
 }
+
+
+export const addLike = async (postId: string, typeOfLike: string) => {
+    console.log("addLike çalıştı")
+    const currentUserUid = getCurrentUserUid()
+    const postRef = firestore().collection('posts').doc(postId)
+
+    const postDoc = await postRef.get()
+    const postData = postDoc.data()
+
+    // Eğer post verisi yoksa veya likes dizisi yoksa
+    if (!postData || !postData.likes) {
+        await postRef.set({
+            likes: [{ likedByUid: currentUserUid, typeOfLike: typeOfLike }]
+        }, { merge: true })
+        return
+    }
+
+    // Kullanıcının daha önce beğenip beğenmediğini kontrol et
+    const alreadyLiked = postData.likes.some((like: { likedByUid: string | undefined }) => like.likedByUid === currentUserUid)
+
+    if (!alreadyLiked) {
+        await postRef.update({
+            likes: firestore.FieldValue.arrayUnion({ likedByUid: currentUserUid, typeOfLike: typeOfLike })
+        })
+    } else {
+        console.log("Kullanıcı zaten bu gönderiyi beğenmiş.")
+    }
+}
+
+export const removeLike = async (postId: string) => {
+    console.log("beğeni kaldırılıyor")
+    const currentUserUid = getCurrentUserUid()
+    const postRef = firestore().collection('posts').doc(postId)
+
+    const postDoc = await postRef.get()
+    const postData = postDoc.data()
+
+    // Eğer post verisi yoksa veya likes dizisi yoksa
+    if (!postData || !postData.likes) {
+        console.log("Henüz beğeni yok.")
+        return
+    }
+
+    // Kullanıcının beğenisini kontrol et
+    const userLike = postData.likes.find((like: { likedByUid: string | undefined }) => like.likedByUid === currentUserUid)
+
+    if (userLike) {
+        await postRef.update({
+            likes: firestore.FieldValue.arrayRemove(userLike)
+        })
+        console.log("Beğeni kaldırıldı.")
+    } else {
+        console.log("Kullanıcı bu gönderiyi beğenmemiş.")
+    }
+}

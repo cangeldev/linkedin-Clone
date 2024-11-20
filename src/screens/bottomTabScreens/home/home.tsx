@@ -36,6 +36,7 @@ export const Home = () => {
         contentImage={item.postImageUrl}
         sharingTime={item.time}
         sharingUid={item.postsUid}
+        postId={item.uid}
     />
 
     return (

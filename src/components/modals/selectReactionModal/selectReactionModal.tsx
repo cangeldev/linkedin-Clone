@@ -2,21 +2,23 @@ import { View, FlatList, Image, Modal, TouchableWithoutFeedback, TouchableOpacit
 import React, { FC } from 'react'
 import style from './style'
 import { reactionList } from 'utils/helper'
+import { addLike, removeLike } from 'services/firebase/firebase'
 
 interface ISelectReactionModal {
     visibleModal: boolean
     closeModal: () => void
     position: { top: number; left: number }
+    postId: string
 }
 
 /**
  * `SelectReactionModal` bileşeni, kullanıcının diğer kullanıcıların paylaşımlarına verebileceği tepkileri içeren bir modaldır.
  * Tepkiler, beğenme, kutlama, destek olma, harika, bilgi verici ve eğlenceli bulma gibi seçenekleri içerir.
  */
-export const SelectReactionModal: FC<ISelectReactionModal> = ({ closeModal, visibleModal, position }) => {
+export const SelectReactionModal: FC<ISelectReactionModal> = ({ closeModal, visibleModal, position, postId }) => {
 
     const renderItem = ({ item }: any) => (
-        <TouchableOpacity onPress={() => { console.log(item.name), closeModal() }}>
+        <TouchableOpacity onPress={() => { addLike(postId, item.name), closeModal() }}>
             <Image source={item.image} style={style.reactionImage} />
         </TouchableOpacity>
     )
