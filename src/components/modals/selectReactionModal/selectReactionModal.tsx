@@ -2,7 +2,7 @@ import { View, FlatList, Image, Modal, TouchableWithoutFeedback, TouchableOpacit
 import React, { FC } from 'react'
 import style from './style'
 import { reactionList } from 'utils/helper'
-import { addLike, removeLike } from 'services/firebase/firebase'
+import { updateLike } from 'services/firebase/firebase'
 
 interface ISelectReactionModal {
     visibleModal: boolean
@@ -18,7 +18,7 @@ interface ISelectReactionModal {
 export const SelectReactionModal: FC<ISelectReactionModal> = ({ closeModal, visibleModal, position, postId }) => {
 
     const renderItem = ({ item }: any) => (
-        <TouchableOpacity onPress={() => { addLike(postId, item.name), closeModal() }}>
+        <TouchableOpacity onPress={() => { updateLike(postId, item.name), closeModal() }}>
             <Image source={item.image} style={style.reactionImage} />
         </TouchableOpacity>
     )

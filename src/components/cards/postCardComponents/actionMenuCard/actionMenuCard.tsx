@@ -1,70 +1,91 @@
-import React, { FC, useMemo, useState } from 'react'
-import { View, Text, FlatList, Dimensions, TouchableOpacity } from 'react-native'
+import React, { FC, useEffect, useState } from 'react'
+import { View, Text, FlatList, Dimensions, TouchableOpacity, Image } from 'react-native'
 import style from './style'
 import { Divider, Icon } from 'components'
 import { useTranslation } from 'react-i18next'
 import { SelectReactionModal } from 'components/modals'
-import { addLike, removeLike } from 'services/firebase/firebase'
+import { alreadyLiked, updateLike } from 'services/firebase/firebase'
+import { idea, heart, clapping, support, laughing, likes, likeT } from 'assets'
 
 interface IActionMenuCard {
     postId: string
 }
 
-/**
- * ActionMenuCard bileşeni, kullanıcının diğer kullanıcıların paylaşımlarına verebileceği tepkileri gösterir.
- * Tepkiler, beğenme, yorum yapma, yeniden yayınlama ve gönderme gibi seçenekleri içerir.
- */
+const reactionMap = {
+    idea: { image: idea, label: 'idea', style: style.ideaLabel },
+    heart: { image: heart, label: 'heart', style: style.heartLabel },
+    clapping: { image: clapping, label: 'clapping', style: style.clappingLabel },
+    support: { image: support, label: 'support', style: style.supportLabel },
+    laughing: { image: laughing, label: 'laughing', style: style.laughingLabel },
+    like: { image: likeT, label: 'like', style: style.likeLabel },
+}
+
 export const ActionMenuCard: FC<IActionMenuCard> = React.memo(({ postId }) => {
     const { t } = useTranslation()
     const [modalVisible, setModalVisible] = useState(false)
     const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 })
-    const [like, setLike] = useState(false)
+    const [isLiked, setIsLiked] = useState(false)
+    const [reactionType, setReactionType] = useState<string>('')
     const screenWidth = Dimensions.get('window').width
-    const actionItems = useMemo(() => [
-        { id: 1, label: t('like'), iconType: 'MaterialIcons', iconName: 'thumb-up' },
-        { id: 2, label: t('makeComment'), iconType: 'MaterialIcons', iconName: 'message' },
-        { id: 3, label: t('repost'), iconType: 'FontAwesome6', iconName: 'retweet' },
-        { id: 4, label: t('send'), iconType: 'Ionicons', iconName: 'paper-plane' }
-    ], [t])
 
-    const itemWidth = useMemo(() => screenWidth / actionItems.length, [screenWidth, actionItems.length])
+    const actionItems = [
+        { id: 'like', label: t('like'), iconType: 'MaterialIcons', iconName: 'thumb-up' },
+        { id: 'comment', label: t('makeComment'), iconType: 'MaterialIcons', iconName: 'message' },
+        { id: 'repost', label: t('repost'), iconType: 'FontAwesome6', iconName: 'retweet' },
+        { id: 'send', label: t('send'), iconType: 'Ionicons', iconName: 'paper-plane' }
+    ]
 
-    const toggleSelectReactionModal = () => setModalVisible(!modalVisible)
+    const itemWidth = screenWidth / actionItems.length
+
+    const toggleSelectReactionModal = () => setModalVisible(prev => !prev)
 
     const handleLongPress = (event: any, label: string) => {
-        const { pageY, pageX } = event.nativeEvent
-        setModalPosition({ top: pageY, left: pageX })
-
         if (label === t('like')) {
+            const { pageY, pageX } = event.nativeEvent
+            setModalPosition({ top: pageY, left: pageX })
             setModalVisible(true)
         }
     }
 
     const handlePress = (label: string) => {
         if (label === t('like')) {
-            like === false ? addLike(postId, "like") : removeLike(postId)
-            setLike((prev) => !prev)
-
+            isLiked ? updateLike(postId, null) : updateLike(postId, 'like')
+            setIsLiked(prev => !prev)
         }
     }
 
-    const getIconStyle = (label: string) => (like && label === t('like')) ? style.trueIcon : style.icon
-    const getLabelStyle = (label: string) => (like && label === t('like')) ? style.trueIconLabel : style.iconLabel
+    const getReactionDetails = (reaction: string) => {
+        return reactionMap[reaction] || { image: likes, label: 'like', style: style.iconLabel }
+    }
 
     const renderItem = ({ item }: any) => {
-        const { iconType, iconName, label } = item
-
+        const isLike = item.label === t('like')
+        const { image, style: labelStyle } = isLike && reactionType ? getReactionDetails(reactionType) : { image: likes, style: style.iconLabel }
         return (
             <TouchableOpacity
-                onPress={() => handlePress(label)}
-                onLongPress={(event) => handleLongPress(event, label)}
+                onPress={() => handlePress(item.label)}
+                onLongPress={(event) => handleLongPress(event, item.label)}
                 style={[style.iconContainer, { width: itemWidth }]}
             >
-                <Icon type={iconType} name={iconName} style={getIconStyle(label)} />
-                <Text style={getLabelStyle(label)}>{label}</Text>
+                {isLike ? (
+                    <Image source={image} style={style.image} />
+                ) : (
+                    <Icon type={item.iconType} name={item.iconName} style={isLiked && isLike ? style.trueIcon : style.icon} />
+                )}
+                <Text style={isLike && reactionType ? labelStyle : style.iconLabel}>
+                    {isLike && reactionType ? t(reactionMap[reactionType].label) : item.label}
+                </Text>
             </TouchableOpacity>
         )
     }
+
+    useEffect(() => {
+        const unsubscribe = alreadyLiked(postId, (liked, type) => {
+            setIsLiked(liked)
+            setReactionType(type || '')
+        })
+        return unsubscribe
+    }, [postId])
 
     return (
         <View style={style.cardContainer}>
@@ -73,7 +94,7 @@ export const ActionMenuCard: FC<IActionMenuCard> = React.memo(({ postId }) => {
                 horizontal
                 data={actionItems}
                 renderItem={renderItem}
-                keyExtractor={(item) => item.iconName}
+                keyExtractor={(item) => item.id}
                 scrollEnabled={false}
             />
             <SelectReactionModal

@@ -108,6 +108,11 @@
         "invalidPassword": "Invalid password",
         "loginError3": "The given password is invalid. [ Password should be at least 6 characters. ]",
         "noNewPost": "No new posts",
-        "pleaseAddNewPeopleToYourNetworkToSeePosts": "Please add new people to your network to see posts"
+        "pleaseAddNewPeopleToYourNetworkToSeePosts": "Please add new people to your network to see posts",
+        "clapping":"Clapping",
+        "support":" Give Support",
+        "heart":"Great",
+        "idea":"Informative",
+        "laughing":"Fun"
     }
 }

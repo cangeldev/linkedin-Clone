@@ -1,4 +1,4 @@
-import { clapping, defaultProfileImage, heart, idea, laughing, like, support } from "assets"
+import { clapping, defaultProfileImage, heart, idea, laughing, likeT, support } from "assets"
 import { setInfo } from "services/features/userSlice"
 import { sendFriendRequest } from "services/firebase/firebase"
 import Toast from 'react-native-toast-message'
@@ -26,7 +26,7 @@ export const formatTimeDifference = (sharingTime: string) => {
     const minutesDifference = Math.floor(secondsDifference / 60)
     const hoursDifference = Math.floor(minutesDifference / 60)
     const daysDifference = Math.floor(hoursDifference / 24)
-    
+
     if (daysDifference > 0) {
         return `${daysDifference} ` + " " + t("dayAgo")
     } else if (hoursDifference > 0) {
@@ -89,7 +89,7 @@ export const myNetworkPageButtonList = [
 
 // Beğenme çeşitlerini ve ikonlarını içeren liste
 export const reactionList = [
-    { image: like, name: "like" },
+    { image: likeT, name: "like" },
     { image: clapping, name: "clapping" },
     { image: support, name: "support" },
     { image: heart, name: "heart" },
