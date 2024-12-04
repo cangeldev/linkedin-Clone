@@ -5,5 +5,11 @@ export default StyleSheet.create({
     container: {
         backgroundColor: colors.white,
         flex: 1
+    },
+    tabViewHeader: {
+        flexDirection: 'row',
+        padding: 15,
+        paddingBottom: 10,
+        justifyContent: "center"
     }
 })

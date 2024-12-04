@@ -114,6 +114,10 @@
         "heart":"Great",
         "idea":"Informative",
         "laughing":"Fun",
-        "searchMessages":"Search messages"
+        "searchMessages":"Search messages",
+        "focused":"Focused",
+        "unRead":"Unread",
+        "myConnections":"My connections",
+        "inMail":"InMail"
     }
 }
