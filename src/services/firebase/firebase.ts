@@ -151,7 +151,6 @@ export const fetchNonFriendsList = async () => {
     }
 }
 
-// Helper function to get friend UIDs
 const getFriendUids = async (currentUserUid: string) => {
     const friendsSnapshot1 = await friendsCollection
         .where('user1', '==', currentUserUid)
@@ -270,4 +269,59 @@ export const updateLike = async (postId: string, typeOfLike: string | null) => {
             likes: firestore.FieldValue.arrayRemove(userLike)
         })
     }
+}
+
+
+export const getLikeCount = async (
+    postId: string,
+    callback: (totalLikes: number, likeTypes?: Record<string, number>) => void
+) => {
+    const postRef = firestore().collection('posts').doc(postId)
+    const postDoc = await postRef.get()
+    if (!postDoc.exists) {
+        callback(0)
+        return;
+    }
+
+    const postData = postDoc.data();
+    if (!postData || !postData.likes || !Array.isArray(postData.likes)) {
+        callback(0)
+        return;
+    }
+
+    const likes = postData.likes
+    const totalLikes = likes.length
+
+    const likeTypes = likes.reduce((acc: Record<string, number>, like: { typeOfLike: string }) => {
+        if (like.typeOfLike) {
+            acc[like.typeOfLike] = (acc[like.typeOfLike] || 0) + 1
+        }
+        return acc
+    }, {})
+    callback(totalLikes, likeTypes)
+}
+
+
+export const listenToPostLikes = (
+    postId: string,
+    callback: (likeCount: number, likeTypes: Record<string, number>) => void
+) => {
+    const unsubscribe = firestore()
+        .collection('posts')
+        .doc(postId)
+        .onSnapshot((snapshot) => {
+            if (snapshot.exists) {
+                const data = snapshot.data()
+                const likes = data?.likes || []
+                const typesCount: Record<string, number> = {}
+                likes.forEach((like: { typeOfLike: string }) => {
+                    typesCount[like.typeOfLike] = (typesCount[like.typeOfLike] || 0) + 1
+                })
+                callback(likes.length, typesCount);
+            } else {
+                callback(0, {})
+            }
+        })
+
+    return unsubscribe
 }

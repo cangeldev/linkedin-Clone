@@ -26,5 +26,8 @@ export default StyleSheet.create({
     },
     comment: {
         fontSize: 13
+    },
+    countView: {
+        flex: 1
     }
 })

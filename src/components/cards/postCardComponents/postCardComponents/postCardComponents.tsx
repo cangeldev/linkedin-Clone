@@ -40,7 +40,9 @@ export const PostCardComponents: FC<IPostCardComponents> = React.memo(({ reactio
                 contentText={postContent}
                 contentImage={contentImage}
             />
-            <ReactionsAndCommentsCard />
+            <ReactionsAndCommentsCard
+                postId={postId}
+            />
             <ActionMenuCard
                 postId={postId}
             />
