@@ -10,9 +10,10 @@ import IconF6 from 'react-native-vector-icons/FontAwesome6'
 import IconM from 'react-native-vector-icons/MaterialIcons'
 import IconMC from 'react-native-vector-icons/MaterialCommunityIcons'
 import IconE from 'react-native-vector-icons/Entypo'
+import IconEV from 'react-native-vector-icons/EvilIcons'
 
 interface IconProps {
-    type: 'AntDesign' | 'Octicons' | 'Ionicons' | 'Fontisto' | 'FontAwesome6' | "MaterialIcons" | "Entypo" | "FontAwesome" | "MaterialCommunityIcons" | "FontAwesome5"
+    type: 'AntDesign' | 'Octicons' | 'Ionicons' | 'Fontisto' | 'FontAwesome6' | "MaterialIcons" | "Entypo" | "EvilIcons" | "FontAwesome" | "MaterialCommunityIcons" | "FontAwesome5"
     name: string
     style?: TextStyle | ViewStyle
     onPress?: () => void
@@ -24,7 +25,7 @@ interface IconProps {
  * Bu, uygulamadaki farklı simgeleri tek bir bileşende yönetmeyi sağlar.
  */
 export const Icon: React.FC<IconProps> = React.memo(({ type, name, style, onPress, disabled }) => {
-    
+
     // Belirtilen simge türüne göre uygun simge bileşenini döndürmek için kullanılır.
     const getIconComponent = () => {
         switch (type) {
@@ -47,6 +48,8 @@ export const Icon: React.FC<IconProps> = React.memo(({ type, name, style, onPres
                 return IconM
             case 'MaterialCommunityIcons':
                 return IconMC
+            case 'EvilIcons':
+                return IconEV
             case 'Entypo':
                 return IconE
             default:

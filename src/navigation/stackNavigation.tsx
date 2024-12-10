@@ -1,6 +1,6 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
-import { ConnectionsPage, GroupsPage, ManageMyNetworkPage, SavedPostsPage, MessageBoxPage } from 'screens/pages'
+import { ConnectionsPage, GroupsPage, ManageMyNetworkPage, SavedPostsPage, MessageBoxPage, ChatPage } from 'screens/pages'
 import { ContactInfoScreen, JobInfoScreen, ProfilePictureSettingsScreen, UserInfoScreen, VerificationCodeScreen } from 'screens/signInScreens'
 import { LoginScreen, WelcomeScreen } from 'screens'
 import { DrawerNavigation } from 'navigation'
@@ -15,7 +15,7 @@ const { t } = useTranslation()
  * StackNavigation - Uygulamanın yığın navigasyonunu yönetir sayfa yönlendirmeleri için.
  */
 export const StackNavigation = () => (
-    <Stack.Navigator initialRouteName={!user ? 'WelcomeScreen' : "DrawerNavigation"}
+    <Stack.Navigator initialRouteName={!user ? 'WelcomeScreen' : "ChatPage"}
         screenOptions={{ headerShown: false }}>
         <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
         <Stack.Screen name="LoginScreen" component={LoginScreen} />
@@ -30,5 +30,6 @@ export const StackNavigation = () => (
         <Stack.Screen name="ManageMyNetworkPage" component={ManageMyNetworkPage} options={{ headerShown: true, title: t("manageMyNetwork") }} />
         <Stack.Screen name="ConnectionsPage" component={ConnectionsPage} options={{ headerShown: true, title: t("connections") }} />
         <Stack.Screen name='MessageBoxPage' component={MessageBoxPage} />
+        <Stack.Screen name='ChatPage' component={ChatPage} />
     </Stack.Navigator>
 )

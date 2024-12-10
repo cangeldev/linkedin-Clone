@@ -118,6 +118,7 @@
         "focused":"Odaklı",
         "unRead":"Okunmayan",
         "myConnections":"Taslaklar",
-        "inMail":"InMail"
+        "inMail":"InMail",
+        "writeMessage":"Bir mesaj yazın..."
     }
 }

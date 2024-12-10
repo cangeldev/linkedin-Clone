@@ -118,6 +118,7 @@
         "focused":"Focused",
         "unRead":"Unread",
         "myConnections":"My connections",
-        "inMail":"InMail"
+        "inMail":"InMail",
+        "writeMessage":"Write a message..."
     }
 }
