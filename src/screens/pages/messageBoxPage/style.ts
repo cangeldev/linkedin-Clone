@@ -9,7 +9,6 @@ export default StyleSheet.create({
     tabViewHeader: {
         flexDirection: 'row',
         padding: 15,
-        paddingBottom: 10,
         justifyContent: "center"
     }
 })

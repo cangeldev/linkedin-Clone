@@ -2,3 +2,4 @@ export { EmptyNotificationsCard } from "./emptyNotificationsCard/emptyNotificati
 export { AddFriendCard } from "./addFriendCard/addFriendCard"
 export { ConnectionsUserCard } from "./connectionsUserCard/connectionsUserCard"
 export { FriendRequestCard } from "./friendRequestCard/friendRequestCard"
+export { MessageListCard } from "./messageListCard/messageListCard"
