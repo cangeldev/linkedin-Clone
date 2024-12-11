@@ -15,7 +15,7 @@ const { t } = useTranslation()
  * StackNavigation - Uygulamanın yığın navigasyonunu yönetir sayfa yönlendirmeleri için.
  */
 export const StackNavigation = () => (
-    <Stack.Navigator initialRouteName={!user ? 'WelcomeScreen' : "ChatPage"}
+    <Stack.Navigator initialRouteName={!user ? 'WelcomeScreen' : "DrawerNavigation"}
         screenOptions={{ headerShown: false }}>
         <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
         <Stack.Screen name="LoginScreen" component={LoginScreen} />
