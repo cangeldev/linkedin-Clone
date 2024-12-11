@@ -2,20 +2,26 @@ import { View, Text, Image } from 'react-native'
 import React, { FC } from 'react'
 import style from './style'
 import { resolveProfileImage } from 'utils/helper'
+import { useSelector } from 'react-redux'
+import { RootState } from 'services/features/store'
 
 interface IMessageCard {
-    name: string
-    surname: string
-    profileImage: any
+    receiverName: string
+    receiverSurname: string
+    receiverProfileImage: any
+    message: string
+    createdAt: any
+    info: string
 }
 
 /**
  * `MessageCard` mesajlarımızın içeriğinin göründüğü kart yapısıdır.
  * Bu kart, mesaj gönderen kişinin profil bilgilerini mesaj içeriğini ve göderilme zamanını içerir.
  */
-export const MessageCard: FC<IMessageCard> = ({ name, surname, profileImage }) => {
-
-    const profileImageSource = resolveProfileImage(profileImage)
+export const MessageCard: FC<IMessageCard> = ({ receiverName, receiverSurname, receiverProfileImage, message, createdAt, info }) => {
+   
+    const { name, surname, profileImage } = useSelector((state: RootState) => state.userSlice.loggedUserInfo)
+    const profileImageSource = resolveProfileImage(info === "from" ? profileImage : receiverProfileImage)
 
     return (
         <View style={style.container}>
@@ -24,14 +30,14 @@ export const MessageCard: FC<IMessageCard> = ({ name, surname, profileImage }) =
                 <View style={style.textContainer}>
                     <View style={style.userNameContainer}>
                         <Text style={style.userName}>
-                            {`${name} ${surname} `}
+                            {`${info === "from" ? name : receiverName} ${info === "from" ? surname : receiverSurname} `}
                         </Text>
                         <Text style={style.timestamp}>
-                            ·  10:45
+                            · {createdAt}
                         </Text>
                     </View>
                     <Text style={style.messageText}>
-                        Deneme metni bu sayfa aşağıya doğru uzayacak. Burada daha fazla metin yazabilirsiniz ve metin aşağıya doğru uzayacaktır.
+                        {message}
                     </Text>
                 </View>
             </View>

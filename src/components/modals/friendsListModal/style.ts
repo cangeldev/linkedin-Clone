@@ -40,5 +40,8 @@ export default StyleSheet.create({
         color: colors.black,
         paddingLeft: 15,
         paddingVertical: 15
+    },
+    separator: {
+        marginLeft: 70
     }
 })

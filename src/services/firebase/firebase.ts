@@ -325,3 +325,25 @@ export const listenToPostLikes = (
 
     return unsubscribe
 }
+
+// Mesaj gönderme
+export const sendMessageFirebase = async (chatId: any, message: any, senderId: any) => {
+    await firestore().collection('chats').doc(chatId).collection('messages').add({
+        text: message,
+        senderId: senderId,
+        createdAt: firestore.FieldValue.serverTimestamp(),
+    })
+}
+
+
+export const listenForMessages = (chatId: any, callback: any) => {
+    return firestore().collection('chats').doc(chatId).collection('messages')
+      .orderBy('createdAt', 'asc')
+      .onSnapshot(snapshot => {
+        const messages = snapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data(),
+        }))
+        callback(messages)
+      })
+  }

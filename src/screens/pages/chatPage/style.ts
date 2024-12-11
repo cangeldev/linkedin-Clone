@@ -48,8 +48,7 @@ export default StyleSheet.create({
     profileImage: {
         width: 60,
         height: 60,
-        borderRadius: 30,
-        marginHorizontal: 10
+        borderRadius: 30
     },
     userNameText: {
         fontSize: 16,
@@ -63,7 +62,8 @@ export default StyleSheet.create({
     messageInputContainer: {
         position: 'absolute',
         bottom: 0,
-        width: '100%'
+        width: '100%',
+        backgroundColor:colors.white
     },
     textInputContainer: {
         flexDirection: "row",
