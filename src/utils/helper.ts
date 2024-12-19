@@ -1,9 +1,8 @@
 import { clapping, defaultProfileImage, heart, idea, laughing, likeT, support } from "assets"
 import { setInfo } from "services/features/userSlice"
-import { sendFriendRequest } from "services/firebase/firebase"
+import { manageFriendRequest } from "services/firebase/firebase"
 import Toast from 'react-native-toast-message'
 import { useTranslation } from "react-i18next"
-
 
 export const resolveProfileImage = (image: any) => {
     if (typeof image === 'string') {
@@ -52,7 +51,7 @@ export const showToast = (text1: string, text2: string, position: "top" | "botto
 // Arkadaşlık isteği göndermek için kullanılan fonksiyon
 export const handleSendFriendRequest = (currentUserUid: string | null, uid: string, dispatch: any, NonFriendsList: any[]) => {
     if (currentUserUid) {
-        sendFriendRequest(currentUserUid, uid)
+        manageFriendRequest(currentUserUid, uid, "", "send")
         dispatch(setInfo({
             NonFriendsList: NonFriendsList.filter(request => request.id !== uid)
         }));

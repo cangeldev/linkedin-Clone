@@ -20,7 +20,6 @@ interface UserState {
   },
   post: {
     postImage: string | null
-    posts: { uid: string }[]
   }
 }
 
@@ -43,8 +42,7 @@ const initialState: UserState = {
     notificationsList: ""
   },
   post: {
-    postImage: null,
-    posts: []
+    postImage: null
   }
 }
 

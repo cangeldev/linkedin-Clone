@@ -6,12 +6,12 @@ import { Provider, useDispatch } from 'react-redux'
 import store from 'services/features/store'
 import { I18nextProvider } from 'react-i18next'
 import i18n from 'utils/i18next'
-import { fetchFriendsList, fetchNonFriendUsers, fetchUsersWithSenderInfo, getMyUserData, getPosts, } from 'services/firebase/firebase'
-import { setInfo, setPost, setLoggedUserInfo } from 'services/features/userSlice'
+import { fetchFriendsList, fetchNonFriendUsers, fetchUsersWithSenderInfo, getMyUserData } from 'services/firebase/firebase'
+import { setInfo, setLoggedUserInfo } from 'services/features/userSlice'
 import { getCurrentUserUid } from 'services/firebase/firebaseAuth'
 
 const MainComponent = React.memo(() => {
-  
+
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -22,13 +22,13 @@ const MainComponent = React.memo(() => {
           fetchedNonFriendsInfo,
           fetchedFriendsRequests,
           MyInfo,
-          Posts
+
         ] = await Promise.all([
           fetchFriendsList(),
           fetchNonFriendUsers(),
           fetchUsersWithSenderInfo(),
           getMyUserData(),
-          getPosts()
+
         ])
 
         dispatch(setInfo({
@@ -36,8 +36,6 @@ const MainComponent = React.memo(() => {
           NonFriendsList: fetchedNonFriendsInfo,
           friendsRequestList: fetchedFriendsRequests
         }))
-
-        dispatch(setPost({ posts: Posts }))
 
         const uid = getCurrentUserUid()
         if (uid && MyInfo) {
@@ -52,7 +50,6 @@ const MainComponent = React.memo(() => {
       } catch (error) {
         console.error('Error fetching user data:', error)
       }
-
       i18n.changeLanguage('tr')
       BootSplash.hide({ fade: true })
       StatusBar.setBackgroundColor('white')

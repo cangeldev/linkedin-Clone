@@ -2,7 +2,7 @@ import { FlatList, View } from 'react-native'
 import React, { useCallback } from 'react'
 import { EmptyNotificationsCard, FriendRequestCard } from 'components/cards'
 import style from './style'
-import { handleFriendRequest } from 'services/firebase/firebase'
+import { manageFriendRequest } from 'services/firebase/firebase'
 import { Divider } from 'components'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
@@ -17,18 +17,17 @@ export const AllNotifications = () => {
     const keyExtractor = (item: any, index: number) => item.id ? item.id.toString() : index.toString()
 
     const handleAcceptRequest = async (id: string) => {
-        await handleFriendRequest(id, true)
+        await manageFriendRequest("", "", id, "accept")
         dispatch(setInfo({
             friendsRequestList: friendsRequestList.filter(request => request.id !== id)
         }))
     }
 
     const handleDeclineRequest = async (id: string) => {
-        await handleFriendRequest(id, false)
+        await manageFriendRequest("", "", id, "reject")
         dispatch(setInfo({
             friendsRequestList: friendsRequestList.filter(request => request.id !== id)
         }))
-
     }
 
     const renderItem = useCallback(({ item }: any) => (

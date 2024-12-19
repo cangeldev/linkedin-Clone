@@ -7,19 +7,7 @@ const usersCollection = firestore().collection('users')
 const friendRequestsCollection = firestore().collection('friendRequests')
 const friendsCollection = firestore().collection('friends')
 const postsCollection = firestore().collection('posts')
-
-// Fetches all users except the current one
-export const fetchUsers = async () => {
-    try {
-        const currentUserUid = getCurrentUserUid()
-        const usersSnapshot = await usersCollection.get()
-        return usersSnapshot.docs
-            .map(doc => ({ ...doc.data(), uid: doc.id }))
-            .filter(user => user.uid !== currentUserUid)
-    } catch (error) {
-        console.error('Error fetching users:', error)
-    }
-}
+const getCurrentTimestamp = () => new Date().toISOString()
 
 // Fetches non-friend users for the current user
 export const fetchNonFriendUsers = async () => {
@@ -27,9 +15,12 @@ export const fetchNonFriendUsers = async () => {
         const currentUserUid = getCurrentUserUid()
         if (!currentUserUid) return []
 
-        const friendsList = await getFriendUids(currentUserUid)
+        // Arkadaşlar ve UID'lerini alıyoruz.
+        const friendsList = await getFriendUidsAndDetails(currentUserUid)
+
+        // Arkadaş olmayan kullanıcıları sorguluyoruz
         const nonFriendUsersSnapshot = await usersCollection
-            .where(firestore.FieldPath.documentId(), 'not-in', [currentUserUid, ...friendsList])
+            .where(firestore.FieldPath.documentId(), 'not-in', [currentUserUid, ...friendsList.map(friend => friend.uid)])
             .get()
 
         return nonFriendUsersSnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }))
@@ -39,29 +30,29 @@ export const fetchNonFriendUsers = async () => {
     }
 }
 
-// Sends a friend request from the current user to another user
-export const sendFriendRequest = async (currentUserId: string, friendUserId: string) => {
-    const currentDate = new Date().toISOString()
-    await friendRequestsCollection.add({
-        from: currentUserId,
-        to: friendUserId,
-        time: currentDate
-    })
-}
-
-// Accepts a friend request or Declines a friend request
-export const handleFriendRequest = async (requestId: string, accept: boolean) => {
-    const request = await friendRequestsCollection.doc(requestId).get()
-    if (request.exists) {
-        const { from, to } = request.data()!
-        const currentDate = new Date().toISOString()
-
-        if (accept) {
+export const manageFriendRequest = async (currentUserId: string, friendUserId: string, requestId: string = '', action: 'send' | 'accept' | 'reject') => {
+    const currentDate = getCurrentTimestamp()
+    if (action === 'send') {
+        // Arkadaşlık isteği gönderme
+        await friendRequestsCollection.add({
+            from: currentUserId,
+            to: friendUserId,
+            time: currentDate
+        })
+    } else if (action === 'accept' && requestId) {
+        // Arkadaşlık isteği kabul etme
+        const request = await friendRequestsCollection.doc(requestId).get()
+        if (request.exists) {
+            const { from, to } = request.data()!
             await friendsCollection.add({ user1: from, user2: to, time: currentDate })
+            await friendRequestsCollection.doc(requestId).delete()
         }
+    } else if (action === 'reject' && requestId) {
+        // Arkadaşlık isteğini reddetme
         await friendRequestsCollection.doc(requestId).delete()
     }
 }
+
 
 // Fetches users along with sender info for friend requests
 export const fetchUsersWithSenderInfo = async () => {
@@ -102,67 +93,50 @@ export const fetchFriendsList = async () => {
     try {
         const currentUserUid = getCurrentUserUid()
         if (!currentUserUid) return []
-        const friendUids = await getFriendUids(currentUserUid)
-        const friendsWithDetails = await Promise.all(
-            friendUids.map(async uid => {
+
+        // Arkadaşları ve UID'lerini ve detaylarını alıyoruz.
+        const friendsList = await getFriendUidsAndDetails(currentUserUid)
+
+        return friendsList
+    } catch (error) {
+        console.error('Error fetching friends list:', error)
+        return []
+    }
+}
+const getFriendUidsAndDetails = async (currentUserUid: string) => {
+    try {
+        // Arkadaşları almak için iki koleksiyonu sorguluyoruz
+        const friendsSnapshot1 = await friendsCollection
+            .where('user1', '==', currentUserUid)
+            .get()
+        const friendsSnapshot2 = await friendsCollection
+            .where('user2', '==', currentUserUid)
+            .get()
+
+        // Her iki koleksiyondan gelen arkadaşların UID'lerini birleştiriyoruz
+        const friendUids = [
+            ...friendsSnapshot1.docs.map(doc => ({ uid: doc.data().user2, time: doc.data().time })),
+            ...friendsSnapshot2.docs.map(doc => ({ uid: doc.data().user1, time: doc.data().time }))
+        ]
+
+        // Arkadaşların UID'lerini benzersiz yapmak için Set kullanıyoruz
+        const uniqueFriendUids = [...new Set(friendUids.map(friend => friend.uid))]
+
+        // Kullanıcı bilgilerini almak için Firestore'dan arkadaşların tüm bilgilerini alıyoruz
+        const friendsDetails = await Promise.all(
+            uniqueFriendUids.map(async uid => {
                 const userDoc = await usersCollection.doc(uid).get()
-                const friendDoc = await friendsCollection
-                    .where('user1', '==', currentUserUid)
-                    .where('user2', '==', uid)
-                    .get()
-
-                const friendDocReverse = await friendsCollection
-                    .where('user2', '==', currentUserUid)
-                    .where('user1', '==', uid)
-                    .get()
-
-                const time = friendDoc.docs.length > 0
-                    ? friendDoc.docs[0].data().time
-                    : friendDocReverse.docs.length > 0
-                        ? friendDocReverse.docs[0].data().time
-                        : null
-
-                return userDoc.exists
-                    ? { uid, ...userDoc.data(), time }
-                    : null
+                const friendData = friendUids.find(friend => friend.uid === uid)
+                return userDoc.exists ? { uid, ...userDoc.data(), time: friendData?.time } : null
             })
         )
-        return friendsWithDetails.filter(friend => friend !== null)
+
+        // Arkadaşları ve UID'lerini döndürüyoruz
+        return friendsDetails.filter(friend => friend !== null)
     } catch (error) {
-        console.error('Error fetching friends:', error)
+        console.error('Error fetching friend UIDs and details:', error)
         return []
     }
-}
-
-// Fetches non-friends for the current user
-export const fetchNonFriendsList = async () => {
-    try {
-        const currentUserUid = getCurrentUserUid()
-        if (!currentUserUid) return []
-
-        const friendUids = await getFriendUids(currentUserUid)
-        const allUsersSnapshot = await usersCollection.get()
-        const allUsers = allUsersSnapshot.docs.map(doc => ({ uid: doc.id, ...doc.data() }))
-
-        return allUsers.filter(user => user.uid !== currentUserUid && !friendUids.includes(user.uid))
-    } catch (error) {
-        console.error('Error fetching non-friends:', error)
-        return []
-    }
-}
-
-const getFriendUids = async (currentUserUid: string) => {
-    const friendsSnapshot1 = await friendsCollection
-        .where('user1', '==', currentUserUid)
-        .get()
-    const friendsSnapshot2 = await friendsCollection
-        .where('user2', '==', currentUserUid)
-        .get()
-
-    return [...new Set([
-        ...friendsSnapshot1.docs.map(doc => doc.data().user2),
-        ...friendsSnapshot2.docs.map(doc => doc.data().user1)
-    ])]
 }
 
 export const savePostToFirebase = (name: string, surname: string, time: any, contentText: string, comment: string, reaction: string, title: string, postImageUrl: string | null, myUid: string, profileImageUrl: any) => {
@@ -271,37 +245,6 @@ export const updateLike = async (postId: string, typeOfLike: string | null) => {
     }
 }
 
-
-export const getLikeCount = async (
-    postId: string,
-    callback: (totalLikes: number, likeTypes?: Record<string, number>) => void
-) => {
-    const postRef = firestore().collection('posts').doc(postId)
-    const postDoc = await postRef.get()
-    if (!postDoc.exists) {
-        callback(0)
-        return;
-    }
-
-    const postData = postDoc.data();
-    if (!postData || !postData.likes || !Array.isArray(postData.likes)) {
-        callback(0)
-        return;
-    }
-
-    const likes = postData.likes
-    const totalLikes = likes.length
-
-    const likeTypes = likes.reduce((acc: Record<string, number>, like: { typeOfLike: string }) => {
-        if (like.typeOfLike) {
-            acc[like.typeOfLike] = (acc[like.typeOfLike] || 0) + 1
-        }
-        return acc
-    }, {})
-    callback(totalLikes, likeTypes)
-}
-
-
 export const listenToPostLikes = (
     postId: string,
     callback: (likeCount: number, likeTypes: Record<string, number>) => void
@@ -317,7 +260,7 @@ export const listenToPostLikes = (
                 likes.forEach((like: { typeOfLike: string }) => {
                     typesCount[like.typeOfLike] = (typesCount[like.typeOfLike] || 0) + 1
                 })
-                callback(likes.length, typesCount);
+                callback(likes.length, typesCount)
             } else {
                 callback(0, {})
             }
@@ -335,15 +278,15 @@ export const sendMessageFirebase = async (chatId: any, message: any, senderId: a
     })
 }
 
-
 export const listenForMessages = (chatId: any, callback: any) => {
     return firestore().collection('chats').doc(chatId).collection('messages')
-      .orderBy('createdAt', 'asc')
-      .onSnapshot(snapshot => {
-        const messages = snapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data(),
-        }))
-        callback(messages)
-      })
-  }
+        .orderBy('createdAt', 'asc')
+        .onSnapshot(snapshot => {
+            const messages = snapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data(),
+            }))
+            callback(messages)
+        })
+}
+
