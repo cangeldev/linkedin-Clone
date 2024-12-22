@@ -1,79 +1,103 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Linkedin Clone
 
-# Getting Started
+This is a Linkedin clone built with React Native and TypeScript. The app uses Firebase for authentication, Firestore Database for storing user information, and Firebase Storage for profile pictures. It also utilizes Redux Toolkit for state management, AsyncStorage for local data persistence, and i18next for internationalization.
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+(Deficiencies, errors and internal pages of the application will continue to be added in the future.)
 
-## Step 1: Start the Metro Server
+## Features
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+- E-mail authentication using Firebase Authentication
+- Real-time messaging
+- Add or delete people I want to my network
+- Share posts among friends
+- Like users' posts
+- Profile picture upload and update
+- User information storage in Firestore
+- Local data persistence with AsyncStorage
+- State management with Redux Toolkit
+- Internationalization with i18next
+- ...
 
-To start Metro, run the following command from the _root_ of your React Native project:
+## Technologies Used
 
-```bash
-# using npm
-npm start
+- **React Native**
+- **TypeScript**
+- **Redux Toolkit**
+- **AsyncStorage**
+- **i18next**
+- **Firebase Authentication**
+- **Firestore Database**
+- **Firebase Storage**
+- **...**
 
-# OR using Yarn
-yarn start
-```
+## Screen Recorder
 
-## Step 2: Start your Application
+https://github.com/user-attachments/assets/d3fe581c-cd2e-4238-93fb-ad58dacf5766
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+## Some screenshots from the app
+ <img height="550" src="https://github.com/user-attachments/assets/b442d9eb-0e51-4f62-9c2a-890656e9e7ac"> 
+ <img height="550" src="https://github.com/user-attachments/assets/40f91091-8ae3-42b1-9f3f-f938a9465e0f"> 
+ <img height="550" src="https://github.com/user-attachments/assets/1c0ef680-b9f8-45e3-8199-d195e4a551ff"> 
+ <img height="550" src="https://github.com/user-attachments/assets/84837ef0-99ef-4257-8406-c3db9c6a5d46"> 
+ <img height="550" src="https://github.com/user-attachments/assets/a00b54ac-f827-4d84-aaf2-dea69a7802f2">
+ <img height="550" src="https://github.com/user-attachments/assets/b47d0378-dae3-41eb-b164-65e047369d87"> 
+ 
+## Getting Started
 
-### For Android
+### Prerequisites
 
-```bash
-# using npm
-npm run android
+- Node.js
+- npm or yarn
+- Firebase project setup
 
-# OR using Yarn
-yarn android
-```
+### Installation
 
-### For iOS
+1. Clone the repository:
+   ```sh
+   https://github.com/cangeldev/linkedin-Clone.git
+   cd linkedin-Clone
+2. Clone the repository:
+   ```sh
+   npm install
+   # or
+   yarn install
+3. Configure Firebase:
 
-```bash
-# using npm
-npm run ios
+- **Create a Firebase project at [Firebase Console](https://console.firebase.google.com/).**
+- **Enable phone authentication.**
+- **Set up Firestore Database and Firebase Storage.**
+- **Download the `google-services.json` file and place it in your `android/app` directory.**
+- **Download the `GoogleService-Info.plist` file and place it in your `ios/` directory.**
 
-# OR using Yarn
-yarn ios
-```
+4. Clone the repository:
+    ```sh
+   npm run android
+   # or
+   npm run ios
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+## Usage
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+1. Open the application on your device or emulator.
+2. Register with your email.
+3. Enter your name and surname.
+4. Enter your profession and education information.
+5. Finish setting up your profile by adding a profile picture.
+6. Add friends to interact with other users registered in the application.
+7. You can share within the application, like and comment on other users' shares if you want.
+8. You can do real-time messaging with other users.
+9. ...
 
-## Step 3: Modifying your App
+## Project Structure
 
-Now that you have successfully run the app, let's modify it.
-
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
-
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+- `src/`: Contains all the source code.
+  - `assets/`: İcons and images.
+  - `components/`: Reusable components.
+  - `container/`: It is used to combine and display navigation operations.
+  - `screens/`: Application screens.
+  - `hooks/`: Hooks I wrote myself that I use in the application.
+  - `locales/`: Used for localization.
+  - `services/firebase`: Firebase configuration and functions.
+  - `services/redux/`: Redux setup and slices.
+  - `services/asyncstorage/`: AsyncStorage configuration and functions.
+  - `utils/`: Used for auxiliary functions and settings.
+  - `utils/i18n/`: Internationalization setup and translations.
